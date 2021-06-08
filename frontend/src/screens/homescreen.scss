@@ -1,0 +1,28 @@
+@import "../scss/global.scss";
+.homescreen {
+  height: 100vh;
+  width: 100vw;
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // bottom: 0;
+    content: "";
+    background: url("../img/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    // width: auto;
+  }
+  h1 {
+    font-size: 96px;
+    font-family: "Bebas Neue", cursive;
+    position: relative;
+    top: 30%;
+    color: #888;
+    margin-top: 0;
+  }
+  // width: 100vw;
+}
