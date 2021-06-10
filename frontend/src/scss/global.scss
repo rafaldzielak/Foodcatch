@@ -1,1 +1,52 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Big+Shoulders+Display:wght@400;500;600;700&family=Lobster&family=Mate+SC&family=Roboto&family=Roboto+Condensed&family=Teko:wght@400;500;600&display=swap");
+
+body {
+  font-family: "Big Shoulders Display", cursive;
+}
+
+h1 {
+  font-size: 96px;
+  font-family: "Big Shoulders Display", cursive;
+  letter-spacing: 0.5rem;
+  margin-top: 25vh;
+  color: #888;
+}
+
+button {
+  color: #555;
+  transition: all 0.3s ease-in;
+  padding: 1.25rem 2.5rem;
+  font-family: "Big Shoulders Display", cursive;
+  font-size: 2.5rem;
+  letter-spacing: 0.15rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 3px;
+  background-color: unset;
+  cursor: pointer;
+  position: relative;
+
+  &.transparent {
+    &::before {
+      transition: all 0.3s ease-in;
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      background: black;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      opacity: 0.1;
+    }
+  }
+  &:hover {
+    color: #444;
+  }
+  &:hover::before {
+    opacity: 0.2;
+  }
+}

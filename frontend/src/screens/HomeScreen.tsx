@@ -6,6 +6,7 @@ const HomeScreen = () => {
     <>
       <div className='homescreen'>
         <h1>Order Happiness</h1>
+        <button className='transparent'>Show Menu</button>
       </div>
     </>
   );
