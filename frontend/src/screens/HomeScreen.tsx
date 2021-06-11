@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./homescreen.scss";
 
 const HomeScreen = () => {
@@ -6,7 +7,9 @@ const HomeScreen = () => {
     <>
       <div className='homescreen'>
         <h1>Order Happiness</h1>
-        <button className='transparent'>Show Menu</button>
+        <Link to='/menu'>
+          <button className='transparent'>Show Menu</button>
+        </Link>
       </div>
     </>
   );

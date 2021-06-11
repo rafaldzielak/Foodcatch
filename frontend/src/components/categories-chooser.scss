@@ -1,0 +1,23 @@
+.type-chooser {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #999;
+
+  div {
+    cursor: pointer;
+    width: 100%;
+    // border: 1px solid #999;
+    padding: 1rem 3rem;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+    font-weight: 600;
+    transition: all 0.2s ease-in;
+    &:hover {
+      background-color: #ddd;
+    }
+    &.active {
+      background-color: #eee;
+      cursor: unset;
+    }
+  }
+}

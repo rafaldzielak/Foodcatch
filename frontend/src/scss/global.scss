@@ -2,6 +2,7 @@
 
 body {
   font-family: "Big Shoulders Display", cursive;
+  transition: all 0.3s ease-in;
 }
 
 h1 {
@@ -12,9 +13,24 @@ h1 {
   color: #888;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.container {
+  width: 1200px;
+  margin: auto;
+}
+
 button {
   color: #555;
-  transition: all 0.3s ease-in;
+
   padding: 1.25rem 2.5rem;
   font-family: "Big Shoulders Display", cursive;
   font-size: 2.5rem;
@@ -40,7 +56,7 @@ button {
       height: 100%;
       width: 100%;
       z-index: -1;
-      opacity: 0.1;
+      opacity: 0.15;
     }
   }
   &:hover {
