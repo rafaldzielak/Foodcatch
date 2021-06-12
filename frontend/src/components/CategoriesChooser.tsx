@@ -14,10 +14,6 @@ const TypeChooser = () => {
           {categorie}
         </div>
       ))}
-      {/* <div className='active'>Appetizers</div>
-      <div>Soups</div>
-      <div>Main Dishes</div>
-      <div>Desserts</div> */}
     </nav>
   );
 };
