@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./dishes.scss";
+import ReactTooltip from "react-tooltip";
 
 const dishesMock = [
   {
@@ -20,16 +21,37 @@ const dishesMock = [
     isSpicy: true,
     imgURL: "./img/calmari.png",
   },
+  {
+    id: 1284724,
+    title: "Grilled Shrimp and Chorizo",
+    description:
+      "Shrimp and Chorizo Appetizers with Roasted Pepper Soup — These punchy and flavorful skewers are packed with spicy chorizo and shrimp, served with homemade roasted pepper soup shooters. Perfect as a party appetizer, your guests won’t be able to stop at 1!",
+    isVege: false,
+    isSpicy: false,
+    imgURL: "./img/shrimp.bmp",
+  },
 ];
 
-const vegeIcon = <img src='https://image.flaticon.com/icons/png/128/2909/2909841.png' alt='' />;
-const spicyIcon = <img src='https://cdn0.iconfinder.com/data/icons/food-2-11/128/food-29-512.png' alt='' />;
+const vegeIcon = (
+  <img
+    src='https://image.flaticon.com/icons/png/128/2909/2909841.png'
+    alt=''
+    data-tip='This Dish Is Vegetarian'
+  />
+);
+const spicyIcon = (
+  <img
+    src='https://cdn0.iconfinder.com/data/icons/food-2-11/128/food-29-512.png'
+    alt=''
+    data-tip='This Dish Is Spicy'
+  />
+);
 
 const Dishes = () => {
   return (
     <>
       {dishesMock.map((dish) => (
-        <>
+        <React.Fragment key={dish.id}>
           <div className='dish'>
             <img src={dish.imgURL} alt='' />
             <h2>
@@ -39,8 +61,9 @@ const Dishes = () => {
             <div className='buy'>Add to Cart Area</div>
           </div>
           <hr />
-        </>
+        </React.Fragment>
       ))}
+      <ReactTooltip effect='solid' />
     </>
   );
 };

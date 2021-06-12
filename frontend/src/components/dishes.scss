@@ -9,14 +9,17 @@
     "img desc buy";
   grid-template-columns: 200px 3fr 1fr;
   h2 {
+    cursor: default;
     letter-spacing: 1px;
     font-size: 2rem;
     margin: 0;
     grid-area: title;
+
     .pepper {
       color: red;
     }
     img {
+      cursor: pointer;
       width: 25px;
       height: 25px;
     }
@@ -48,4 +51,9 @@ hr {
   height: 1px;
   border: none;
   border-top: 1px solid #ddd;
+}
+
+.__react_component_tooltip {
+  font-size: 1.25rem;
+  font-family: "Roboto", sans-serif;
 }
