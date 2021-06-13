@@ -1,0 +1,55 @@
+.order {
+  border-left: 1px solid #eee;
+  margin: 1rem;
+  min-width: 350px;
+  h2 {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    letter-spacing: 1px;
+  }
+  h3 {
+    font-size: 1.75rem;
+  }
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 500;
+  }
+  .order-item {
+    margin: 1rem;
+    display: grid;
+    place-items: center;
+    grid-template-areas: "img title price";
+    grid-template-columns: 60px 3fr 1fr;
+    .title {
+      grid-area: title;
+    }
+    .price {
+      font-size: 1.25rem;
+      grid-area: price;
+      font-weight: 700 !important;
+    }
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 60px;
+      grid-area: img;
+    }
+  }
+  button {
+    // margin: 0 2rem;
+    // width: 100%;
+    // display: block;
+
+    font-size: 1.5rem;
+    background-color: #666;
+    color: white;
+    padding: 0.75rem 4rem;
+
+    &:hover {
+      background-color: #888;
+    }
+  }
+}

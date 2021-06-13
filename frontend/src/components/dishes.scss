@@ -4,10 +4,10 @@
   height: 150px;
   padding: 1rem;
   grid-template-areas:
-    "img title buy"
-    "img desc buy"
-    "img desc buy";
-  grid-template-columns: 200px 3fr 1fr;
+    "img title price"
+    "img desc price"
+    "img desc price";
+  grid-template-columns: 200px 5fr 1fr;
   h2 {
     cursor: default;
     letter-spacing: 1px;
@@ -41,12 +41,32 @@
     grid-area: img;
     // grid: 2;
   }
-  &:first-of-type {
-    border-top: 1px solid #ddd;
+  .price {
+    grid-area: price;
+    height: 100%;
+    padding: 0 0;
+    margin: 0;
+    border-left: 1px solid #ddd;
+    button {
+      font-size: 1.25rem;
+      background-color: #666;
+      color: white;
+      padding: 0.75rem 1.75rem;
+
+      &:hover {
+        background-color: #888;
+      }
+    }
+    p {
+      font-size: 1.75rem;
+      letter-spacing: 2px;
+      font-weight: 500;
+      margin-top: 1rem;
+    }
   }
 }
 hr {
-  margin: 0;
+  margin: 0 auto;
   width: 95%;
   height: 1px;
   border: none;

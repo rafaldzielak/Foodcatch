@@ -11,6 +11,7 @@ const dishesMock = [
     isVege: true,
     isSpicy: false,
     imgURL: "./img/appetizer.jpg",
+    price: "9,99",
   },
   {
     id: 1284723,
@@ -20,6 +21,7 @@ const dishesMock = [
     isVege: true,
     isSpicy: true,
     imgURL: "./img/calmari.png",
+    price: "14,99",
   },
   {
     id: 1284724,
@@ -29,6 +31,7 @@ const dishesMock = [
     isVege: false,
     isSpicy: false,
     imgURL: "./img/shrimp.bmp",
+    price: "15,99",
   },
 ];
 
@@ -47,9 +50,14 @@ const spicyIcon = (
   />
 );
 
+const addToOrder = (id: number) => {
+  //TODO
+};
+
 const Dishes = () => {
   return (
-    <>
+    <div>
+      <hr />
       {dishesMock.map((dish) => (
         <React.Fragment key={dish.id}>
           <div className='dish'>
@@ -58,13 +66,16 @@ const Dishes = () => {
               {dish.title} {dish.isVege && vegeIcon} {dish.isSpicy && spicyIcon}
             </h2>
             <p className='desc'>{dish.description}</p>
-            <div className='buy'>Add to Cart Area</div>
+            <div className='price'>
+              <p>{dish.price} zł</p>
+              <button onClick={() => addToOrder(dish.id)}>Order</button>
+            </div>
           </div>
           <hr />
         </React.Fragment>
       ))}
       <ReactTooltip effect='solid' />
-    </>
+    </div>
   );
 };
 
