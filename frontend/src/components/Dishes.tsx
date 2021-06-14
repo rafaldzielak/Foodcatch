@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./dishes.scss";
 import ReactTooltip from "react-tooltip";
 
@@ -56,7 +56,7 @@ const addToOrder = (id: number) => {
 
 const Dishes = () => {
   return (
-    <div>
+    <div className='dishes'>
       <hr />
       {dishesMock.map((dish) => (
         <React.Fragment key={dish.id}>

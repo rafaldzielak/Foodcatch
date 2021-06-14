@@ -33,6 +33,7 @@ arr.reduce((acc, obj) => acc + obj.x, 0); // 7
 console.log(arr);
 
 export const OrderComponent = () => {
+  const placeOrder = () => {};
   return (
     <div className='order'>
       <h2>Your Order</h2>
@@ -53,7 +54,7 @@ export const OrderComponent = () => {
         Summary:{" "}
         {orderMock.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0)} zł
       </h3>
-      <button>Place Order</button>
+      <button onClick={placeOrder}>Place Order</button>
     </div>
   );
 };

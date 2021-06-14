@@ -1,6 +1,7 @@
 .order {
-  border-left: 1px solid #eee;
-  margin: 1rem;
+  flex: 1;
+  border-left: 1px solid #aaa;
+  margin: 0 1rem;
   min-width: 350px;
   h2 {
     font-size: 2rem;
@@ -10,6 +11,7 @@
   }
   h3 {
     font-size: 1.75rem;
+    letter-spacing: 0.05rem;
   }
   h4 {
     margin: 0;
@@ -39,17 +41,48 @@
     }
   }
   button {
-    // margin: 0 2rem;
-    // width: 100%;
-    // display: block;
-
     font-size: 1.5rem;
     background-color: #666;
     color: white;
     padding: 0.75rem 4rem;
 
     &:hover {
-      background-color: #888;
+      background-color: #444;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .order {
+    // order: -1;w
+    min-width: 240px;
+    margin: 0;
+    flex: 1;
+    h2 {
+      font-size: 1.75rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+    }
+    .order-item {
+      margin: 1rem;
+      display: grid;
+      place-items: center;
+      grid-template-areas:
+        "img "
+        "title "
+        "price";
+      grid-template-columns: unset;
+      img {
+        object-fit: cover;
+        width: 60px;
+        height: 60px;
+        grid-area: img;
+      }
+      h3,
+      h4 {
+        margin: 0.25rem 0;
+      }
     }
   }
 }

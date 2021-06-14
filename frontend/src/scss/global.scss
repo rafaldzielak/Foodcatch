@@ -77,3 +77,10 @@ button {
     opacity: 0.2;
   }
 }
+
+@media screen and (max-width: 1500px) {
+  .container {
+    width: 100vw;
+    margin: auto;
+  }
+}
