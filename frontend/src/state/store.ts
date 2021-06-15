@@ -7,3 +7,5 @@ const middleware = [thunk];
 const initialState = {};
 const reducers = combineReducers({ cart: cartReducer });
 export const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middleware)));
+
+export type RootState = ReturnType<typeof reducers>;
