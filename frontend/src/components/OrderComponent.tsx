@@ -1,5 +1,6 @@
 import "./order.scss";
 import React from "react";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const orderMock = [
   {
@@ -34,11 +35,13 @@ console.log(arr);
 
 export const OrderComponent = () => {
   const placeOrder = () => {};
+  const { items, error } = useTypedSelector((state) => state.cart);
+  console.log(items);
   return (
     <div className='order'>
       <h2>Your Order</h2>
       <hr />
-      {orderMock.map((orderItem) => (
+      {items.map((orderItem) => (
         <>
           <div className='order-item'>
             <img src={orderItem.imgURL} alt='' />

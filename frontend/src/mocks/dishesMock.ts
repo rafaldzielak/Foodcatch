@@ -10,7 +10,7 @@ export const dishesMock = [
     price: 9.99,
   },
   {
-    id: 1284723,
+    id: 1284721,
     title: "Fried Calamari With Salsa Sauce",
     description:
       "This fried calamari recipe is tender pieces of squid soaked in buttermilk, then coated in seasoned flour and deep fried to golden brown perfection.",

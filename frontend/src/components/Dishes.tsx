@@ -2,6 +2,8 @@ import React from "react";
 import "./dishes.scss";
 import ReactTooltip from "react-tooltip";
 import { dishesMock } from "../mocks/dishesMock";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useActions } from "../hooks/useActions";
 
 const vegeIcon = (
   <img
@@ -23,6 +25,7 @@ const addToOrder = (id: number) => {
 };
 
 const Dishes = () => {
+  const { addToCartAction } = useActions();
   return (
     <div className='dishes'>
       <hr />
@@ -36,7 +39,7 @@ const Dishes = () => {
             <p className='desc'>{dish.description}</p>
             <div className='price'>
               <p>{dish.price} zł</p>
-              <button onClick={() => addToOrder(dish.id)}>Order</button>
+              <button onClick={() => addToCartAction(dish.id)}>Order</button>
             </div>
           </div>
           <hr />
