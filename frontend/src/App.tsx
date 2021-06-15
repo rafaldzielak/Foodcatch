@@ -4,17 +4,21 @@ import HomeScreen from "./screens/HomeScreen";
 import "./scss/global.scss";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MenuScreen from "./screens/MenuScreen";
+import { Provider } from "react-redux";
+import { store } from "./state/store";
 
 function App() {
   return (
-    <Router>
-      <div className='App'>
-        <Switch>
-          <Route exact path='/menu' component={MenuScreen} />
-          <Route path='/' component={HomeScreen} />
-        </Switch>
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div className='App'>
+          <Switch>
+            <Route exact path='/menu' component={MenuScreen} />
+            <Route path='/' component={HomeScreen} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 
