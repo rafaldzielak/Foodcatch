@@ -3,7 +3,7 @@
     display: grid;
     justify-content: space-between;
     height: 150px;
-    padding: 1rem;
+    padding: 1rem 0;
     grid-template-areas:
       "img title price"
       "img desc price"
@@ -88,7 +88,6 @@ hr {
 
 @media screen and (max-width: 1200px) {
   .dishes {
-    flex: 10;
     .dish {
       overflow: auto;
       height: 120px;

@@ -19,6 +19,11 @@ export const cartReducer = (state: CartState = initialState, action: Action): Ca
       return { ...state, items: state.items };
     case ActionType.REMOVE_FROM_CART:
       return { ...state, items: state.items.filter((item) => item.id !== action.payload) };
+    case ActionType.UPDATE_CART_ITEM:
+      const itemToUpdate = state.items.find((item) => item.id === action.payload.id);
+      if (itemToUpdate) itemToUpdate.quantity = action.payload.quantity;
+      // return { ...state, items: state.items.map((item) => item.id === item) };
+      return { ...state };
     default:
       return state;
   }

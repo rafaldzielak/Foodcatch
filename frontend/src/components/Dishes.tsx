@@ -20,10 +20,6 @@ const spicyIcon = (
   />
 );
 
-const addToOrder = (id: number) => {
-  //TODO
-};
-
 const Dishes = () => {
   const { addToCartAction } = useActions();
   return (
