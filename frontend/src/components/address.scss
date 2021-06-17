@@ -1,0 +1,35 @@
+.address {
+  flex: 1;
+  .form-row {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    label {
+      margin: auto;
+      text-align: left;
+      display: block;
+      width: 300px;
+      padding-bottom: 0.5rem;
+    }
+    input {
+      width: 300px;
+      box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+      margin: auto;
+      display: block;
+      padding: 1rem;
+      border: #ddd solid 1px;
+      border: none;
+      font-size: 1.25rem;
+      color: #555;
+      &:focus-visible {
+        box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.15);
+        // border: #ddd solid 1px;
+        outline: none;
+      }
+    }
+  }
+}
+
+::placeholder {
+  font-size: 1rem;
+  color: #777;
+}

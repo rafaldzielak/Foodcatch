@@ -3,11 +3,17 @@ import React from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useActions";
 import { AiFillMinusSquare, AiFillPlusSquare } from "react-icons/ai";
+import { useHistory } from "react-router";
 
 const getNumberWithTwoDecimal = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
 
-export const OrderComponent = () => {
-  const placeOrder = () => {};
+interface OrderComponentTypes {
+  size?: "large" | "small";
+}
+
+export const OrderComponent: React.FC<OrderComponentTypes> = ({ size = "small" }) => {
+  const history = useHistory();
+  const placeOrder = () => history.push("/order");
   const { items, error } = useTypedSelector((state) => state.cart);
   console.log(items);
   const { updateCartAction } = useActions();
@@ -18,7 +24,7 @@ export const OrderComponent = () => {
       <hr />
       {items.map((orderItem) => (
         <>
-          <div className='order-item'>
+          <div className={`order-item ${size}`}>
             <img src={orderItem.imgURL} alt='' />
             <h4 className='title'>
               {orderItem.quantity} × {orderItem.title}

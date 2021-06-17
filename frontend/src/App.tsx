@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MenuScreen from "./screens/MenuScreen";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
+import OrderScreen from "./screens/OrderScreen";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <div className='App'>
           <Switch>
             <Route exact path='/menu' component={MenuScreen} />
+            <Route path='/order' component={OrderScreen} />
             <Route path='/' component={HomeScreen} />
           </Switch>
         </div>
