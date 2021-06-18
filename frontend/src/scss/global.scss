@@ -33,10 +33,13 @@ svg {
   margin: auto;
 }
 
+.mt {
+  margin-top: 2rem;
+}
+
 button {
   transition: 0.2s all ease-in;
   color: #555;
-
   padding: 1.25rem 2.5rem;
   font-family: "Bebas Neue", cursive;
   font-family: "Lobster", cursive;
@@ -49,9 +52,13 @@ button {
   font-weight: 600;
   border: none;
   border-radius: 3px;
-  background-color: unset;
   cursor: pointer;
   position: relative;
+
+  &.wide {
+    margin-top: 2rem;
+    width: 400px;
+  }
 
   &.transparent {
     &::before {

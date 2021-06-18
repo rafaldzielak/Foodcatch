@@ -1,17 +1,24 @@
 .address {
+  margin-left: 2rem;
   flex: 1;
+  h2 {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    letter-spacing: 1px;
+  }
   .form-row {
     margin: 1rem 0;
     font-size: 1.5rem;
     label {
+      width: 100%;
       margin: auto;
       text-align: left;
       display: block;
-      width: 300px;
       padding-bottom: 0.5rem;
     }
     input {
-      width: 300px;
+      width: 100%;
       box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
       margin: auto;
       display: block;

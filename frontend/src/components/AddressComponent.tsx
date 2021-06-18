@@ -4,6 +4,8 @@ import "./address.scss";
 const AddressComponent = () => {
   return (
     <div className='address'>
+      <h2>Your Address</h2>
+      <hr />
       <form>
         <div className='form-row'>
           <label htmlFor='name'>Name: </label>

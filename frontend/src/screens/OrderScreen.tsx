@@ -3,10 +3,13 @@ import { OrderComponent } from "../components/OrderComponent";
 
 const OrderScreen = () => {
   return (
-    <div className='menu container'>
-      <AddressComponent />
-      <OrderComponent size='large' />
-    </div>
+    <>
+      <div className='menu container mt'>
+        <OrderComponent size='large' hideButton />
+        <AddressComponent />
+      </div>
+      <button className='wide'>Place Order</button>
+    </>
   );
 };
 

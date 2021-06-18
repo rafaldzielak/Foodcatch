@@ -9,9 +9,15 @@ const getNumberWithTwoDecimal = (num: number) => (Math.round(num * 100) / 100).t
 
 interface OrderComponentTypes {
   size?: "large" | "small";
+  hideButton?: boolean;
+  showDelivery?: boolean;
 }
 
-export const OrderComponent: React.FC<OrderComponentTypes> = ({ size = "small" }) => {
+export const OrderComponent: React.FC<OrderComponentTypes> = ({
+  size = "small",
+  hideButton,
+  showDelivery,
+}) => {
   const history = useHistory();
   const placeOrder = () => history.push("/order");
   const { items, error } = useTypedSelector((state) => state.cart);
@@ -19,7 +25,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({ size = "small" }
   const { updateCartAction } = useActions();
 
   return (
-    <div className='order'>
+    <div className={`order ${size}`}>
       <h2>Your Order</h2>
       <hr />
       {items.map((orderItem) => (
@@ -29,7 +35,6 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({ size = "small" }
             <h4 className='title'>
               {orderItem.quantity} × {orderItem.title}
             </h4>
-            <h3 className='price'>{getNumberWithTwoDecimal(orderItem.price * orderItem.quantity)} zł</h3>
             <div className='quantity'>
               <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>
                 <AiFillMinusSquare />
@@ -38,10 +43,17 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({ size = "small" }
                 <AiFillPlusSquare />
               </span>
             </div>
+            <h3 className='price'>{getNumberWithTwoDecimal(orderItem.price * orderItem.quantity)} zł</h3>
           </div>
           <hr />
         </>
       ))}
+      <div className={`order-item ${size}`}>
+        <h4 className='title'>Delivery</h4>
+        <h3 className='price'>9,99 zł</h3>
+        <div className='quantity'></div>
+      </div>
+      <hr />
       <h3>
         Summary:{" "}
         {getNumberWithTwoDecimal(
@@ -49,7 +61,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({ size = "small" }
         )}{" "}
         zł
       </h3>
-      <button onClick={placeOrder}>Place Order</button>
+      {!hideButton && <button onClick={placeOrder}>Place Order</button>}
     </div>
   );
 };
