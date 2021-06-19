@@ -5,7 +5,7 @@ const OrderScreen = () => {
   return (
     <>
       <div className='menu container mt'>
-        <OrderComponent size='large' hideButton />
+        <OrderComponent size='large' hideButton showBackBtn />
         <AddressComponent />
       </div>
       <button className='wide'>Place Order</button>

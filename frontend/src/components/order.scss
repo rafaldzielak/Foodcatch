@@ -73,6 +73,15 @@
   }
 }
 
+.order-nav {
+  position: relative;
+  .small {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
 @media screen and (max-width: 1200px) {
   .order {
     // order: -1;w
@@ -115,6 +124,13 @@
         height: 100px;
         grid-area: img;
       }
+    }
+  }
+
+  .order-nav {
+    position: unset;
+    .small {
+      position: unset;
     }
   }
 }

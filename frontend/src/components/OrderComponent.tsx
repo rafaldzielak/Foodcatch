@@ -3,6 +3,7 @@ import React from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useActions";
 import { AiFillMinusSquare, AiFillPlusSquare } from "react-icons/ai";
+import { MdKeyboardBackspace } from "react-icons/md";
 import { useHistory } from "react-router";
 
 const getNumberWithTwoDecimal = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
@@ -11,12 +12,14 @@ interface OrderComponentTypes {
   size?: "large" | "small";
   hideButton?: boolean;
   showDelivery?: boolean;
+  showBackBtn?: boolean;
 }
 
 export const OrderComponent: React.FC<OrderComponentTypes> = ({
   size = "small",
   hideButton,
   showDelivery,
+  showBackBtn,
 }) => {
   const history = useHistory();
   const placeOrder = () => history.push("/order");
@@ -26,7 +29,16 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
 
   return (
     <div className={`order ${size}`}>
-      <h2>Your Order</h2>
+      <nav className='order-nav'>
+        {showBackBtn ? (
+          <button className='small' onClick={() => history.push("/menu")}>
+            <MdKeyboardBackspace style={{ fontSize: "1.5rem" }} /> Back to Menu
+          </button>
+        ) : (
+          <p />
+        )}
+        <h2>Your Order</h2>
+      </nav>
       <hr />
       {items.map((orderItem) => (
         <>
@@ -48,12 +60,17 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
           <hr />
         </>
       ))}
-      <div className={`order-item ${size}`}>
-        <h4 className='title'>Delivery</h4>
-        <h3 className='price'>9,99 zł</h3>
-        <div className='quantity'></div>
-      </div>
-      <hr />
+      {showDelivery && (
+        <>
+          <div className={`order-item ${size}`}>
+            <h4 className='title'>Delivery</h4>
+            <h3 className='price'>9,99 zł</h3>
+            <div className='quantity'></div>
+          </div>
+          <hr />
+        </>
+      )}
+
       <h3>
         Summary:{" "}
         {getNumberWithTwoDecimal(
