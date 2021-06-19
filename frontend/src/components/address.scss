@@ -1,5 +1,6 @@
 .address {
   margin-left: 2rem;
+
   flex: 1;
   h2 {
     font-size: 2rem;
@@ -18,9 +19,10 @@
       padding-bottom: 0.5rem;
     }
     input {
-      width: 100%;
+      width: 90%;
       box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
       margin: auto;
+      margin-right: 10rem;
       display: block;
       padding: 1rem;
       border: #ddd solid 1px;
@@ -33,6 +35,12 @@
         outline: none;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .address h2 {
+    font-size: 1.75rem;
   }
 }
 

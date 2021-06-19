@@ -95,6 +95,7 @@
         "price"
         "quantity";
       grid-template-columns: unset;
+
       img {
         object-fit: cover;
         width: 60px;
@@ -104,6 +105,15 @@
       h3,
       h4 {
         margin: 0.25rem 0;
+      }
+    }
+    .order-item.large {
+      grid-template-columns: unset;
+      img {
+        object-fit: cover;
+        width: 150px;
+        height: 100px;
+        grid-area: img;
       }
     }
   }
