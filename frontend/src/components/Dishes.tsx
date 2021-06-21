@@ -2,7 +2,6 @@ import React from "react";
 import "./dishes.scss";
 import ReactTooltip from "react-tooltip";
 import { dishesMock } from "../mocks/dishesMock";
-import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useActions";
 
 const vegeIcon = (
