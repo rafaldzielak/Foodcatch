@@ -33,6 +33,7 @@
     grid-template-columns: 60px 3fr 1fr;
     .title {
       grid-area: title;
+      
     }
     .price {
       width: 75px;
@@ -47,6 +48,7 @@
       grid-area: img;
     }
     .quantity {
+      
       svg {
         color: #666;
         cursor: pointer;

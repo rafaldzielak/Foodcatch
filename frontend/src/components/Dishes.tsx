@@ -3,6 +3,11 @@ import "./dishes.scss";
 import ReactTooltip from "react-tooltip";
 import { dishesMock } from "../mocks/dishesMock";
 import { useActions } from "../hooks/useActions";
+import { dishType } from "../screens/MenuScreen";
+
+interface PropTypes {
+  chosenType: dishType
+}
 
 const vegeIcon = (
   <img
@@ -19,12 +24,12 @@ const spicyIcon = (
   />
 );
 
-const Dishes = () => {
+const Dishes:React.FC<PropTypes> = ({chosenType}) => {
   const { addToCartAction } = useActions();
   return (
     <div className='dishes'>
       <hr />
-      {dishesMock.map((dish) => (
+      {dishesMock.filter(dish => dish.type === chosenType).map((dish) => (
         <React.Fragment key={dish.id}>
           <div className='dish'>
             <img src={dish.imgURL} alt='' />

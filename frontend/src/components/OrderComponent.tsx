@@ -6,7 +6,7 @@ import { AiFillMinusSquare, AiFillPlusSquare } from "react-icons/ai";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { useHistory } from "react-router";
 
-const getNumberWithTwoDecimal = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
+const getNumberWithTwoDecimals = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
 
 interface OrderComponentTypes {
   size?: "large" | "small";
@@ -55,7 +55,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
                 <AiFillPlusSquare />
               </span>
             </div>
-            <h3 className='price'>{getNumberWithTwoDecimal(orderItem.price * orderItem.quantity)} zł</h3>
+            <h3 className='price'>{getNumberWithTwoDecimals(orderItem.price * orderItem.quantity)} zł</h3>
           </div>
           <hr />
         </>
@@ -73,8 +73,8 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
 
       <h3>
         Summary:{" "}
-        {getNumberWithTwoDecimal(
-          items.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0)
+        {getNumberWithTwoDecimals(
+          items.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0) + (showDelivery? 9.99 : 0)
         )}{" "}
         zł
       </h3>

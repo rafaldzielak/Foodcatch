@@ -8,6 +8,7 @@ export const dishesMock = [
     isSpicy: false,
     imgURL: "./img/appetizer.jpg",
     price: 9.99,
+    type:"Appetizers"
   },
   {
     id: 1284721,
@@ -18,6 +19,7 @@ export const dishesMock = [
     isSpicy: true,
     imgURL: "./img/calmari.png",
     price: 14.99,
+    type:"Appetizers"
   },
   {
     id: 1284724,
@@ -28,5 +30,28 @@ export const dishesMock = [
     isSpicy: false,
     imgURL: "./img/shrimp.bmp",
     price: 15.99,
+    type:"Appetizers"
+  },
+  {
+    id: 4132132,
+    title: "Soulful Chcken Soup",
+    description:
+      "No dish is quite as soothing as a hearty bowl of chicken noodle soup. Slow cookers couldn't have made the road to comfort any easier: Simply toss in the ingredients, switch on, and then walk away. We love old-fashioned, wide egg noodles for this recipe. To make sure they aren't mushy and overcooked, don't leave them in the slow cooker any longer than 10 minutes.",
+    isVege: false,
+    isSpicy: false,
+    imgURL: "./img/soulful.jpg",
+    price: 18.99,
+    type:"Soups"
+  },
+  {
+    id: 1231231,
+    title: "Smoked Sausage Cassoulet",
+    description:
+      "This hearty soup is exploding with flavors. Meat lovers will crave this bacon-packed and sausage-enriched delight. For a thicker consistency, let the cassoulet stand 30 minutes before serving.",
+    isVege: false,
+    isSpicy: false,
+    imgURL: "./img/cassoulet.jpg",
+    price: 17.99,
+    type:"Soups"
   },
 ];
