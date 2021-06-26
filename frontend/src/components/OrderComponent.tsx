@@ -45,12 +45,13 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
           <div className={`order-item ${size}`}>
             <img src={orderItem.imgURL} alt='' />
             <h4 className='title'>
-              {orderItem.quantity} × {orderItem.title}
+               {orderItem.title}
             </h4>
             <div className='quantity'>
               <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>
                 <AiFillMinusSquare />
               </span>
+              <span className='number noselect' >{orderItem.quantity}</span>
               <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity + 1)}>
                 <AiFillPlusSquare />
               </span>

@@ -5,10 +5,7 @@
   margin-right: 0;
   margin-left: 0;
   min-width: 400px;
-  &.large {
-    border-left: none;
-    border-right: 1px solid #aaa;
-  }
+  
   h2 {
     font-size: 2rem;
     margin-top: 0;
@@ -48,7 +45,14 @@
       grid-area: img;
     }
     .quantity {
-      
+      .number {
+        display: inline-block;
+        vertical-align: 15% !important;
+        min-width: 15px !important;
+        font-size: 1.2rem;
+        font-family: "Roboto Condensed", sans-serif;
+        pointer-events: none;
+      }
       svg {
         color: #666;
         cursor: pointer;
@@ -56,6 +60,17 @@
       }
       font-size: 1.5rem;
       grid-area: quantity;
+    }
+  }
+  &.large {
+    border-left: none;
+    border-right: 1px solid #aaa;
+    .quantity {
+      .number {
+        vertical-align: 25% !important;
+        min-width: 20px !important;
+        font-size: 1.4rem;
+      }
     }
   }
   .order-item.large {
