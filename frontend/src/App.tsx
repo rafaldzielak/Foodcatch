@@ -7,6 +7,7 @@ import MenuScreen from "./screens/MenuScreen";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
 import OrderScreen from "./screens/OrderScreen";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path='/order' component={OrderScreen} />
             <Route path='/' component={HomeScreen} />
           </Switch>
+          <Footer />
         </div>
       </Router>
     </Provider>

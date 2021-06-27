@@ -1,0 +1,16 @@
+footer {
+  width: 100vw;
+  background-color: #fafafa;
+  display: grid;
+  place-items: center;
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  .container.flex-between {
+    display: grid;
+    place-items: center;
+    letter-spacing: 0.1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+}

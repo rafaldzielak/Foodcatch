@@ -44,14 +44,12 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
         <>
           <div className={`order-item ${size}`}>
             <img src={orderItem.imgURL} alt='' />
-            <h4 className='title'>
-               {orderItem.title}
-            </h4>
+            <h4 className='title'>{orderItem.title}</h4>
             <div className='quantity'>
               <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>
                 <AiFillMinusSquare />
               </span>
-              <span className='number noselect' >{orderItem.quantity}</span>
+              <span className='number noselect'>{orderItem.quantity}</span>
               <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity + 1)}>
                 <AiFillPlusSquare />
               </span>
@@ -73,13 +71,20 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
       )}
 
       <h3>
-        Summary:{" "}
-        {getNumberWithTwoDecimals(
-          items.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0) + (showDelivery? 9.99 : 0)
-        )}{" "}
-        zł
+        {items.length ? (
+          <div>
+            Summary:{" "}
+            {getNumberWithTwoDecimals(
+              items.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0) +
+                (showDelivery ? 9.99 : 0)
+            )}{" "}
+            zł
+            <p>{!hideButton && <button onClick={placeOrder}>Place Order</button>}</p>
+          </div>
+        ) : (
+          "No items yet"
+        )}
       </h3>
-      {!hideButton && <button onClick={placeOrder}>Place Order</button>}
     </div>
   );
 };
