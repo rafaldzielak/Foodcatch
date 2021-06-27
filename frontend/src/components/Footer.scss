@@ -1,6 +1,6 @@
 footer {
   width: 100vw;
-  background-color: #fafafa;
+  background-color: rgba($color: #555, $alpha: 0.1);
   display: grid;
   place-items: center;
   position: fixed;
@@ -10,7 +10,7 @@ footer {
     display: grid;
     place-items: center;
     letter-spacing: 0.1rem;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 500;
   }
 }

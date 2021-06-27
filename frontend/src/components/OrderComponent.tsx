@@ -5,6 +5,7 @@ import { useActions } from "../hooks/useActions";
 import { AiFillMinusSquare, AiFillPlusSquare } from "react-icons/ai";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { useHistory } from "react-router";
+import FadeIn from "react-fade-in";
 
 const getNumberWithTwoDecimals = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
 
@@ -42,32 +43,34 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
       <hr />
       {items.map((orderItem) => (
         <>
-          <div className={`order-item ${size}`}>
-            <img src={orderItem.imgURL} alt='' />
-            <h4 className='title'>{orderItem.title}</h4>
-            <div className='quantity'>
-              <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>
-                <AiFillMinusSquare />
-              </span>
-              <span className='number noselect'>{orderItem.quantity}</span>
-              <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity + 1)}>
-                <AiFillPlusSquare />
-              </span>
+          <FadeIn>
+            <div className={`order-item ${size}`}>
+              <img src={orderItem.imgURL} alt='' />
+              <h4 className='title'>{orderItem.title}</h4>
+              <div className='quantity'>
+                <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>
+                  <AiFillMinusSquare />
+                </span>
+                <span className='number noselect'>{orderItem.quantity}</span>
+                <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity + 1)}>
+                  <AiFillPlusSquare />
+                </span>
+              </div>
+              <h3 className='price'>{getNumberWithTwoDecimals(orderItem.price * orderItem.quantity)} zł</h3>
             </div>
-            <h3 className='price'>{getNumberWithTwoDecimals(orderItem.price * orderItem.quantity)} zł</h3>
-          </div>
+          </FadeIn>
           <hr />
         </>
       ))}
       {showDelivery && (
-        <>
+        <FadeIn>
           <div className={`order-item ${size}`}>
             <h4 className='title'>Delivery</h4>
             <h3 className='price'>9,99 zł</h3>
             <div className='quantity'></div>
           </div>
           <hr />
-        </>
+        </FadeIn>
       )}
 
       <h3>

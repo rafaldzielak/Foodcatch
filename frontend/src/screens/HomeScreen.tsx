@@ -6,7 +6,7 @@ const HomeScreen = () => {
   return (
     <>
       <div className='homescreen'>
-        <h1>Order Happiness</h1>
+        <h1 className='front-page'>Order Happiness</h1>
         <Link to='/menu'>
           <button className='transparent'>Show Menu</button>
         </Link>

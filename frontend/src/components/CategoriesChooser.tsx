@@ -6,16 +6,17 @@ interface PropTypes {
   setType: Function;
 }
 
-const TypeChooser:React.FC<PropTypes> = ({setType}) => {
+const TypeChooser: React.FC<PropTypes> = ({ setType }) => {
   const [selected, setSelected] = useState(categoriesMock[0]);
   return (
     <nav className='type-chooser noselect'>
       {categoriesMock.map((categorie, index) => (
         <div
-          className={selected === categorie ? "active" : ""}
+          className={selected === categorie ? "active" : "inactive"}
           onClick={() => {
-            setType(categoriesMock[index])
-            setSelected(categoriesMock[index])}}>
+            setType(categoriesMock[index]);
+            setSelected(categoriesMock[index]);
+          }}>
           {categorie}
         </div>
       ))}

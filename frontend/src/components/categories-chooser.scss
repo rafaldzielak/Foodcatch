@@ -1,13 +1,11 @@
 .type-chooser {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #999;
   margin-bottom: 1.5rem;
-
+  // margin-top: 1rem;
   div {
     cursor: pointer;
     width: 100%;
-    // border: 1px solid #999;
     padding: 1rem 3rem;
     font-size: 2rem;
     letter-spacing: 0.2rem;
@@ -17,8 +15,9 @@
       background-color: #ddd;
     }
     &.active {
-      background-color: #eee;
+      background-color: #666;
       cursor: unset;
+      color: white;
     }
   }
 }

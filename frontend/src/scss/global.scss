@@ -7,11 +7,13 @@ body {
 }
 
 h1 {
-  font-size: 96px;
-  font-family: "Big Shoulders Display", cursive;
-  letter-spacing: 0.5rem;
-  margin-top: 25vh;
-  color: #888;
+  &.front-page {
+    font-size: 96px;
+    font-family: "Big Shoulders Display", cursive;
+    letter-spacing: 0.5rem;
+    margin-top: 25vh;
+    color: #888;
+  }
 }
 
 svg {
@@ -107,4 +109,9 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
 }

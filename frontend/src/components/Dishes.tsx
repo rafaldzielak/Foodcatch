@@ -6,7 +6,7 @@ import { useActions } from "../hooks/useActions";
 import { dishType } from "../screens/MenuScreen";
 
 interface PropTypes {
-  chosenType: dishType
+  chosenType: dishType;
 }
 
 const vegeIcon = (
@@ -24,27 +24,29 @@ const spicyIcon = (
   />
 );
 
-const Dishes:React.FC<PropTypes> = ({chosenType}) => {
+const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
   const { addToCartAction } = useActions();
   return (
     <div className='dishes'>
       <hr />
-      {dishesMock.filter(dish => dish.type === chosenType).map((dish) => (
-        <React.Fragment key={dish.id}>
-          <div className='dish'>
-            <img src={dish.imgURL} alt='' />
-            <h2>
-              {dish.title} {dish.isVege && vegeIcon} {dish.isSpicy && spicyIcon}
-            </h2>
-            <p className='desc'>{dish.description}</p>
-            <div className='price'>
-              <p>{dish.price} zł</p>
-              <button onClick={() => addToCartAction(dish.id)}>Order</button>
+      {dishesMock
+        .filter((dish) => dish.type === chosenType)
+        .map((dish) => (
+          <React.Fragment key={dish.id}>
+            <div className='dish'>
+              <img src={dish.imgURL} alt='' />
+              <h2>
+                {dish.title} {dish.isVege && vegeIcon} {dish.isSpicy && spicyIcon}
+              </h2>
+              <p className='desc'>{dish.description}</p>
+              <div className='price'>
+                <p>{dish.price} zł</p>
+                <button onClick={() => addToCartAction(dish.id)}>Order</button>
+              </div>
             </div>
-          </div>
-          <hr />
-        </React.Fragment>
-      ))}
+            <hr />
+          </React.Fragment>
+        ))}
       <ReactTooltip effect='solid' />
     </div>
   );
