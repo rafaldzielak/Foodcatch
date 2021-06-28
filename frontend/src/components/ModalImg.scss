@@ -1,0 +1,29 @@
+@keyframes pulse {
+  0% {
+    background-color: white !important;
+    transform: scale(1);
+  }
+  100% {
+    background-color: black !important;
+    transform: scale(2);
+  }
+}
+.ReactModal__Overlay {
+  background-color: rgba(black, 0.8) !important;
+  animation: pulse 0.3s;
+  animation-fill-mode: forwards;
+
+  img {
+    max-height: 250px;
+    max-width: 300px;
+    object-fit: cover;
+  }
+}
+.ReactModal__Content {
+  animation-name: example;
+  animation-duration: 4s;
+  background: unset !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0px !important;
+}

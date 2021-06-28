@@ -30,14 +30,23 @@
       padding: 0 2rem;
       text-align: justify;
     }
-    img {
-      // border-radius: 50%;
-      object-fit: cover;
+    .img {
+      overflow: hidden;
+      grid-area: img;
       width: 100%;
       height: 100%;
-      grid-area: img;
-      // grid: 2;
+      cursor: pointer;
+      img {
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
     }
+
     .price {
       font-size: 1.75rem;
       letter-spacing: 2px;
@@ -47,7 +56,6 @@
       height: 100%;
       padding: 0 0;
       margin: 0;
-      // border-left: 1px solid #eee;
       button {
         font-size: 1.25rem;
         background-color: #666;
@@ -91,7 +99,6 @@ hr {
     .dish {
       overflow: auto;
       height: 120px;
-      // margin: 0;
       padding: 1rem 0.5rem;
       grid-template-columns: 120px 4fr 1fr;
       img {

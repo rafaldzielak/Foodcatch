@@ -1,15 +1,12 @@
 nav.navbar {
   width: 100%;
   padding: 0.5rem 0;
-  background-color: #fafafa;
+  background-color: #eeeeee;
   border-bottom: 1px solid #ccc;
 
   .container {
-    //
-
     div {
       cursor: pointer;
-      // display: flex;
       img {
         margin-top: 0.2rem;
         height: 40px;
@@ -19,9 +16,6 @@ nav.navbar {
         font-size: 3rem;
         letter-spacing: 0.25rem;
         margin-left: 0.75rem;
-        // font-weight: 300 !important;
-        // margin-bottom: 10rem;
-        // line-height: 60px;
       }
     }
   }

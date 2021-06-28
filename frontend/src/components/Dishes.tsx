@@ -4,6 +4,8 @@ import ReactTooltip from "react-tooltip";
 import { dishesMock } from "../mocks/dishesMock";
 import { useActions } from "../hooks/useActions";
 import { dishType } from "../screens/MenuScreen";
+import { useState } from "react";
+import ModalImg from "./ModalImg";
 
 interface PropTypes {
   chosenType: dishType;
@@ -26,15 +28,21 @@ const spicyIcon = (
 
 const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
   const { addToCartAction } = useActions();
+  const [modalImgUrl, setModalImgUrl] = useState("");
+
+  const closeModal = () => setModalImgUrl("");
+
   return (
     <div className='dishes'>
-      <hr />
+      {modalImgUrl && <ModalImg imgUrl={modalImgUrl} closeAction={closeModal} />}
       {dishesMock
         .filter((dish) => dish.type === chosenType)
         .map((dish) => (
           <React.Fragment key={dish.id}>
             <div className='dish'>
-              <img src={dish.imgURL} alt='' />
+              <div className='img'>
+                <img src={dish.imgURL} alt='' onClick={() => setModalImgUrl(dish.imgURL)} />
+              </div>
               <h2>
                 {dish.title} {dish.isVege && vegeIcon} {dish.isSpicy && spicyIcon}
               </h2>

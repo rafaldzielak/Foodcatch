@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.5rem;
-  // margin-top: 1rem;
   div {
     cursor: pointer;
     width: 100%;
@@ -11,13 +10,18 @@
     letter-spacing: 0.2rem;
     font-weight: 600;
     transition: all 0.2s ease-in;
+
     &:hover {
-      background-color: #ddd;
+      background-color: #eee;
     }
     &.active {
       background-color: #666;
       cursor: unset;
       color: white;
+      &:hover {
+        border-radius: 0px;
+      }
     }
   }
+  border-bottom: 1px solid #eee;
 }

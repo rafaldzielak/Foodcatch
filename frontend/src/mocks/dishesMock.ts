@@ -8,7 +8,7 @@ export const dishesMock = [
     isSpicy: false,
     imgURL: "./img/appetizer.jpg",
     price: 9.99,
-    type:"Appetizers"
+    type: "Appetizers",
   },
   {
     id: 1284721,
@@ -19,7 +19,7 @@ export const dishesMock = [
     isSpicy: true,
     imgURL: "./img/calmari.png",
     price: 14.99,
-    type:"Appetizers"
+    type: "Appetizers",
   },
   {
     id: 1284724,
@@ -30,7 +30,7 @@ export const dishesMock = [
     isSpicy: false,
     imgURL: "./img/shrimp.bmp",
     price: 15.99,
-    type:"Appetizers"
+    type: "Appetizers",
   },
   {
     id: 4132132,
@@ -41,7 +41,7 @@ export const dishesMock = [
     isSpicy: false,
     imgURL: "./img/soulful.jpg",
     price: 18.99,
-    type:"Soups"
+    type: "Soups",
   },
   {
     id: 1231231,
@@ -49,9 +49,9 @@ export const dishesMock = [
     description:
       "This hearty soup is exploding with flavors. Meat lovers will crave this bacon-packed and sausage-enriched delight. For a thicker consistency, let the cassoulet stand 30 minutes before serving.",
     isVege: false,
-    isSpicy: false,
+    isSpicy: true,
     imgURL: "./img/cassoulet.jpg",
     price: 17.99,
-    type:"Soups"
+    type: "Soups",
   },
 ];
