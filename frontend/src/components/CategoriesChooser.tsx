@@ -12,6 +12,7 @@ const TypeChooser: React.FC<PropTypes> = ({ setType }) => {
     <nav className='type-chooser noselect'>
       {categoriesMock.map((categorie, index) => (
         <div
+          key={categorie}
           className={selected === categorie ? "active" : "inactive"}
           onClick={() => {
             setType(categoriesMock[index]);

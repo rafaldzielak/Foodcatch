@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./dishes.scss";
 import ReactTooltip from "react-tooltip";
 import { dishesMock } from "../mocks/dishesMock";
@@ -31,6 +31,10 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
   const [modalImgUrl, setModalImgUrl] = useState("");
 
   const closeModal = () => setModalImgUrl("");
+
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  }, [chosenType]);
 
   return (
     <div className='dishes'>

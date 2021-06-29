@@ -6,7 +6,6 @@ import { cartReducer } from "./reducers";
 const middleware = [thunk];
 const cartFromLS = localStorage.getItem("cart");
 const parsedCart = cartFromLS ? JSON.parse(cartFromLS) : [];
-console.log(parsedCart);
 const initialState = { cart: { items: parsedCart, error: null } };
 const reducers = combineReducers({ cart: cartReducer });
 export const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(...middleware)));

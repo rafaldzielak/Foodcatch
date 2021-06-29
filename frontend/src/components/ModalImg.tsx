@@ -27,7 +27,7 @@ const ModalImg: React.FC<PropTypes> = ({ imgUrl, closeAction }) => {
 
   return (
     <div>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles} ariaHideApp={false}>
         <img src={imgUrl} alt='' />
       </Modal>
     </div>

@@ -25,7 +25,6 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   const history = useHistory();
   const placeOrder = () => history.push("/order");
   const { items, error } = useTypedSelector((state) => state.cart);
-  console.log(items);
   const { updateCartAction } = useActions();
 
   return (
@@ -42,7 +41,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
       </nav>
       <hr />
       {items.map((orderItem) => (
-        <>
+        <React.Fragment key={orderItem.id}>
           <FadeIn>
             <div className={`order-item ${size}`}>
               <img src={orderItem.imgURL} alt='' />
@@ -60,7 +59,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
             </div>
           </FadeIn>
           <hr />
-        </>
+        </React.Fragment>
       ))}
       {showDelivery && (
         <FadeIn>
