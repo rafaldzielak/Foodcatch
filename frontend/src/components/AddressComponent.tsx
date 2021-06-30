@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./address.scss";
+import Alert from "./Alert";
 
-const AddressComponent = () => {
+interface PropTypes {
+  setIsFormValid: React.Dispatch<React.SetStateAction<boolean>>;
+  error: string;
+}
+
+const AddressComponent: React.FC<PropTypes> = ({ setIsFormValid, error }) => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [street, setStreet] = useState("");
   const [streetNo, setStreetNo] = useState("");
   const [city, setCity] = useState("");
 
+  useEffect(() => {
+    if (name && surname && street && streetNo && city) setIsFormValid(true);
+    else setIsFormValid(false);
+  }, [name, surname, street, streetNo, city, setIsFormValid]);
+
   return (
     <div className='address'>
       <h2>Your Address</h2>
       <hr />
+      {error && <Alert hideCloseBtn>{error}</Alert>}
       <form>
         <div className='form-row'>
           <label htmlFor='name'>Name: </label>

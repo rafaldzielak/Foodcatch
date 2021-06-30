@@ -1,0 +1,22 @@
+.alert {
+  position: relative;
+
+  padding: 1rem;
+  font-size: 1.6rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  color: black;
+
+  .close-btn {
+    padding: 0.5rem;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-25%, -50%);
+  }
+
+  &.alert-danger {
+    background-color: rgba(red, 0.18);
+  }
+}
