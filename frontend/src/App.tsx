@@ -21,6 +21,7 @@ function App() {
             <Route path='/order' component={OrderScreen} />
             <Route path='/' component={HomeScreen} />
           </Switch>
+          {/* <div style={{ marginTop: "60px" }}></div> */}
           <Footer />
         </div>
       </Router>

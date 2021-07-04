@@ -1,16 +1,13 @@
+@import "../scss/global.scss";
 footer {
   width: 100vw;
-  background-color: rgba($color: #555, $alpha: 0.1);
+  background-color: rgba($color: #ddd, $alpha: 1);
   display: grid;
   place-items: center;
   position: fixed;
-  bottom: 0;
-  height: 60px;
-  .container.flex-between {
-    display: grid;
-    place-items: center;
-    letter-spacing: 0.1rem;
-    font-size: 1.3rem;
-    font-weight: 500;
-  }
+  bottom: 0px;
+  height: $footerHeight;
+  letter-spacing: 0.1rem;
+  font-size: 1.3rem;
+  font-weight: 500;
 }

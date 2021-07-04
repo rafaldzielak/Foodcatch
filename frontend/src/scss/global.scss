@@ -1,9 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Big+Shoulders+Display:wght@400;500;600;700&family=Lobster&family=Mate+SC&family=Roboto&family=Roboto+Condensed:wght@400;500;600&family=Teko:wght@400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster&family=Mate+SC&family=Roboto+Condensed&family=Roboto:wght@400;500&family=Teko:wght@400;500&display=swap");
 
+$footerHeight: 50px;
+
 body {
   font-family: "Big Shoulders Display", cursive;
   transition: all 0.3s ease-in;
+}
+html {
+  background: radial-gradient(at top left, rgba(255, 255, 255, 1) 0%, rgba(240, 240, 240, 1) 100%);
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 
 h1 {
@@ -18,6 +25,10 @@ h1 {
 
 svg {
   vertical-align: middle !important;
+}
+
+.App {
+  margin-bottom: $footerHeight + 12px;
 }
 
 .noselect {
@@ -41,7 +52,8 @@ svg {
 
 button {
   transition: 0.2s all ease-in;
-  color: #555;
+  background-color: #666;
+  color: white;
   padding: 1.25rem 2.5rem;
   font-family: "Bebas Neue", cursive;
   font-family: "Lobster", cursive;
@@ -55,7 +67,6 @@ button {
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  position: relative;
 
   &.small {
     padding: 0.5rem 1rem;
@@ -86,7 +97,7 @@ button {
     }
   }
   &:hover {
-    color: #444;
+    background-color: #444;
   }
   &:hover::before {
     opacity: 0.2;
@@ -114,4 +125,8 @@ input[type="number"] {
 a {
   text-decoration: none;
   color: unset;
+}
+
+.flex {
+  display: flex;
 }
