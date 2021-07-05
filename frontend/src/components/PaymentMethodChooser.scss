@@ -1,0 +1,29 @@
+h2.choose-payment {
+  margin: 1rem 0;
+}
+
+.payment-method {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 1rem;
+  width: 80%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  svg {
+    margin: auto 0;
+    margin-left: 2rem;
+    font-size: 3rem;
+    color: #6b8068;
+  }
+  h3 {
+    margin: 1rem auto;
+    letter-spacing: 0.2rem;
+  }
+  &.active {
+    // color: white;
+    border: 1px solid #999;
+    box-shadow: 0px 0px 0px 1px #999;
+  }
+}
