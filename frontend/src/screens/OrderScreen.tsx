@@ -4,12 +4,16 @@ import { OrderComponent } from "../components/OrderComponent";
 import PaymentMethodChooser from "../components/PaymentMethodChooser";
 import "./order-screen.scss";
 
+export type PaymentType = "cash" | "card";
+
 const OrderScreen = () => {
   const [isFormValid, setIsFormValid] = useState(false);
+  const [paymentType, setPaymentType] = useState<PaymentType>();
   const [addressError, setAddressError] = useState("");
 
   const handlePlaceOrder = () => {
-    if (isFormValid) console.log("Place order");
+    setAddressError("");
+    if (isFormValid && paymentType) console.log("Place order");
     else setAddressError("Please fill in every field");
   };
 
@@ -19,7 +23,7 @@ const OrderScreen = () => {
         <OrderComponent size='large' hideButton showBackBtn showDelivery />
         <div className='address-item'>
           <AddressComponent setIsFormValid={setIsFormValid} error={addressError} />
-          <PaymentMethodChooser />
+          <PaymentMethodChooser paymentType={paymentType} setPaymentType={setPaymentType} />
         </div>
       </div>
       <button onClick={handlePlaceOrder} className='wide'>

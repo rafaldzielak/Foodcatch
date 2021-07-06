@@ -11,13 +11,23 @@ h2.choose-payment {
   border: 1px solid #ddd;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  // flex: 1 6 auto;
   svg {
+    flex: 1;
     margin: auto 0;
     margin-left: 2rem;
     font-size: 3rem;
-    color: #6b8068;
+    &.cash {
+      color: #6b8068;
+    }
+    &.card {
+      color: #4a5875;
+    }
   }
   h3 {
+    padding-right: 2rem;
+    flex: 10;
     margin: 1rem auto;
     letter-spacing: 0.2rem;
   }

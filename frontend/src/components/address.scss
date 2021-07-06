@@ -10,7 +10,8 @@
   }
   .form-row {
     margin: 1rem 0;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    letter-spacing: 1px;
     label {
       width: 100%;
       margin: auto;
@@ -19,6 +20,7 @@
       padding-bottom: 0.5rem;
     }
     input {
+      font-family: "Roboto Condensed", sans-serif;
       width: 90%;
       box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
       margin: auto;
@@ -27,7 +29,8 @@
       padding: 1rem;
       border: #ddd solid 1px;
       border: none;
-      font-size: 1.25rem;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
       color: #555;
       &:focus-visible {
         box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.15);

@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import "./PaymentMethodChooser.scss";
 import { IoCashOutline } from "react-icons/io5";
 import { FaRegCreditCard } from "react-icons/fa";
+import { PaymentType } from "../screens/OrderScreen";
 
-type PaymentType = "cash" | "card";
+interface PropTypes {
+  paymentType: PaymentType | undefined;
+  setPaymentType: (type: PaymentType) => void;
+}
 
-const PaymentMethodChooser = () => {
-  const [paymentType, setPaymentType] = useState<PaymentType>();
+const PaymentMethodChooser: React.FC<PropTypes> = ({ paymentType, setPaymentType }) => {
   return (
     <div>
       <hr />
@@ -15,12 +18,12 @@ const PaymentMethodChooser = () => {
       <div
         className={`payment-method ${paymentType === "cash" ? "active" : ""}`}
         onClick={() => setPaymentType("cash")}>
-        <IoCashOutline /> <h3>Cash</h3> <div></div>
+        <IoCashOutline className='cash' /> <h3>Cash</h3>
       </div>
       <div
         className={`payment-method ${paymentType === "card" ? "active" : ""}`}
         onClick={() => setPaymentType("card")}>
-        <FaRegCreditCard /> <h3>Card</h3> <div></div>
+        <FaRegCreditCard className='card' /> <h3>Card</h3>
       </div>
     </div>
   );
