@@ -10,11 +10,13 @@ const OrderScreen = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [paymentType, setPaymentType] = useState<PaymentType>();
   const [addressError, setAddressError] = useState("");
+  const [paymentError, setPaymentError] = useState("");
 
   const handlePlaceOrder = () => {
     setAddressError("");
     if (isFormValid && paymentType) console.log("Place order");
-    else setAddressError("Please fill in every field");
+    if (!paymentType) setPaymentError("Please select payment type");
+    if (!isFormValid) setAddressError("Please fill in every field");
   };
 
   return (
@@ -22,7 +24,7 @@ const OrderScreen = () => {
       <div className='menu container mt'>
         <OrderComponent size='large' hideButton showBackBtn showDelivery />
         <div className='address-item'>
-          <AddressComponent setIsFormValid={setIsFormValid} error={addressError} />
+          <AddressComponent setIsFormValid={setIsFormValid} error={addressError || paymentError} />
           <PaymentMethodChooser paymentType={paymentType} setPaymentType={setPaymentType} />
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import FadeIn from "react-fade-in";
 import "./address.scss";
 import Alert from "./Alert";
 
@@ -23,7 +24,11 @@ const AddressComponent: React.FC<PropTypes> = ({ setIsFormValid, error }) => {
     <div className='address'>
       <h2>Your Address</h2>
       <hr />
-      {error && <Alert hideCloseBtn>{error}</Alert>}
+      {error && (
+        <FadeIn>
+          <Alert hideCloseBtn>{error}</Alert>
+        </FadeIn>
+      )}
       <form>
         <div className='form-row'>
           <label htmlFor='name'>Name: </label>
