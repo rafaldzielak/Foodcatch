@@ -25,3 +25,8 @@ export const updateCartAction =
     else dispatch({ type: ActionType.UPDATE_CART_ITEM, payload: { id, quantity } });
     setLSCartItems(cart.items);
   };
+
+export const placeOrderAction = () => (dispatch: Dispatch<Action>, getState: any) => {
+  dispatch({ type: ActionType.PLACE_ORDER });
+  setLSCartItems([]);
+};

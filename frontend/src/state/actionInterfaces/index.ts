@@ -26,4 +26,9 @@ interface UpdateCartItemAction {
   payload: { id: number; quantity: number };
 }
 
-export type Action = AddToCartAction | RemoveFromCartAction | UpdateCartItemAction;
+interface PlaceOrderAction {
+  type: ActionType.PLACE_ORDER;
+  // payload: { id: number; quantity: number };
+}
+
+export type Action = AddToCartAction | RemoveFromCartAction | UpdateCartItemAction | PlaceOrderAction;

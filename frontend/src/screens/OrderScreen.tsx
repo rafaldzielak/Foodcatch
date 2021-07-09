@@ -2,6 +2,7 @@ import { useState } from "react";
 import AddressComponent from "../components/AddressComponent";
 import { OrderComponent } from "../components/OrderComponent";
 import PaymentMethodChooser from "../components/PaymentMethodChooser";
+import { useActions } from "../hooks/useActions";
 import "./order-screen.scss";
 
 export type PaymentType = "cash" | "card";
@@ -12,9 +13,14 @@ const OrderScreen = () => {
   const [addressError, setAddressError] = useState("");
   const [paymentError, setPaymentError] = useState("");
 
+  const { placeOrderAction } = useActions();
+
   const handlePlaceOrder = () => {
     setAddressError("");
-    if (isFormValid && paymentType) console.log("Place order");
+    if (isFormValid && paymentType) {
+      console.log("Place order");
+      placeOrderAction();
+    }
     if (!paymentType) setPaymentError("Please select payment type");
     if (!isFormValid) setAddressError("Please fill in every field");
   };
