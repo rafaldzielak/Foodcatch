@@ -1,10 +1,11 @@
 import { ActionType } from "../actionInterfaces/actionTypes";
 import { Action, Dish } from "../actionInterfaces/index";
 
-interface CartState {
+export interface CartState {
   error: string | null;
   items: Dish[];
 }
+
 const initialState: CartState = {
   error: null,
   items: [],

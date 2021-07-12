@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./PaymentMethodChooser.scss";
 import { IoCashOutline } from "react-icons/io5";
 import { FaRegCreditCard } from "react-icons/fa";

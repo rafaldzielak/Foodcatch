@@ -1,3 +1,4 @@
+import { CartState } from "../reducers";
 import { ActionType } from "./actionTypes";
 
 export interface Dish {
@@ -28,7 +29,7 @@ interface UpdateCartItemAction {
 
 interface PlaceOrderAction {
   type: ActionType.PLACE_ORDER;
-  // payload: { id: number; quantity: number };
+  payload: Dish[];
 }
 
 export type Action = AddToCartAction | RemoveFromCartAction | UpdateCartItemAction | PlaceOrderAction;
