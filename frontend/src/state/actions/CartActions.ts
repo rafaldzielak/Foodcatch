@@ -2,7 +2,7 @@ import { Action, Dish } from "../actionInterfaces/index";
 import { Dispatch } from "redux";
 import { ActionType } from "../actionInterfaces/actionTypes";
 import { dishesMock } from "../../mocks/dishesMock";
-import { CartState } from "../reducers";
+import { CartState } from "../reducers/cartReducers";
 
 const setLSCartItems = (items: []) => {
   localStorage.setItem("cart", JSON.stringify(items));
