@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 import AddressComponent from "../components/AddressComponent";
 import { OrderComponent } from "../components/OrderComponent";
 import PaymentMethodChooser from "../components/PaymentMethodChooser";
@@ -14,12 +15,13 @@ const OrderScreen = () => {
   const [paymentError, setPaymentError] = useState("");
 
   const { placeOrderAction } = useActions();
+  const history = useHistory();
 
   const handlePlaceOrder = () => {
     setAddressError("");
     if (isFormValid && paymentType) {
-      console.log("Place order");
       placeOrderAction();
+      history.push("/summary");
     }
     if (!paymentType) setPaymentError("Please select payment type");
     if (!isFormValid) setAddressError("Please fill in every field");

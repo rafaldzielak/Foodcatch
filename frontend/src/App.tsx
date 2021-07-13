@@ -9,6 +9,7 @@ import { store } from "./state/store";
 import OrderScreen from "./screens/OrderScreen";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import SummaryScreen from "./screens/SummaryScreen";
 
 function App() {
   return (
@@ -19,9 +20,9 @@ function App() {
           <Switch>
             <Route exact path='/menu' component={MenuScreen} />
             <Route path='/order' component={OrderScreen} />
+            <Route path='/summary' component={SummaryScreen} />
             <Route path='/' component={HomeScreen} />
           </Switch>
-          {/* <div style={{ marginTop: "60px" }}></div> */}
           <Footer />
         </div>
       </Router>
