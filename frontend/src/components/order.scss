@@ -63,6 +63,11 @@
       grid-area: quantity;
     }
   }
+  &.extra {
+    min-width: 600px !important;
+    border-right: none !important;
+    border-left: 1px solid #aaa !important;
+  }
   &.large {
     border-left: none;
     border-right: 1px solid #aaa;

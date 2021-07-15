@@ -1,4 +1,3 @@
-import { CartState } from "../reducers/cartReducers";
 import { ActionType } from "./actionTypes";
 
 export interface Dish {

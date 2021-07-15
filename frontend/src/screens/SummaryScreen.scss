@@ -3,6 +3,19 @@
   place-items: center;
 }
 
+.summary {
+  margin-top: 3rem;
+}
+
+.flex-grow h1 {
+  margin-bottom: 5rem;
+}
+
+.grid-justify-center {
+  display: grid;
+  justify-items: center;
+}
+
 .indicator-volume {
   position: absolute;
   top: 50%;
@@ -14,4 +27,13 @@
 
 .circle-trouble {
   font-size: 1.25rem;
+}
+
+.scooter {
+  width: 30px;
+  height: auto;
+}
+
+.flex-grow {
+  flex-grow: 2;
 }

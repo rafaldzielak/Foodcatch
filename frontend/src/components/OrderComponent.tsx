@@ -10,10 +10,12 @@ import FadeIn from "react-fade-in";
 const getNumberWithTwoDecimals = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
 
 interface OrderComponentTypes {
-  size?: "large" | "small";
+  size?: "small" | "large" | "extra large";
   hideButton?: boolean;
   showDelivery?: boolean;
   showBackBtn?: boolean;
+  showOrder?: boolean;
+  hideAmountChooser?: boolean;
 }
 
 export const OrderComponent: React.FC<OrderComponentTypes> = ({
@@ -21,11 +23,14 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   hideButton,
   showDelivery,
   showBackBtn,
+  showOrder,
+  hideAmountChooser,
 }) => {
   const history = useHistory();
   const placeOrder = () => history.push("/order");
-  const { items, error } = useTypedSelector((state) => state.cart);
+  const { items } = useTypedSelector((state) => (showOrder ? state.order : state.cart));
   const { updateCartAction } = useActions();
+  console.log(items);
 
   return (
     <div className={`order ${size}`}>
@@ -46,15 +51,17 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
             <div className={`order-item ${size}`}>
               <img src={orderItem.imgURL} alt='' />
               <h4 className='title'>{orderItem.title}</h4>
-              <div className='quantity'>
-                <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>
-                  <AiFillMinusSquare />
-                </span>
-                <span className='number noselect'>{orderItem.quantity}</span>
-                <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity + 1)}>
-                  <AiFillPlusSquare />
-                </span>
-              </div>
+              {!hideAmountChooser && (
+                <div className='quantity'>
+                  <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>
+                    <AiFillMinusSquare />
+                  </span>
+                  <span className='number noselect'>{orderItem.quantity}</span>
+                  <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity + 1)}>
+                    <AiFillPlusSquare />
+                  </span>
+                </div>
+              )}
               <h3 className='price'>{getNumberWithTwoDecimals(orderItem.price * orderItem.quantity)} zł</h3>
             </div>
           </FadeIn>
