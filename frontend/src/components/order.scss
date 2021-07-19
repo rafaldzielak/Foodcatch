@@ -86,12 +86,12 @@
     h4 {
       font-size: 1.25rem;
     }
-    grid-template-columns: 150px 3fr 1fr;
+    grid-template-columns: 120px 3fr 1fr;
     .price {
       font-size: 1.5rem;
     }
     img {
-      height: 120px;
+      height: 100px;
     }
     .quantity {
       font-size: 2rem;
@@ -108,7 +108,7 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .order {
     min-width: 240px;
     margin: 0;
@@ -120,14 +120,9 @@
       font-size: 1.5rem;
     }
     .order-item {
-      margin: 1rem;
-      display: grid;
-      place-items: center;
       grid-template-areas:
-        "img "
-        "title "
-        "price"
-        "quantity";
+        "img title title"
+        "img quantity price";
       grid-template-columns: unset;
 
       img {
@@ -148,6 +143,18 @@
         width: 150px;
         height: 100px;
         grid-area: img;
+      }
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .order {
+      .order-item {
+        grid-template-areas:
+          "img"
+          "title"
+          "quantity"
+          "price";
       }
     }
   }

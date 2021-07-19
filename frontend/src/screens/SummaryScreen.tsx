@@ -4,12 +4,12 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import ProgressBar from "react-customizable-progressbar";
 import moment from "moment";
 import { OrderComponent } from "../components/OrderComponent";
+import { Redirect } from "react-router";
 
 const minutesForDelivery = 45;
 
 const SummaryScreen = () => {
   const order = useTypedSelector((state) => state.order);
-  console.log(order);
   const [timeElapsed, setTimeElapsed] = useState(1);
 
   useEffect(() => {
@@ -20,6 +20,8 @@ const SummaryScreen = () => {
       setTimeElapsed((prev) => prev + 1);
     }, 60000);
   }, []);
+
+  if (!order.items.length) return <Redirect to='/' />;
 
   return (
     <main>
