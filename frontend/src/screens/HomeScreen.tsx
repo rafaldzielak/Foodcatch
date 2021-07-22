@@ -8,7 +8,10 @@ const HomeScreen = () => {
       <div className='homescreen'>
         <h1 className='front-page'>Order Happiness</h1>
         <Link to='/menu'>
-          <button className='transparent'>Show Menu</button>
+          <button className='transparent mr-5'>Show Menu</button>
+        </Link>
+        <Link to='/book'>
+          <button className='transparent'>Book a Table</button>
         </Link>
       </div>
     </>

@@ -10,6 +10,7 @@ import OrderScreen from "./screens/OrderScreen";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import SummaryScreen from "./screens/SummaryScreen";
+import TableBook from "./screens/TableBook";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route exact path='/menu' component={MenuScreen} />
             <Route path='/order' component={OrderScreen} />
             <Route path='/summary' component={SummaryScreen} />
+            <Route path='/book' component={TableBook} />
             <Route path='/' component={HomeScreen} />
           </Switch>
           <Footer />
