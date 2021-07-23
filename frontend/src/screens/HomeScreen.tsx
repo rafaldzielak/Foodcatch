@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./homescreen.scss";
+import TableBook from "./TableBook";
 
 const HomeScreen = () => {
   return (
@@ -10,9 +11,7 @@ const HomeScreen = () => {
         <Link to='/menu'>
           <button className='transparent mr-5'>Show Menu</button>
         </Link>
-        <Link to='/book'>
-          <button className='transparent'>Book a Table</button>
-        </Link>
+        <TableBook />
       </div>
     </>
   );

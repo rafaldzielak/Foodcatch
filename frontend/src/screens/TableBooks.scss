@@ -1,0 +1,48 @@
+// // .customOverlay {
+// //   background: rgba(36, 123, 160, 0.7);
+// // }
+// .ReactModal__Content {
+//   color: white;
+//   // height: 400px;
+//   // width: 30%;
+//   // margin: auto
+//   border: 1px solid red !important;
+//   background-color: white !important;
+// }
+
+.ReactModal__Content.book-modal {
+  padding-top: 1rem !important;
+  color: #333333;
+  width: 30vw;
+  min-width: 200px;
+  max-width: 400px;
+  height: 25vh;
+  min-height: 300px;
+  position: fixed;
+  border-width: 1px;
+  background-color: #ddd !important;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 15vh;
+  border-radius: 50px;
+}
+
+.ReactModal__Overlay {
+  display: grid;
+  place-items: center;
+}
+
+.people {
+  display: flex;
+  justify-content: center;
+  .person {
+    cursor: pointer;
+    width: 60px;
+    padding: 0.75rem 0rem;
+    border: 1px solid #bbb;
+    margin: 1rem 0.2rem;
+    &.active {
+      border-color: #444;
+    }
+  }
+}
