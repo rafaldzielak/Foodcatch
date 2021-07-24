@@ -40,9 +40,127 @@
     width: 60px;
     padding: 0.75rem 0rem;
     border: 1px solid #bbb;
+    border-radius: 2px;
     margin: 1rem 0.2rem;
     &.active {
       border-color: #444;
     }
   }
+}
+
+.react-date-picker__wrapper {
+  border: 1px solid #bbb !important;
+  border-radius: 2px;
+  padding: 0.7rem 1rem !important;
+}
+
+.react-calendar__tile--active:enabled {
+  background-color: rgba(0, 110, 220, 0.75) !important;
+}
+
+.react-date-picker__inputGroup__input {
+  &:focus-visible {
+    border: none !important;
+    outline: none !important;
+  }
+}
+.react-date-picker {
+  margin: 0.75rem 0;
+}
+
+.react-date-picker__inputGroup__input:invalid {
+  background: none !important;
+}
+
+.react-date-picker__inputGroup__input {
+  outline: none !important;
+  padding: 0 3px !important;
+}
+
+.react-date-picker__inputGroup {
+  min-width: unset !important;
+}
+
+.react-calendar {
+  font-family: "Big Shoulders Display" !important;
+  padding: 0.5rem;
+}
+
+.react-calendar__tile:disabled {
+  background-color: unset !important;
+  color: #ddd;
+}
+
+.react-calendar__tile--now {
+  background-color: #ddd !important;
+}
+
+.react-date-picker__calendar {
+  width: 200px !important;
+}
+
+.react-calendar__navigation__next2-button,
+.react-calendar__navigation__prev2-button {
+  display: none !important;
+}
+.react-calendar__navigation__next-button,
+.react-calendar__navigation__prev-button {
+  font-size: 2rem !important;
+}
+
+.react-calendar__month-view__days__day {
+  color: #555;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #ccc !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth:disabled {
+  color: #ddd !important;
+}
+
+.react-calendar__navigation__arrow:disabled {
+  pointer-events: none !important;
+}
+
+.react-date-picker__calendar-button {
+  color: #777;
+  &:hover {
+    color: white;
+  }
+}
+
+.time-select {
+  margin: auto;
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+  &.select {
+    width: 100%;
+  }
+}
+
+// .css-tlfecz-indicatorContainer {
+//   display: none !important;
+// }
+.css-2b097c-container {
+  min-width: 50px !important;
+  margin: 0 0.5rem;
+  // height: 66px !important;
+}
+.css-g1d714-ValueContainer {
+  .css-1uccc91-singleValue {
+    width: 30px !important;
+  }
+}
+
+.css-e56m7-control {
+  background-color: #ddd !important;
+}
+.css-e56m7-control {
+  border-radius: 2px !important;
+  border: 1px solid #bbb !important;
 }

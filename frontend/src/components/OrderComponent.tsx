@@ -88,7 +88,13 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
                 (showDelivery ? 9.99 : 0)
             )}{" "}
             zł
-            <p>{!hideButton && <button onClick={placeOrder}>Place Order</button>}</p>
+            <p>
+              {!hideButton && (
+                <button className='big' onClick={placeOrder}>
+                  Place Order
+                </button>
+              )}
+            </p>
           </div>
         ) : (
           "No items yet"

@@ -36,7 +36,7 @@ const OrderScreen = () => {
           <PaymentMethodChooser paymentType={paymentType} setPaymentType={setPaymentType} />
         </div>
       </div>
-      <button onClick={handlePlaceOrder} className='wide'>
+      <button onClick={handlePlaceOrder} className='wide big'>
         Place Order
       </button>
     </>
