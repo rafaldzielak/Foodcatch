@@ -6,16 +6,6 @@ import { BiCalendar } from "react-icons/bi";
 import addDays from "date-fns/addDays";
 import Select from "react-select";
 
-const customStyles = {
-  content: {
-    // top: "35%",
-    // left: "50%",
-    // right: "auto",
-    // bottom: "auto",
-    // marginRight: "-50%",
-    // transform: "translate(-50%, -50%)",
-  },
-};
 const hours = [
   { value: "14", label: "14" },
   { value: "15", label: "15" },
@@ -73,11 +63,11 @@ const TableBook = () => {
         className='book-modal'
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}>
+        onRequestClose={closeModal}>
         <h2>Book a Table</h2>
         <div>How many of you will come?</div>
         {showPossiblePeople()}
+        {selectedPeople === 12 && <span>Contact us directly!</span>}
         <div>Choose date</div>
         <DatePicker
           clearIcon={null}

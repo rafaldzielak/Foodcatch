@@ -37,7 +37,7 @@
   justify-content: center;
   .person {
     cursor: pointer;
-    width: 60px;
+    width: 25px;
     padding: 0.75rem 0rem;
     border: 1px solid #bbb;
     border-radius: 2px;
@@ -54,8 +54,24 @@
   padding: 0.7rem 1rem !important;
 }
 
+.react-calendar__tile {
+  padding: 0.3rem !important;
+}
+
 .react-calendar__tile--active:enabled {
   background-color: rgba(0, 110, 220, 0.75) !important;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  // font-size: 1rem !important;
+  text-decoration: none !important;
+  line-height: 0.07rem;
+  overflow: hidden !important;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem !important;
+  abbr {
+    font-size: 0.9rem !important;
+  }
 }
 
 .react-date-picker__inputGroup__input {
@@ -84,11 +100,13 @@
 .react-calendar {
   font-family: "Big Shoulders Display" !important;
   padding: 0.5rem;
+  border: none !important;
+  background-color: #ddd !important;
 }
 
 .react-calendar__tile:disabled {
   background-color: unset !important;
-  color: #ddd;
+  color: #999;
 }
 
 .react-calendar__tile--now {
@@ -97,6 +115,11 @@
 
 .react-date-picker__calendar {
   width: 200px !important;
+  -webkit-box-shadow: 0px 0px 15px 10px rgba(51, 51, 51, 0.2);
+  box-shadow: 0px 0px 15px 10px rgba(51, 51, 51, 0.2);
+}
+.react-calendar__navigation {
+  margin-bottom: 0 !important;
 }
 
 .react-calendar__navigation__next2-button,
@@ -109,7 +132,7 @@
 }
 
 .react-calendar__month-view__days__day {
-  color: #555;
+  color: #222;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -122,6 +145,7 @@
 
 .react-calendar__navigation__arrow:disabled {
   pointer-events: none !important;
+  opacity: 0;
 }
 
 .react-date-picker__calendar-button {
@@ -129,6 +153,10 @@
   &:hover {
     color: white;
   }
+}
+button:disabled {
+  // display: none;
+  pointer-events: none;
 }
 
 .time-select {
@@ -163,4 +191,21 @@
 .css-e56m7-control {
   border-radius: 2px !important;
   border: 1px solid #bbb !important;
+}
+
+// .select {
+//   div {
+//     // display: none;
+//     div {
+//       padding: 0.5rem;
+//     }
+//   }
+// }
+
+.css-4ljt47-MenuList {
+  div {
+    color: #333;
+    padding: 0.25rem;
+    cursor: pointer;
+  }
 }
