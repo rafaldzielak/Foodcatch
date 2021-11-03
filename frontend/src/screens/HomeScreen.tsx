@@ -9,7 +9,7 @@ const HomeScreen = () => {
       <div className='homescreen'>
         <h1 className='front-page'>Order Happiness</h1>
         <Link to='/menu'>
-          <button className='big transparent mr-5'>Show Menu</button>
+          <button className='big transparent mr-5'>Order Online</button>
         </Link>
         <TableBook />
       </div>

@@ -30,7 +30,7 @@ const OrderScreen = () => {
   return (
     <>
       <div className='menu container mt'>
-        <OrderComponent size='large' hideButton showBackBtn showDelivery />
+        <OrderComponent size='large' hideButton showBackBtn showDelivery showCouponInput />
         <div className='address-item'>
           <AddressComponent setIsFormValid={setIsFormValid} error={addressError || paymentError} />
           <PaymentMethodChooser paymentType={paymentType} setPaymentType={setPaymentType} />

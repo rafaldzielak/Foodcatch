@@ -9,7 +9,7 @@
   h2 {
     font-size: 2rem;
     margin-top: 0;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     letter-spacing: 1px;
   }
 
@@ -96,6 +96,40 @@
     .quantity {
       font-size: 2rem;
     }
+  }
+  .summary {
+    margin-left: 2rem;
+    h2 {
+      font-size: 2rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+    .form-row {
+      display: flex;
+      margin: 1rem 0;
+      font-size: 1.7rem;
+      letter-spacing: 1px;
+      button {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+        &:hover {
+          color: white;
+        }
+      }
+
+      input {
+        width: 150px;
+        margin-right: 2rem;
+      }
+    }
+
+    display: flex;
+    justify-content: space-between;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 }
 

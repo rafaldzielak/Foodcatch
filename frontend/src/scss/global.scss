@@ -58,7 +58,27 @@ svg {
 }
 
 .mt {
-  margin-top: 2rem;
+  margin-top: 2rem !important;
+}
+
+
+input {
+  font-family: "Roboto Condensed", sans-serif;
+  width: 90%;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  margin: auto;
+  margin-right: 10rem;
+  display: block;
+  padding: 1rem;
+  border: #ddd solid 1px;
+  border: none;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  color: #555;
+  &:focus-visible {
+    box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.15);
+    outline: none;
+  }
 }
 
 button {

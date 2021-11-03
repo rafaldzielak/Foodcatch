@@ -1,4 +1,5 @@
 import "./order.scss";
+import "./address.scss";
 import React from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useActions";
@@ -16,6 +17,7 @@ interface OrderComponentTypes {
   showBackBtn?: boolean;
   showOrder?: boolean;
   hideAmountChooser?: boolean;
+  showCouponInput?: boolean;
 }
 
 export const OrderComponent: React.FC<OrderComponentTypes> = ({
@@ -25,12 +27,16 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   showBackBtn,
   showOrder,
   hideAmountChooser,
+  showCouponInput,
 }) => {
   const history = useHistory();
   const placeOrder = () => history.push("/order");
   const { items } = useTypedSelector((state) => (showOrder ? state.order : state.cart));
   const { updateCartAction } = useActions();
-  console.log(items);
+
+  const applyCouponHandler = () => {
+    console.log("Apply coupon");
+  };
 
   return (
     <div className={`order ${size}`}>
@@ -79,27 +85,37 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
         </FadeIn>
       )}
 
-      <h3>
+      <div>
         {items.length ? (
-          <div>
-            Summary:{" "}
-            {getNumberWithTwoDecimals(
-              items.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0) +
-                (showDelivery ? 9.99 : 0)
-            )}{" "}
-            zł
-            <p>
-              {!hideButton && (
-                <button className='big' onClick={placeOrder}>
-                  Place Order
-                </button>
-              )}
-            </p>
-          </div>
+          <>
+            <div className='summary'>
+              <div className='coupon'>
+                {showCouponInput && (
+                  <div className='form-row'>
+                    <input type='text' placeholder='Coupon' id='name'></input>
+                    <button onClick={applyCouponHandler}>Apply Coupon</button>
+                  </div>
+                )}
+              </div>
+              <h3>
+                Summary:{" "}
+                {getNumberWithTwoDecimals(
+                  items.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0) +
+                    (showDelivery ? 9.99 : 0)
+                )}{" "}
+                zł
+              </h3>
+            </div>
+            {!hideButton && (
+              <button className='big' onClick={placeOrder}>
+                Continue
+              </button>
+            )}
+          </>
         ) : (
           "No items yet"
         )}
-      </h3>
+      </div>
     </div>
   );
 };
