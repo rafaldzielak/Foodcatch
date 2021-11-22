@@ -54,6 +54,29 @@
   padding: 0.7rem 1rem !important;
 }
 
+.react-date-picker,
+.react-date-picker *,
+.react-date-picker ::before,
+.react-date-picker ::after {
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+.react-date-picker__inputGroup__input {
+  background-color: #d6d6d6 !important;
+}
+
+.react-date-picker__inputGroup__input.react-date-picker__inputGroup__year {
+  width: 20px !important;
+}
+
+.react-date-picker__inputGroup {
+  display: flex;
+}
+.react-date-picker__inputGroup__input.react-date-picker__inputGroup__day {
+  max-width: 20px;
+}
+
 .react-calendar__tile {
   padding: 0.3rem !important;
 }
