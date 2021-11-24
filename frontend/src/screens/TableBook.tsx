@@ -5,6 +5,8 @@ import DatePicker from "react-date-picker";
 import { BiCalendar } from "react-icons/bi";
 import addDays from "date-fns/addDays";
 import Select from "react-select";
+import { useMutation } from "@apollo/client";
+import { createBookingMutation, getBookingQuery } from "../queries/bookingQueries";
 
 const hours = [
   { value: "14", label: "14" },
@@ -22,10 +24,19 @@ const minutes = [
   { value: "30", label: "30" },
 ];
 
+interface Booking {
+  people: Number;
+  phone: String;
+  name: String;
+  date: String;
+}
+
 const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedPeople, setSelectedPeople] = useState(2);
   const [chosenDate, setChosenDate] = useState<Date>();
+
+  const [createBookingMut] = useMutation<{ createBooking: Booking }>(createBookingMutation);
 
   const showPossiblePeople = () => {
     const peopleArr: number[] = [];
@@ -34,6 +45,7 @@ const TableBook = () => {
       <div className='people'>
         {peopleArr.map((num) => (
           <div
+            key={num}
             className={`person ${num === selectedPeople && "active"}`}
             onClick={() => setSelectedPeople(num)}>
             {num}
@@ -53,6 +65,18 @@ const TableBook = () => {
   function closeModal() {
     setIsOpen(false);
   }
+
+  const bookTableHandler = () => {
+    createBookingMut({
+      variables: {
+        name: "Rafal",
+        date: chosenDate!.toISOString(),
+        people: 5,
+        phone: "234723984",
+      },
+      refetchQueries: [{ query: getBookingQuery }],
+    }).then(({ data }) => console.log(data?.createBooking));
+  };
 
   return (
     <>
@@ -113,7 +137,9 @@ const TableBook = () => {
             })}
           />
         </div>
-        <button className='small'>Check Availability</button>
+        <button className='small' onClick={bookTableHandler}>
+          Check Availability
+        </button>
       </Modal>
     </>
   );

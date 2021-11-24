@@ -11,23 +11,28 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import SummaryScreen from "./screens/SummaryScreen";
 import TableBook from "./screens/TableBook";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+const client = new ApolloClient({ uri: "http://localhost:5000/graphql", cache: new InMemoryCache() });
 
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <div className='App'>
-          <Navbar />
-          <Switch>
-            <Route exact path='/menu' component={MenuScreen} />
-            <Route path='/order' component={OrderScreen} />
-            <Route path='/summary' component={SummaryScreen} />
-            <Route path='/book' component={TableBook} />
-            <Route path='/' component={HomeScreen} />
-          </Switch>
-          <Footer />
-        </div>
-      </Router>
+      <ApolloProvider client={client}>
+        <Router>
+          <div className='App'>
+            <Navbar />
+            <Switch>
+              <Route exact path='/menu' component={MenuScreen} />
+              <Route path='/order' component={OrderScreen} />
+              <Route path='/summary' component={SummaryScreen} />
+              <Route path='/book' component={TableBook} />
+              <Route path='/' component={HomeScreen} />
+            </Switch>
+            <Footer />
+          </div>
+        </Router>
+      </ApolloProvider>
     </Provider>
   );
 }

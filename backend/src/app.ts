@@ -1,10 +1,11 @@
 import express from "express";
-import { bookingRouter } from "./routes/BookingRouter";
-import { orderRouter } from "./routes/OrderRouter";
 import { graphqlHTTP } from "express-graphql";
 import { bookingSchema } from "./schema/rootSchema";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
 
 const PORT = 5000;
 

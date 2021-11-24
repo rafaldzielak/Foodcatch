@@ -20,6 +20,7 @@ export const createBooking = {
     date: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: (parent: any, args: any) => {
+    console.log(args);
     return { ...args };
   },
 };
