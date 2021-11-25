@@ -16,7 +16,6 @@
   width: 30vw;
   min-width: 200px;
   max-width: 400px;
-  height: 25vh;
   min-height: 300px;
   position: fixed;
   border-width: 1px;
@@ -25,6 +24,29 @@
   text-align: center;
   margin-bottom: 15vh;
   border-radius: 50px;
+  .name-phone {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    input.name,
+    input.phone {
+      margin-right: 0;
+      height: 20px;
+      padding: 5px;
+      font-size: 1rem;
+      background-color: #ddd;
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+      box-shadow: none;
+      border: 1px solid #bbb;
+      border-radius: 3px;
+      &:focus {
+        -webkit-box-shadow: 0px 0px 3px 3px rgba(51, 51, 51, 0.2);
+        box-shadow: 0px 0px 3px 2px rgba(51, 51, 51, 0.2);
+        border-color: transparent;
+      }
+    }
+  }
 }
 
 .ReactModal__Overlay {

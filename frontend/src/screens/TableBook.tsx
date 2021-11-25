@@ -35,6 +35,8 @@ const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedPeople, setSelectedPeople] = useState(2);
   const [chosenDate, setChosenDate] = useState<Date>();
+  const [guestName, setGuestName] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
 
   const [createBookingMut] = useMutation<{ createBooking: Booking }>(createBookingMutation);
 
@@ -69,9 +71,9 @@ const TableBook = () => {
   const bookTableHandler = () => {
     createBookingMut({
       variables: {
-        name: "Rafal",
+        name: guestName,
         date: chosenDate!.toISOString(),
-        people: 5,
+        people: selectedPeople,
         phone: "234723984",
       },
       refetchQueries: [{ query: getBookingQuery }],
@@ -89,6 +91,27 @@ const TableBook = () => {
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}>
         <h2>Book a Table</h2>
+        <div className='name-phone'>
+          <div className='name'>
+            <div>Enter your name</div>
+            <input
+              type='text'
+              className='name'
+              value={guestName}
+              onChange={(e) => setGuestName(e.target.value)}
+            />
+          </div>
+          <div className='phone'>
+            <div>Enter your phone number</div>
+            <input
+              type='text'
+              className='phone'
+              value={guestPhone}
+              onChange={(e) => setGuestPhone(e.target.value)}
+            />
+          </div>
+        </div>
+
         <div>How many of you will come?</div>
         {showPossiblePeople()}
         {selectedPeople === 12 && <span>Contact us directly!</span>}
