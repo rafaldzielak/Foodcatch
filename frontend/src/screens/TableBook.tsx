@@ -40,33 +40,108 @@ const TableBook = () => {
 
   const [createBookingMut] = useMutation<{ createBooking: Booking }>(createBookingMutation);
 
+  const openModal = () => setIsOpen(true);
+
+  const closeModal = () => setIsOpen(false);
+
+  const showNameAndPhoneInput = () => (
+    <div className='name-phone'>
+      <div className='name'>
+        <div>Enter your name</div>
+        <input
+          type='text'
+          className='name'
+          value={guestName}
+          onChange={(e) => setGuestName(e.target.value)}
+        />
+      </div>
+      <div className='phone'>
+        <div>Enter your phone number</div>
+        <input
+          type='text'
+          className='phone'
+          value={guestPhone}
+          onChange={(e) => setGuestPhone(e.target.value)}
+        />
+      </div>
+    </div>
+  );
+
   const showPossiblePeople = () => {
     const peopleArr: number[] = [];
     for (let i = 1; i < 12; i++) peopleArr.push(i);
     return (
-      <div className='people'>
-        {peopleArr.map((num) => (
+      <>
+        <div>How many of you will come?</div>
+        <div className='people'>
+          {peopleArr.map((num) => (
+            <div
+              key={num}
+              className={`person ${num === selectedPeople && "active"}`}
+              onClick={() => setSelectedPeople(num)}>
+              {num}
+            </div>
+          ))}
           <div
-            key={num}
-            className={`person ${num === selectedPeople && "active"}`}
-            onClick={() => setSelectedPeople(num)}>
-            {num}
+            className={`person ${selectedPeople === 12 && "active"}`}
+            onClick={() => setSelectedPeople(12)}>
+            More
           </div>
-        ))}
-        <div className={`person ${selectedPeople === 12 && "active"}`} onClick={() => setSelectedPeople(12)}>
-          More
         </div>
-      </div>
+        {selectedPeople === 12 && <span>Contact us directly!</span>}
+      </>
     );
   };
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const showDateAndTimeChooser = () => (
+    <>
+      <div>Choose date</div>
+      <DatePicker
+        clearIcon={null}
+        calendarIcon={<BiCalendar />}
+        minDate={new Date()}
+        maxDate={addDays(new Date(), 60)}
+        minDetail={"year"}
+        onChange={(e: Date) => setChosenDate(e)}
+        value={chosenDate}
+      />
+      <div>Choose time</div>
+      <div className='time-select'>
+        <Select
+          className='select'
+          options={hours}
+          components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+          placeholder='hour'
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              text: "#777",
+              primary25: "#ddd",
+              primary: "#aaa",
+            },
+          })}
+        />
+        <Select
+          className='select'
+          options={minutes}
+          components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+          placeholder='minutes'
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              text: "orangered",
+              primary25: "#ddd",
+              primary: "#aaa",
+            },
+          })}
+        />
+      </div>
+    </>
+  );
 
   const bookTableHandler = () => {
     createBookingMut({
@@ -85,81 +160,11 @@ const TableBook = () => {
       <button className='big' onClick={openModal}>
         Book a Table
       </button>
-      <Modal
-        className='book-modal'
-        isOpen={modalIsOpen}
-        // onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}>
+      <Modal className='book-modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
         <h2>Book a Table</h2>
-        <div className='name-phone'>
-          <div className='name'>
-            <div>Enter your name</div>
-            <input
-              type='text'
-              className='name'
-              value={guestName}
-              onChange={(e) => setGuestName(e.target.value)}
-            />
-          </div>
-          <div className='phone'>
-            <div>Enter your phone number</div>
-            <input
-              type='text'
-              className='phone'
-              value={guestPhone}
-              onChange={(e) => setGuestPhone(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <div>How many of you will come?</div>
+        {showNameAndPhoneInput()}
         {showPossiblePeople()}
-        {selectedPeople === 12 && <span>Contact us directly!</span>}
-        <div>Choose date</div>
-        <DatePicker
-          clearIcon={null}
-          calendarIcon={<BiCalendar />}
-          minDate={new Date()}
-          maxDate={addDays(new Date(), 60)}
-          minDetail={"year"}
-          onChange={(e: Date) => setChosenDate(e)}
-          value={chosenDate}
-        />
-        <div>Choose time</div>
-        <div className='time-select'>
-          <Select
-            className='select'
-            options={hours}
-            components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
-            placeholder='hour'
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 0,
-              colors: {
-                ...theme.colors,
-                text: "#777",
-                primary25: "#ddd",
-                primary: "#aaa",
-              },
-            })}
-          />
-          <Select
-            className='select'
-            options={minutes}
-            components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
-            placeholder='minutes'
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 0,
-              colors: {
-                ...theme.colors,
-                text: "orangered",
-                primary25: "#ddd",
-                primary: "#aaa",
-              },
-            })}
-          />
-        </div>
+        {showDateAndTimeChooser()}
         <button className='small' onClick={bookTableHandler}>
           Check Availability
         </button>
