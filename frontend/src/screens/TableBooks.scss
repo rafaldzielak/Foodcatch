@@ -47,6 +47,14 @@
       }
     }
   }
+  h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  hr {
+    border-color: #ccc;
+    margin-bottom: 1rem;
+  }
 }
 
 .ReactModal__Overlay {
@@ -204,16 +212,27 @@ button:disabled {
   pointer-events: none;
 }
 
-.time-select {
-  margin: auto;
-  margin-top: 0.75rem;
-  margin-bottom: 2rem;
-  max-width: 50%;
-  display: flex;
-  justify-content: center;
-  &.select {
-    width: 100%;
+.date-time {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.time-select-wrapper {
+  .time-select {
+    margin: 1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    &.select {
+      width: 100%;
+    }
   }
+}
+
+#react-select-3-input,
+#react-select-5-input {
+  margin-right: 0;
 }
 
 // .css-tlfecz-indicatorContainer {

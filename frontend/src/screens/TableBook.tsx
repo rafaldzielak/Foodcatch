@@ -45,26 +45,29 @@ const TableBook = () => {
   const closeModal = () => setIsOpen(false);
 
   const showNameAndPhoneInput = () => (
-    <div className='name-phone'>
-      <div className='name'>
-        <div>Enter your name</div>
-        <input
-          type='text'
-          className='name'
-          value={guestName}
-          onChange={(e) => setGuestName(e.target.value)}
-        />
+    <>
+      <div className='name-phone'>
+        <div className='name'>
+          <div>Enter your name</div>
+          <input
+            type='text'
+            className='name'
+            value={guestName}
+            onChange={(e) => setGuestName(e.target.value)}
+          />
+        </div>
+        <div className='phone'>
+          <div>Enter your phone number</div>
+          <input
+            type='text'
+            className='phone'
+            value={guestPhone}
+            onChange={(e) => setGuestPhone(e.target.value)}
+          />
+        </div>
       </div>
-      <div className='phone'>
-        <div>Enter your phone number</div>
-        <input
-          type='text'
-          className='phone'
-          value={guestPhone}
-          onChange={(e) => setGuestPhone(e.target.value)}
-        />
-      </div>
-    </div>
+      <hr />
+    </>
   );
 
   const showPossiblePeople = () => {
@@ -89,58 +92,63 @@ const TableBook = () => {
           </div>
         </div>
         {selectedPeople === 12 && <span>Contact us directly!</span>}
+        <hr />
       </>
     );
   };
 
   const showDateAndTimeChooser = () => (
-    <>
-      <div>Choose date</div>
-      <DatePicker
-        clearIcon={null}
-        calendarIcon={<BiCalendar />}
-        minDate={new Date()}
-        maxDate={addDays(new Date(), 60)}
-        minDetail={"year"}
-        onChange={(e: Date) => setChosenDate(e)}
-        value={chosenDate}
-      />
-      <div>Choose time</div>
-      <div className='time-select'>
-        <Select
-          className='select'
-          options={hours}
-          components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
-          placeholder='hour'
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 0,
-            colors: {
-              ...theme.colors,
-              text: "#777",
-              primary25: "#ddd",
-              primary: "#aaa",
-            },
-          })}
-        />
-        <Select
-          className='select'
-          options={minutes}
-          components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
-          placeholder='minutes'
-          theme={(theme) => ({
-            ...theme,
-            borderRadius: 0,
-            colors: {
-              ...theme.colors,
-              text: "orangered",
-              primary25: "#ddd",
-              primary: "#aaa",
-            },
-          })}
+    <div className='date-time'>
+      <div>
+        <div>Choose date</div>
+        <DatePicker
+          clearIcon={null}
+          calendarIcon={<BiCalendar />}
+          minDate={new Date()}
+          maxDate={addDays(new Date(), 60)}
+          minDetail={"year"}
+          onChange={(e: Date) => setChosenDate(e)}
+          value={chosenDate}
         />
       </div>
-    </>
+      <div className='time-select-wrapper'>
+        <div>Choose time</div>
+        <div className='time-select'>
+          <Select
+            className='select'
+            options={hours}
+            components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+            placeholder='hour'
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                text: "#777",
+                primary25: "#ddd",
+                primary: "#aaa",
+              },
+            })}
+          />
+          <Select
+            className='select'
+            options={minutes}
+            components={{ DropdownIndicator: () => null, IndicatorSeparator: () => null }}
+            placeholder='minutes'
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                text: "orangered",
+                primary25: "#ddd",
+                primary: "#aaa",
+              },
+            })}
+          />
+        </div>
+      </div>
+    </div>
   );
 
   const bookTableHandler = () => {
@@ -162,6 +170,7 @@ const TableBook = () => {
       </button>
       <Modal className='book-modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
         <h2>Book a Table</h2>
+        <hr />
         {showNameAndPhoneInput()}
         {showPossiblePeople()}
         {showDateAndTimeChooser()}
