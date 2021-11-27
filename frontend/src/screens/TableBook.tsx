@@ -35,6 +35,8 @@ const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedPeople, setSelectedPeople] = useState(2);
   const [chosenDate, setChosenDate] = useState<Date>();
+  const [chosenHours, setChosenHours] = useState<number>();
+  const [chosenMinutes, setChosenMinutes] = useState<number>();
   const [guestName, setGuestName] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
 
@@ -107,7 +109,7 @@ const TableBook = () => {
           minDate={new Date()}
           maxDate={addDays(new Date(), 60)}
           minDetail={"year"}
-          onChange={(e: Date) => setChosenDate(e)}
+          onChange={(e: Date) => setChosenDate(new Date(e.toDateString()))}
           value={chosenDate}
         />
       </div>
@@ -129,6 +131,7 @@ const TableBook = () => {
                 primary: "#aaa",
               },
             })}
+            onChange={(e) => setChosenHours(Number(e?.value))}
           />
           <Select
             className='select'
@@ -145,6 +148,7 @@ const TableBook = () => {
                 primary: "#aaa",
               },
             })}
+            onChange={(e) => setChosenMinutes(Number(e?.value))}
           />
         </div>
       </div>
@@ -152,13 +156,11 @@ const TableBook = () => {
   );
 
   const bookTableHandler = () => {
+    const date = new Date(chosenDate!)
+      .setTime(chosenDate!.getTime() + ((chosenHours || 0) * 60 * 60000 + (chosenMinutes || 0) * 60000))
+      .toString();
     createBookingMut({
-      variables: {
-        name: guestName,
-        date: chosenDate!.toISOString(),
-        people: selectedPeople,
-        phone: "234723984",
-      },
+      variables: { name: guestName, date, people: selectedPeople, phone: guestPhone },
       refetchQueries: [{ query: getBookingQuery }],
     }).then(({ data }) => console.log(data?.createBooking));
   };
@@ -168,7 +170,7 @@ const TableBook = () => {
       <button className='big' onClick={openModal}>
         Book a Table
       </button>
-      <Modal className='book-modal' isOpen={modalIsOpen} onRequestClose={closeModal}>
+      <Modal className='book-modal' isOpen={modalIsOpen} onRequestClose={closeModal} ariaHideApp={false}>
         <h2>Book a Table</h2>
         <hr />
         {showNameAndPhoneInput()}
