@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "./TableBooks.scss";
 import DatePicker from "react-date-picker";
@@ -7,6 +7,7 @@ import addDays from "date-fns/addDays";
 import Select from "react-select";
 import { useMutation } from "@apollo/client";
 import { createBookingMutation, getBookingQuery } from "../queries/bookingQueries";
+import Message from "../components/Message";
 
 const hours = [
   { value: "14", label: "14" },
@@ -39,6 +40,13 @@ const TableBook = () => {
   const [chosenMinutes, setChosenMinutes] = useState<number>();
   const [guestName, setGuestName] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
+  const [error, setError] = useState("");
+  const [warning, setWarning] = useState("");
+
+  useEffect(() => {
+    if (selectedPeople === 12) setWarning("Please contact us directly for more than 11 people.");
+    else setWarning("");
+  }, [selectedPeople]);
 
   const [createBookingMut] = useMutation<{ createBooking: Booking }>(createBookingMutation);
 
@@ -156,6 +164,13 @@ const TableBook = () => {
   );
 
   const bookTableHandler = () => {
+    if (!selectedPeople || !chosenDate || !chosenHours || !chosenMinutes || !guestName || !guestPhone) {
+      setWarning("");
+      setError("Please fill in all fields to proceed.");
+      return;
+    }
+
+    setError("");
     const date = new Date(chosenDate!)
       .setTime(chosenDate!.getTime() + ((chosenHours || 0) * 60 * 60000 + (chosenMinutes || 0) * 60000))
       .toString();
@@ -170,9 +185,19 @@ const TableBook = () => {
       <button className='big' onClick={openModal}>
         Book a Table
       </button>
-      <Modal className='book-modal' isOpen={modalIsOpen} onRequestClose={closeModal} ariaHideApp={false}>
+      <Modal
+        className='book-modal'
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+        onAfterClose={() => {
+          setError("");
+          setWarning("");
+        }}>
         <h2>Book a Table</h2>
         <hr />
+        {error && <Message type='error' text={error} />}
+        {!error && warning && <Message type='warning' text={warning} />}
         {showNameAndPhoneInput()}
         {showPossiblePeople()}
         {showDateAndTimeChooser()}
