@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
+import { Booking, BookingAttrs } from "../models/booking";
 
 export const BookType = new GraphQLObjectType({
   name: "Booking",
@@ -19,8 +20,12 @@ export const createBooking = {
     name: { type: new GraphQLNonNull(GraphQLString) },
     date: { type: new GraphQLNonNull(GraphQLString) },
   },
-  resolve: (parent: any, args: any) => {
-    console.log(args);
-    return { ...args };
+  resolve: async (parent: any, args: any) => {
+    const date = new Date(Number(args.date));
+    const alreadyBooked = await Booking.count({ date });
+    if (alreadyBooked >= 2) throw new Error("Error - no tables available");
+    const booking = Booking.build({ ...args, date });
+    await booking.save();
+    return args;
   },
 };

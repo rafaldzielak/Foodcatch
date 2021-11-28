@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-interface BookingAttrs {
+export interface BookingAttrs {
   name: string;
-  date: string;
+  date: Date;
   people: number;
   phone: string;
 }
@@ -13,14 +13,14 @@ interface BookingModel extends mongoose.Model<BookingDoc> {
 
 interface BookingDoc extends mongoose.Document {
   name: string;
-  date: string;
+  date: Date;
   people: number;
   phone: string;
 }
 
 const bookingSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  date: { type: String, required: true },
+  date: { type: Date, required: true },
   people: { type: Number, required: true },
   phone: { type: String, required: true },
 });
@@ -30,3 +30,5 @@ bookingSchema.statics.build = (attrs: BookingAttrs) => {
 };
 
 const Booking = mongoose.model<BookingDoc, BookingModel>("Booking", bookingSchema);
+
+export { Booking };
