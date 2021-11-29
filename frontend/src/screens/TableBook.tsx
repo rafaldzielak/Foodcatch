@@ -177,7 +177,9 @@ const TableBook = () => {
     createBookingMut({
       variables: { name: guestName, date, people: selectedPeople, phone: guestPhone },
       refetchQueries: [{ query: getBookingQuery }],
-    }).then(({ data }) => console.log(data?.createBooking));
+    })
+      .then(({ data }) => console.log(data?.createBooking))
+      .catch((error) => setError(error.message));
   };
 
   return (
@@ -202,7 +204,7 @@ const TableBook = () => {
         {showPossiblePeople()}
         {showDateAndTimeChooser()}
         <button className='small' onClick={bookTableHandler}>
-          Check Availability
+          Book a Table
         </button>
       </Modal>
     </>

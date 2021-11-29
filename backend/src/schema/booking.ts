@@ -23,7 +23,8 @@ export const createBooking = {
   resolve: async (parent: any, args: any) => {
     const date = new Date(Number(args.date));
     const alreadyBooked = await Booking.count({ date });
-    if (alreadyBooked >= 2) throw new Error("Error - no tables available");
+    if (alreadyBooked >= 2)
+      throw new Error("There are no available tables at that time. Please try with a different one.");
     const booking = Booking.build({ ...args, date });
     await booking.save();
     return args;

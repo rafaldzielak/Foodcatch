@@ -61,7 +61,6 @@ svg {
   margin-top: 2rem !important;
 }
 
-
 input {
   font-family: "Roboto Condensed", sans-serif;
   width: 90%;
@@ -94,6 +93,7 @@ button {
   border-radius: 3px;
   cursor: pointer;
   position: relative;
+  letter-spacing: 1px;
 
   &.big {
     background-color: #666;
