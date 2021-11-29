@@ -1,16 +1,9 @@
 .ReactModal__Content.book-modal {
   padding-top: 1rem !important;
   color: #333333;
-  min-width: 30vw;
-  max-width: 400px;
-  min-height: 300px;
-  position: fixed;
-  border-width: 1px;
   background-color: #ddd !important;
-  margin: auto;
   text-align: center;
   margin-bottom: 10vh;
-  border-radius: 50px;
   .name-phone {
     display: flex;
     justify-content: center;
@@ -222,13 +215,9 @@ button:disabled {
   margin-right: 0;
 }
 
-// .css-tlfecz-indicatorContainer {
-//   display: none !important;
-// }
 .css-2b097c-container {
   min-width: 50px !important;
   margin: 0 0.5rem;
-  // height: 66px !important;
 }
 .css-g1d714-ValueContainer {
   .css-1uccc91-singleValue {
@@ -244,19 +233,65 @@ button:disabled {
   border: 1px solid #bbb !important;
 }
 
-// .select {
-//   div {
-//     // display: none;
-//     div {
-//       padding: 0.5rem;
-//     }
-//   }
-// }
-
 .css-4ljt47-MenuList {
   div {
     color: #333;
     padding: 0.25rem;
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .ReactModal__Content.book-modal {
+    padding-top: 0.5rem !important;
+    width: 50vw;
+    margin-bottom: 0;
+    overflow: scroll;
+    hr {
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .name-phone {
+      flex-wrap: wrap;
+      gap: 0;
+      input.name,
+      input.phone {
+        margin-right: 0;
+        padding: 1px 5px;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  .people {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .person {
+      cursor: pointer;
+      width: 25px;
+      padding: 0.5rem 0rem;
+      margin: 0.25rem 0.1rem;
+    }
+  }
+  .date-time {
+    grid-template-columns: 1fr;
+  }
+  .react-date-picker__wrapper {
+    margin: 0;
+    padding: 0.25rem 0 0.25rem 1rem !important;
+  }
+  .time-select-wrapper .time-select {
+    margin-bottom: 1rem;
+    & div {
+      & div {
+        min-height: unset;
+      }
+    }
   }
 }
