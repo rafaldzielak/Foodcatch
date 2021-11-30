@@ -16,6 +16,7 @@ interface BookingDoc extends mongoose.Document {
   date: Date;
   people: number;
   phone: string;
+  readableId: string;
 }
 
 const bookingSchema = new mongoose.Schema({
@@ -23,10 +24,20 @@ const bookingSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   people: { type: Number, required: true },
   phone: { type: String, required: true },
+  readableId: { type: String },
 });
 
-bookingSchema.statics.build = (attrs: BookingAttrs) => {
-  return new Booking(attrs);
+bookingSchema.statics.build = async (attrs: BookingAttrs) => {
+  const { date, name, phone } = attrs;
+  let readableId = name.substr(0, 3).toLocaleLowerCase() + phone.substr(-3);
+  let existingBooking = await Booking.findOne({ readableId });
+  if (existingBooking) {
+    readableId += `-${date
+      .getFullYear()
+      .toString()
+      .substr(-2)}-${date.getMonth()}-${date.getDay()}-${date.getHours()}`;
+  }
+  return new Booking({ ...attrs, readableId });
 };
 
 const Booking = mongoose.model<BookingDoc, BookingModel>("Booking", bookingSchema);

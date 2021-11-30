@@ -25,7 +25,7 @@ export const createBooking = {
     const alreadyBooked = await Booking.count({ date });
     if (alreadyBooked >= 2)
       throw new Error("There are no available tables at that time. Please try with a different one.");
-    const booking = Booking.build({ ...args, date });
+    const booking = await Booking.build({ ...args, date });
     await booking.save();
     return args;
   },

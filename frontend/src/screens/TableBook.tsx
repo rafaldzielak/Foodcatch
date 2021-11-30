@@ -164,8 +164,16 @@ const TableBook = () => {
   );
 
   const bookTableHandler = () => {
-    if (!selectedPeople || !chosenDate || !chosenHours || !chosenMinutes || !guestName || !guestPhone) {
+    if (
+      !selectedPeople ||
+      !chosenDate ||
+      !chosenHours ||
+      chosenMinutes === null ||
+      !guestName ||
+      !guestPhone
+    ) {
       setWarning("");
+      console.log(chosenMinutes);
       setError("Please fill in all fields to proceed.");
       return;
     }
