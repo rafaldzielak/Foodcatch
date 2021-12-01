@@ -8,6 +8,7 @@ import Select from "react-select";
 import { useMutation } from "@apollo/client";
 import { createBookingMutation, getBookingQuery } from "../queries/bookingQueries";
 import Message from "../components/Message";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const hours = [
   { value: "14", label: "14" },
@@ -34,14 +35,16 @@ interface Booking {
 
 const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [selectedPeople, setSelectedPeople] = useState(2);
-  const [chosenDate, setChosenDate] = useState<Date>();
-  const [chosenHours, setChosenHours] = useState<number>();
-  const [chosenMinutes, setChosenMinutes] = useState<number>();
-  const [guestName, setGuestName] = useState("");
-  const [guestPhone, setGuestPhone] = useState("");
+  const [selectedPeople, setSelectedPeople] = useLocalStorage("selectedPeople", 2);
+  const [chosenDate, setChosenDate] = useLocalStorage<Date>("selectedDate");
+  const [chosenHours, setChosenHours] = useLocalStorage<number>("chosenHours");
+  const [chosenMinutes, setChosenMinutes] = useLocalStorage<number>("chosenMinutes");
+  const [guestName, setGuestName] = useLocalStorage<string>("guestName");
+  const [guestPhone, setGuestPhone] = useLocalStorage<string>("guestPhone");
   const [error, setError] = useState("");
   const [warning, setWarning] = useState("");
+
+  console.log(chosenDate);
 
   useEffect(() => {
     if (selectedPeople === 12) setWarning("Please contact us directly for more than 11 people.");
