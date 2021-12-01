@@ -5,6 +5,7 @@ function getLSValue<T>(key: string, initialValue?: T) {
   if (rawValue) {
     const value = JSON.parse(rawValue);
     if (initialValue instanceof Function) return initialValue();
+    if (initialValue instanceof Date) return new Date(value);
     return value;
   }
   if (initialValue instanceof Function) return initialValue();

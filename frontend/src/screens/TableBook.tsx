@@ -36,15 +36,13 @@ interface Booking {
 const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedPeople, setSelectedPeople] = useLocalStorage("selectedPeople", 2);
-  const [chosenDate, setChosenDate] = useLocalStorage<Date>("selectedDate");
+  const [chosenDate, setChosenDate] = useLocalStorage<Date>("selectedDate", new Date());
   const [chosenHours, setChosenHours] = useLocalStorage<number>("chosenHours");
   const [chosenMinutes, setChosenMinutes] = useLocalStorage<number>("chosenMinutes");
   const [guestName, setGuestName] = useLocalStorage<string>("guestName");
   const [guestPhone, setGuestPhone] = useLocalStorage<string>("guestPhone");
   const [error, setError] = useState("");
   const [warning, setWarning] = useState("");
-
-  console.log(chosenDate);
 
   useEffect(() => {
     if (selectedPeople === 12) setWarning("Please contact us directly for more than 11 people.");
@@ -110,6 +108,12 @@ const TableBook = () => {
     );
   };
 
+  const compareDates = () => {
+    if (chosenDate >= new Date()) return chosenDate;
+    setChosenDate(new Date());
+    return new Date();
+  };
+
   const showDateAndTimeChooser = () => (
     <div className='date-time'>
       <div>
@@ -121,7 +125,7 @@ const TableBook = () => {
           maxDate={addDays(new Date(), 60)}
           minDetail={"year"}
           onChange={(e: Date) => setChosenDate(new Date(e.toDateString()))}
-          value={chosenDate}
+          value={compareDates()}
         />
       </div>
       <div className='time-select-wrapper'>
