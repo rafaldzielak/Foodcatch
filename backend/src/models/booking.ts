@@ -29,13 +29,13 @@ const bookingSchema = new mongoose.Schema({
 
 bookingSchema.statics.build = async (attrs: BookingAttrs) => {
   const { date, name, phone } = attrs;
-  let readableId = name.substr(0, 3).toLocaleLowerCase() + phone.substr(-3);
+  let readableId = `${name.substr(0, 3).toLocaleLowerCase()}${phone.substr(-3)}d${date
+    .getFullYear()
+    .toString()
+    .substr(-2)}${date.getMonth()}${date.getDay()}`;
   let existingBooking = await Booking.findOne({ readableId });
   if (existingBooking) {
-    readableId += `-${date
-      .getFullYear()
-      .toString()
-      .substr(-2)}-${date.getMonth()}-${date.getDay()}-${date.getHours()}`;
+    readableId += `h${date.getHours()}${date.getMinutes()}`;
   }
   return new Booking({ ...attrs, readableId });
 };

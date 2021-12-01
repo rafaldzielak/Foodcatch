@@ -1,16 +1,10 @@
 import { GraphQLObjectType, GraphQLID, GraphQLSchema } from "graphql";
-import { BookType, createBooking } from "./booking";
+import { BookType, createBooking, getBooking } from "./booking";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    booking: {
-      type: BookType,
-      args: { id: { type: GraphQLID } },
-      resolve: (parent, args) => {
-        return "BookQuery";
-      },
-    },
+    getBooking,
   },
 });
 

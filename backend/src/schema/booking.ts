@@ -9,6 +9,7 @@ export const BookType = new GraphQLObjectType({
     phone: { type: GraphQLString },
     name: { type: GraphQLString },
     date: { type: GraphQLString },
+    readableId: { type: GraphQLString },
   }),
 });
 
@@ -27,6 +28,23 @@ export const createBooking = {
       throw new Error("There are no available tables at that time. Please try with a different one.");
     const booking = await Booking.build({ ...args, date });
     await booking.save();
-    return args;
+    return booking;
+  },
+};
+
+export const getBooking = {
+  type: BookType,
+  args: {
+    readableId: { type: GraphQLString },
+    id: { type: GraphQLString },
+  },
+  resolve: async (parent: any, args: any) => {
+    const { id, readableId } = args;
+    if (!id && !readableId) throw new Error("No booking found!");
+    let booking: BookingAttrs | null;
+    if (id) booking = await Booking.findById(id);
+    else booking = await Booking.findOne({ readableId: readableId });
+    if (!booking) throw new Error("No booking with given ID");
+    return booking;
   },
 };
