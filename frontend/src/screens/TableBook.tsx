@@ -9,6 +9,8 @@ import { useMutation } from "@apollo/client";
 import { createBookingMutation, getBookingQuery } from "../queries/bookingQueries";
 import Message from "../components/Message";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { Booking } from "../models/booking";
+import { useHistory } from "react-router";
 
 const hours = [
   { value: "14", label: "14" },
@@ -26,13 +28,6 @@ const minutes = [
   { value: "30", label: "30" },
 ];
 
-interface Booking {
-  people: Number;
-  phone: String;
-  name: String;
-  date: String;
-}
-
 const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedPeople, setSelectedPeople] = useLocalStorage("selectedPeople", 2);
@@ -43,6 +38,7 @@ const TableBook = () => {
   const [guestPhone, setGuestPhone] = useLocalStorage<string>("guestPhone");
   const [error, setError] = useState("");
   const [warning, setWarning] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     if (selectedPeople === 12) setWarning("Please contact us directly for more than 11 people.");
@@ -180,7 +176,6 @@ const TableBook = () => {
       !guestPhone
     ) {
       setWarning("");
-      console.log(chosenMinutes);
       setError("Please fill in all fields to proceed.");
       return;
     }
@@ -193,7 +188,7 @@ const TableBook = () => {
       variables: { name: guestName, date, people: selectedPeople, phone: guestPhone },
       refetchQueries: [{ query: getBookingQuery }],
     })
-      .then(({ data }) => console.log(data?.createBooking))
+      .then(({ data }) => history.push(`/book/${data?.createBooking.readableId}`))
       .catch((error) => setError(error.message));
   };
 

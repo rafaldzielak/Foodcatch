@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar";
 import SummaryScreen from "./screens/SummaryScreen";
 import TableBook from "./screens/TableBook";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import BookingDetails from "./screens/BookingDetails";
 
 const client = new ApolloClient({ uri: "http://localhost:5000/graphql", cache: new InMemoryCache() });
 
@@ -26,6 +27,7 @@ function App() {
               <Route exact path='/menu' component={MenuScreen} />
               <Route path='/order' component={OrderScreen} />
               <Route path='/summary' component={SummaryScreen} />
+              <Route path='/book/:readableId' component={BookingDetails} />
               <Route path='/book' component={TableBook} />
               <Route path='/' component={HomeScreen} />
             </Switch>
