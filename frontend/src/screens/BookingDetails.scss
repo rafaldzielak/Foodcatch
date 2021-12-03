@@ -1,0 +1,17 @@
+.booking-details-wrapper {
+  height: 100vh;
+  .grey {
+    color: #666;
+  }
+  & div {
+    & h2 {
+      margin-top: 2rem;
+      &.confirm {
+        font-size: 3rem;
+      }
+    }
+    & img {
+      max-height: 200px;
+    }
+  }
+}

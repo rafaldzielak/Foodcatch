@@ -1,7 +1,7 @@
 export interface Booking {
-  people: Number;
-  phone: String;
-  name: String;
-  date: String;
-  readableId?: String;
+  people: number;
+  phone: string;
+  name: string;
+  date: string;
+  readableId?: string;
 }
