@@ -11,6 +11,7 @@ import Message from "../components/Message";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { Booking } from "../models/booking";
 import { useHistory } from "react-router";
+import { add } from "date-fns";
 
 const hours = [
   { value: "14", label: "14" },
@@ -28,10 +29,12 @@ const minutes = [
   { value: "30", label: "30" },
 ];
 
+const getCurrentDateWithoutTime = () => new Date(new Date().setHours(0, 0, 0, 0));
+
 const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [selectedPeople, setSelectedPeople] = useLocalStorage("selectedPeople", 2);
-  const [chosenDate, setChosenDate] = useLocalStorage<Date>("selectedDate", new Date());
+  const [chosenDate, setChosenDate] = useLocalStorage<Date>("selectedDate", getCurrentDateWithoutTime());
   const [chosenHours, setChosenHours] = useLocalStorage<number>("chosenHours");
   const [chosenMinutes, setChosenMinutes] = useLocalStorage<number>("chosenMinutes");
   const [guestName, setGuestName] = useLocalStorage<string>("guestName");
@@ -105,9 +108,10 @@ const TableBook = () => {
   };
 
   const compareDates = () => {
-    if (chosenDate >= new Date()) return chosenDate;
-    setChosenDate(new Date());
-    return new Date();
+    const currentDate = getCurrentDateWithoutTime();
+    if (chosenDate >= currentDate) return chosenDate;
+    setChosenDate(currentDate);
+    return currentDate;
   };
 
   const showDateAndTimeChooser = () => (
@@ -117,7 +121,7 @@ const TableBook = () => {
         <DatePicker
           clearIcon={null}
           calendarIcon={<BiCalendar />}
-          minDate={new Date()}
+          minDate={getCurrentDateWithoutTime()}
           maxDate={addDays(new Date(), 60)}
           minDetail={"year"}
           onChange={(e: Date) => setChosenDate(new Date(e.toDateString()))}
@@ -181,9 +185,7 @@ const TableBook = () => {
     }
 
     setError("");
-    const date = new Date(chosenDate!)
-      .setTime(chosenDate!.getTime() + ((chosenHours || 0) * 60 * 60000 + (chosenMinutes || 0) * 60000))
-      .toString();
+    const date = add(chosenDate, { hours: chosenHours, minutes: chosenMinutes }).toString();
     createBookingMut({
       variables: { name: guestName, date, people: selectedPeople, phone: guestPhone },
       refetchQueries: [{ query: getBookingQuery }],
