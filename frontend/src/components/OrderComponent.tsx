@@ -113,7 +113,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
             )}
           </>
         ) : (
-          "No items yet"
+          <h3>No items yet</h3>
         )}
       </div>
     </div>

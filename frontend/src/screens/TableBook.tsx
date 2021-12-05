@@ -58,7 +58,7 @@ const TableBook = () => {
     <>
       <div className='name-phone'>
         <div className='name'>
-          <div>Enter your name</div>
+          <div className='ls-1'>Enter your name</div>
           <input
             type='text'
             className='name'
@@ -67,7 +67,7 @@ const TableBook = () => {
           />
         </div>
         <div className='phone'>
-          <div>Enter your phone number</div>
+          <div className='ls-1'>Enter your phone number</div>
           <input
             type='text'
             className='phone'
@@ -85,7 +85,7 @@ const TableBook = () => {
     for (let i = 1; i < 12; i++) peopleArr.push(i);
     return (
       <>
-        <div>How many of you will come?</div>
+        <div className='ls-1'>How many of you will come?</div>
         <div className='people'>
           {peopleArr.map((num) => (
             <div
@@ -117,7 +117,7 @@ const TableBook = () => {
   const showDateAndTimeChooser = () => (
     <div className='date-time'>
       <div>
-        <div>Choose date</div>
+        <div className='ls-1'>Choose date</div>
         <DatePicker
           clearIcon={null}
           calendarIcon={<BiCalendar />}
@@ -129,7 +129,7 @@ const TableBook = () => {
         />
       </div>
       <div className='time-select-wrapper'>
-        <div>Choose time</div>
+        <div className='ls-1'>Choose time</div>
         <div className='time-select'>
           <Select
             className='select'

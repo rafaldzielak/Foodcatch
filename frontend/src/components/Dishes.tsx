@@ -53,7 +53,9 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
               <p className='desc'>{dish.description}</p>
               <div className='price'>
                 <p>{dish.price} zł</p>
-                <button onClick={() => addToCartAction(dish.id)}>Order</button>
+                <button className='ls-2' onClick={() => addToCartAction(dish.id)}>
+                  Add to Order
+                </button>
               </div>
             </div>
             <hr />
