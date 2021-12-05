@@ -190,6 +190,12 @@
           "quantity"
           "price";
       }
+      &.extra {
+        min-width: unset !important;
+      }
+      .summary {
+        justify-content: center;
+      }
       padding-bottom: 1rem;
       border-bottom: 1px solid #ddd;
     }

@@ -22,7 +22,7 @@ export const createBooking = {
     date: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (parent: any, args: any) => {
-    const date = new Date(Number(args.date));
+    const date = new Date(args.date);
     const alreadyBooked = await Booking.count({ date });
     if (alreadyBooked >= 2)
       throw new Error("There are no available tables at that time. Please try with a different one.");
