@@ -14,11 +14,12 @@ const AddressComponent: React.FC<PropTypes> = ({ setIsFormValid, error }) => {
   const [street, setStreet] = useState("");
   const [streetNo, setStreetNo] = useState("");
   const [city, setCity] = useState("");
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
-    if (name && surname && street && streetNo && city) setIsFormValid(true);
+    if (name && surname && street && streetNo && city && phone) setIsFormValid(true);
     else setIsFormValid(false);
-  }, [name, surname, street, streetNo, city, setIsFormValid]);
+  }, [name, surname, street, streetNo, city, phone, setIsFormValid]);
 
   return (
     <div className='address'>
@@ -74,6 +75,15 @@ const AddressComponent: React.FC<PropTypes> = ({ setIsFormValid, error }) => {
             id='city'
             onChange={(e) => setCity(e.target.value)}
             value={city}></input>
+        </div>
+        <div className='form-row'>
+          <label htmlFor='city'>Phone: </label>
+          <input
+            type='text'
+            placeholder='Phone'
+            id='phone'
+            onChange={(e) => setPhone(e.target.value)}
+            value={phone}></input>
         </div>
       </form>
     </div>
