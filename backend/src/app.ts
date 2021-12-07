@@ -1,6 +1,6 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
-import { bookingSchema } from "./schema/rootSchema";
+import { rootSchema } from "./schema/rootSchema";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -14,7 +14,7 @@ app.use(cors());
 
 const PORT = 5000;
 
-app.use("/graphql", graphqlHTTP({ schema: bookingSchema, graphiql: true }));
+app.use("/graphql", graphqlHTTP({ schema: rootSchema, graphiql: true }));
 
 app.listen(PORT, () => {
   console.log("Listening on: " + PORT);

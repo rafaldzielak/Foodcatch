@@ -48,7 +48,7 @@ const orderSchema = new mongoose.Schema({
   paymentMethod: { type: String, required: true },
 });
 
-orderSchema.statics.build = async (attrs: OrderAttrs) => {
+orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order({ ...attrs });
 };
 
