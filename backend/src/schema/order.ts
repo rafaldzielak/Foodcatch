@@ -5,6 +5,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLInputObjectType,
+  GraphQLFloat,
 } from "graphql";
 import { Order, OrderAttrs } from "../models/order";
 
@@ -21,7 +22,8 @@ export const DishInputType = new GraphQLInputObjectType({
   fields: () => ({
     name: { type: GraphQLString },
     img: { type: GraphQLString },
-    price: { type: GraphQLInt },
+    price: { type: GraphQLFloat },
+    amount: { type: GraphQLInt },
   }),
 });
 
@@ -29,7 +31,6 @@ export const OrderType = new GraphQLObjectType({
   name: "Order",
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
     date: { type: GraphQLString },
     phone: { type: GraphQLString },
     dish: { type: DishType },
@@ -45,7 +46,6 @@ export const OrderType = new GraphQLObjectType({
 export const createOrder = {
   type: OrderType,
   args: {
-    name: { type: new GraphQLNonNull(GraphQLString) },
     date: { type: new GraphQLNonNull(GraphQLString) },
     phone: { type: new GraphQLNonNull(GraphQLString) },
     dish: { type: DishInputType },
