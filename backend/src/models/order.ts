@@ -8,7 +8,7 @@ interface DishWithNumber extends DishAttrs {
 export interface OrderAttrs {
   date: Date;
   phone: string;
-  dish: DishWithNumber;
+  dishes: [DishWithNumber];
   firstName: string;
   surname: string;
   street: string;
@@ -24,7 +24,7 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 interface OrderDoc extends mongoose.Document {
   date: Date;
   phone: string;
-  dish: DishWithNumber;
+  dishes: [DishWithNumber];
   firstName: string;
   surname: string;
   street: string;
@@ -36,7 +36,7 @@ interface OrderDoc extends mongoose.Document {
 const orderSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   phone: { type: String, required: true },
-  dish: { type: Schema.Types.Mixed },
+  dishes: { type: [Schema.Types.Mixed] },
   firstName: { type: String, required: true },
   surname: { type: String, required: true },
   street: { type: String, required: true },

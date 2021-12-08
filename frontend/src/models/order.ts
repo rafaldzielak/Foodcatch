@@ -1,7 +1,7 @@
 export interface Order {
   date: Date;
   phone: string;
-  dish: DishWithNumber;
+  dishes: [DishWithNumber];
   firstName: string;
   surname: string;
   street: string;

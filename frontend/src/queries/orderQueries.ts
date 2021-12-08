@@ -4,7 +4,7 @@ export const createOrderMutation = gql`
   mutation CreateOrder(
     $date: String!
     $phone: String!
-    $dish: DishInput!
+    $dishes: [DishInput]!
     $firstName: String!
     $surname: String!
     $street: String!
@@ -15,7 +15,7 @@ export const createOrderMutation = gql`
     createOrder(
       date: $date
       phone: $phone
-      dish: $dish
+      dishes: $dishes
       firstName: $firstName
       surname: $surname
       street: $street
@@ -23,10 +23,14 @@ export const createOrderMutation = gql`
       city: $city
       paymentMethod: $paymentMethod
     ) {
+      id
       date
       phone
-      dish {
+      dishes {
         name
+        img
+        price
+        amount
       }
       firstName
       surname

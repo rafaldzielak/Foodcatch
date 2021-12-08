@@ -51,7 +51,7 @@ const OrderScreen = () => {
         surname,
         date: new Date().toISOString(),
         phone,
-        dish: { name: "string", price: 9.99, amount: 1 },
+        dishes: [{ name: "string", price: 9.99, amount: 1 }],
         street,
         streetNumber: streetNo,
         city,
