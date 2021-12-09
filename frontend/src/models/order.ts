@@ -1,4 +1,5 @@
 export interface Order {
+  id: String;
   date: Date;
   phone: string;
   dishes: [DishWithNumber];

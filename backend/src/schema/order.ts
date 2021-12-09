@@ -22,10 +22,10 @@ export const DishType = new GraphQLObjectType({
 export const DishInputType = new GraphQLInputObjectType({
   name: "DishInput",
   fields: () => ({
-    name: { type: GraphQLString },
+    name: { type: new GraphQLNonNull(GraphQLString) },
     img: { type: GraphQLString },
-    price: { type: GraphQLFloat },
-    amount: { type: GraphQLInt },
+    price: { type: new GraphQLNonNull(GraphQLFloat) },
+    amount: { type: new GraphQLNonNull(GraphQLInt) },
   }),
 });
 
@@ -63,6 +63,19 @@ export const createOrder = {
     const order = Order.build({ ...args, date });
     console.log(order);
     await order.save();
+    return order;
+  },
+};
+
+export const getOrder = {
+  type: OrderType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: async (parent: any, args: any) => {
+    const order = await Order.findById(args.id);
+    console.log(order);
+    if (!order) throw new Error("Order with given ID not found");
     return order;
   },
 };

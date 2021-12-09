@@ -1,11 +1,12 @@
 import { GraphQLObjectType, GraphQLID, GraphQLSchema } from "graphql";
 import { createBooking, getBooking } from "./booking";
-import { createOrder } from "./order";
+import { createOrder, getOrder } from "./order";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
     getBooking,
+    getOrder,
   },
 });
 

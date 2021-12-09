@@ -11,6 +11,7 @@ import "./order-screen.scss";
 import { useMutation } from "@apollo/client";
 import { createOrderMutation } from "../queries/orderQueries";
 import { Order } from "../models/order";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 export type PaymentType = "cash" | "card";
 
@@ -30,6 +31,8 @@ const OrderScreen = () => {
   const { placeOrderAction } = useActions();
   const history = useHistory();
 
+  const { items } = useTypedSelector((state) => state.cart);
+
   const [createOrderMut] = useMutation<{ createOrder: Order }>(createOrderMutation);
 
   useEffect(() => {
@@ -39,25 +42,31 @@ const OrderScreen = () => {
 
   const handlePlaceOrder = () => {
     setAddressError("");
-    if (isFormValid && paymentType) {
-      placeOrderAction();
-      history.push("/summary");
-    }
     if (!paymentType) setPaymentError("Please select payment type");
     if (!isFormValid) setAddressError("Please fill in every field");
+    if (!isFormValid || !paymentType) return;
     createOrderMut({
       variables: {
         firstName: name,
         surname,
         date: new Date().toISOString(),
         phone,
-        dishes: [{ name: "string", price: 9.99, amount: 1 }],
+        dishes: items.map(({ title, imgURL, price, quantity }) => ({
+          name: title,
+          img: imgURL,
+          price: price,
+          amount: quantity,
+        })),
         street,
         streetNumber: streetNo,
         city,
         paymentMethod: paymentType,
       },
-    }).then(({ data }) => console.log(data?.createOrder));
+    }).then(({ data }) => {
+      console.log(data?.createOrder);
+      history.push(`/summary/${data?.createOrder.id}`);
+      if (data) placeOrderAction(data.createOrder);
+    });
   };
 
   const showAddressFields = () => (

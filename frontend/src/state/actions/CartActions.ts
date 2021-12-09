@@ -3,6 +3,7 @@ import { Dispatch } from "redux";
 import { ActionType } from "../actionInterfaces/actionTypes";
 import { dishesMock } from "../../mocks/dishesMock";
 import { CartState } from "../reducers/cartReducers";
+import { Order } from "../../models/order";
 
 const setLSCartItems = (items: []) => {
   localStorage.setItem("cart", JSON.stringify(items));
@@ -27,7 +28,7 @@ export const updateCartAction =
     setLSCartItems(cart.items);
   };
 
-export const placeOrderAction = () => (dispatch: Dispatch<Action>, getState: any) => {
+export const placeOrderAction = (orderData: Order) => (dispatch: Dispatch<Action>, getState: any) => {
   const {
     cart: { items },
   }: { cart: CartState } = getState();
