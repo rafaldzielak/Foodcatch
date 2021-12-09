@@ -48,7 +48,7 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
                 <img src={dish.imgURL} alt='' onClick={() => setModalImgUrl(dish.imgURL)} />
               </div>
               <h2>
-                {dish.title} {dish.isVege && vegeIcon} {dish.isSpicy && spicyIcon}
+                {dish.name} {dish.isVege && vegeIcon} {dish.isSpicy && spicyIcon}
               </h2>
               <p className='desc'>{dish.description}</p>
               <div className='price'>

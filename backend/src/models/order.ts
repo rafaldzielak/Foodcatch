@@ -1,14 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 import { DishAttrs } from "./Dish";
 
-interface DishWithNumber extends DishAttrs {
-  amount: number;
-}
-
 export interface OrderAttrs {
   date: Date;
   phone: string;
-  dishes: [DishWithNumber];
+  dishes: [DishAttrs];
   firstName: string;
   surname: string;
   street: string;
@@ -24,7 +20,7 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 interface OrderDoc extends mongoose.Document {
   date: Date;
   phone: string;
-  dishes: [DishWithNumber];
+  dishes: [DishAttrs];
   firstName: string;
   surname: string;
   street: string;

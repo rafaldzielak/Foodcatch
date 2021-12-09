@@ -56,7 +56,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
           <FadeIn>
             <div className={`order-item ${size}`}>
               <img src={orderItem.imgURL} alt='' />
-              <h4 className='title'>{orderItem.title}</h4>
+              <h4 className='title'>{orderItem.name}</h4>
               {!hideAmountChooser && (
                 <div className='quantity'>
                   <span onClick={() => updateCartAction(orderItem.id, orderItem.quantity - 1)}>

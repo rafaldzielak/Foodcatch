@@ -7,6 +7,7 @@ import {
   GraphQLInputObjectType,
   GraphQLFloat,
   GraphQLList,
+  GraphQLBoolean,
 } from "graphql";
 import { Order, OrderAttrs } from "../models/order";
 
@@ -14,18 +15,28 @@ export const DishType = new GraphQLObjectType({
   name: "Dish",
   fields: () => ({
     name: { type: GraphQLString },
-    img: { type: GraphQLString },
+    imgURL: { type: GraphQLString },
     price: { type: GraphQLFloat },
-    amount: { type: GraphQLInt },
+    quantity: { type: GraphQLInt },
+    id: { type: GraphQLString },
+    description: { type: GraphQLString },
+    isVege: { type: GraphQLBoolean },
+    isSpicy: { type: GraphQLBoolean },
+    type: { type: GraphQLString },
   }),
 });
 export const DishInputType = new GraphQLInputObjectType({
   name: "DishInput",
   fields: () => ({
     name: { type: new GraphQLNonNull(GraphQLString) },
-    img: { type: GraphQLString },
+    imgURL: { type: GraphQLString },
     price: { type: new GraphQLNonNull(GraphQLFloat) },
-    amount: { type: new GraphQLNonNull(GraphQLInt) },
+    quantity: { type: new GraphQLNonNull(GraphQLInt) },
+    id: { type: new GraphQLNonNull(GraphQLString) },
+    description: { type: new GraphQLNonNull(GraphQLString) },
+    isVege: { type: new GraphQLNonNull(GraphQLBoolean) },
+    isSpicy: { type: new GraphQLNonNull(GraphQLBoolean) },
+    type: { type: GraphQLString },
   }),
 });
 

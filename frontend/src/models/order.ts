@@ -13,7 +13,7 @@ export interface Order {
 
 interface DishWithNumber {
   name: string;
-  img?: string;
+  imgURL?: string;
   price: number;
-  amount: number;
+  quantity: number;
 }

@@ -31,7 +31,7 @@ const OrderScreen = () => {
   const { placeOrderAction } = useActions();
   const history = useHistory();
 
-  const { items } = useTypedSelector((state) => state.cart);
+  const { items: cartItems } = useTypedSelector((state) => state.cart);
 
   const [createOrderMut] = useMutation<{ createOrder: Order }>(createOrderMutation);
 
@@ -51,12 +51,7 @@ const OrderScreen = () => {
         surname,
         date: new Date().toISOString(),
         phone,
-        dishes: items.map(({ title, imgURL, price, quantity }) => ({
-          name: title,
-          img: imgURL,
-          price: price,
-          amount: quantity,
-        })),
+        dishes: cartItems,
         street,
         streetNumber: streetNo,
         city,

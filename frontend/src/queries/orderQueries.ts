@@ -28,9 +28,9 @@ export const createOrderMutation = gql`
       phone
       dishes {
         name
-        img
+        imgURL
         price
-        amount
+        quantity
       }
       firstName
       surname

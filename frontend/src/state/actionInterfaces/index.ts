@@ -1,10 +1,10 @@
 import { ActionType } from "./actionTypes";
 
 export interface Dish {
-  id: number;
+  id: string;
   quantity: number;
   price: number;
-  title: string;
+  name: string;
   description: string;
   isVege: boolean;
   isSpicy: boolean;
@@ -18,12 +18,12 @@ interface AddToCartAction {
 
 interface RemoveFromCartAction {
   type: ActionType.REMOVE_FROM_CART;
-  payload: number;
+  payload: string;
 }
 
 interface UpdateCartItemAction {
   type: ActionType.UPDATE_CART_ITEM;
-  payload: { id: number; quantity: number };
+  payload: { id: string; quantity: number };
 }
 
 interface PlaceOrderAction {
