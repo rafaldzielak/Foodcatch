@@ -1,11 +1,7 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import {
-  addToCartAction,
-  removeFromCartAction,
-  updateCartAction,
-  placeOrderAction,
-} from "../state/actions/CartActions";
+import { addToCartAction, removeFromCartAction, updateCartAction } from "../state/actions/CartActions";
+import { placeOrderAction } from "../state/actions/OrderActions";
 
 export const useActions = () => {
   const dispatch = useDispatch();

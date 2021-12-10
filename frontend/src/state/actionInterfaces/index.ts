@@ -1,3 +1,4 @@
+import { Order } from "../../models/order";
 import { ActionType } from "./actionTypes";
 
 export interface Dish {
@@ -26,9 +27,9 @@ interface UpdateCartItemAction {
   payload: { id: string; quantity: number };
 }
 
-interface PlaceOrderAction {
-  type: ActionType.PLACE_ORDER;
-  payload: Dish[];
+interface SetOrderAction {
+  type: ActionType.SET_ORDER;
+  payload: Order;
 }
 
-export type Action = AddToCartAction | RemoveFromCartAction | UpdateCartItemAction | PlaceOrderAction;
+export type Action = AddToCartAction | RemoveFromCartAction | UpdateCartItemAction | SetOrderAction;

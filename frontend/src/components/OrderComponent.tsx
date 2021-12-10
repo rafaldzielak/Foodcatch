@@ -31,7 +31,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
 }) => {
   const history = useHistory();
   const placeOrder = () => history.push("/order");
-  const { items } = useTypedSelector((state) => (showOrder ? state.order : state.cart));
+  const { dishes } = useTypedSelector((state) => (showOrder ? state.order : state.cart));
   const { updateCartAction } = useActions();
 
   const applyCouponHandler = () => {
@@ -51,7 +51,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
         <h2>Your Order</h2>
       </nav>
       <hr />
-      {items.map((orderItem) => (
+      {dishes.map((orderItem) => (
         <React.Fragment key={orderItem.id}>
           <FadeIn>
             <div className={`order-item ${size}`}>
@@ -86,7 +86,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
       )}
 
       <div>
-        {items.length ? (
+        {dishes.length ? (
           <>
             <div className='summary'>
               <div className='coupon'>
@@ -100,7 +100,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
               <h3>
                 Summary:{" "}
                 {getNumberWithTwoDecimals(
-                  items.reduce<number>((acc, orderItem) => (acc += orderItem.price * orderItem.quantity), 0) +
+                  dishes.reduce<number>((acc, dish) => (acc += dish.price * dish.quantity), 0) +
                     (showDelivery ? 9.99 : 0)
                 )}{" "}
                 zł

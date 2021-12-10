@@ -31,7 +31,7 @@ const OrderScreen = () => {
   const { placeOrderAction } = useActions();
   const history = useHistory();
 
-  const { items: cartItems } = useTypedSelector((state) => state.cart);
+  const { dishes: cartItems } = useTypedSelector((state) => state.cart);
 
   const [createOrderMut] = useMutation<{ createOrder: Order }>(createOrderMutation);
 

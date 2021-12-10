@@ -21,7 +21,7 @@ const SummaryScreen = () => {
     }, 60000);
   }, []);
 
-  if (!order.items.length) return <Redirect to='/' />;
+  if (!order.dishes.length) return <Redirect to='/' />;
 
   return (
     <main>

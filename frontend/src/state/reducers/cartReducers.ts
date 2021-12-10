@@ -3,30 +3,30 @@ import { Action, Dish } from "../actionInterfaces/index";
 
 export interface CartState {
   error: string | null;
-  items: Dish[];
+  dishes: Dish[];
 }
 
 const initialState: CartState = {
   error: null,
-  items: [],
+  dishes: [],
 };
 
 export const cartReducer = (state: CartState = initialState, action: Action): CartState => {
   switch (action.type) {
     case ActionType.ADD_TO_CART:
-      const item = state.items.find((item) => item.id === action.payload.id);
+      const item = state.dishes.find((item) => item.id === action.payload.id);
       if (item) item.quantity += 1;
-      else state.items.push(action.payload);
-      return { ...state, items: state.items };
+      else state.dishes.push(action.payload);
+      return { ...state, dishes: state.dishes };
     case ActionType.REMOVE_FROM_CART:
-      return { ...state, items: state.items.filter((item) => item.id !== action.payload) };
+      return { ...state, dishes: state.dishes.filter((item) => item.id !== action.payload) };
 
     case ActionType.UPDATE_CART_ITEM:
-      const itemToUpdate = state.items.find((item) => item.id === action.payload.id);
+      const itemToUpdate = state.dishes.find((item) => item.id === action.payload.id);
       if (itemToUpdate) itemToUpdate.quantity = action.payload.quantity;
       return { ...state };
-    case ActionType.PLACE_ORDER:
-      return { ...state, items: [] };
+    case ActionType.SET_ORDER:
+      return { ...state, dishes: [] };
     default:
       return state;
   }
