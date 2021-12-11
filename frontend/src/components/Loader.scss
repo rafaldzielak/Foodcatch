@@ -1,0 +1,18 @@
+.loader {
+  span {
+    margin-right: 250px;
+    animation-duration: 3s;
+    &:first-of-type {
+      animation-delay: -1.5s;
+    }
+  }
+  &.mt-s {
+    margin-top: 2rem;
+  }
+  &.mt-m {
+    margin-top: 4rem;
+  }
+  &.mt-l {
+    margin-top: 8rem;
+  }
+}
