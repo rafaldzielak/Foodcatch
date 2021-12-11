@@ -1,7 +1,6 @@
 import "./SummaryScreen.scss";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "react-customizable-progressbar";
-import moment from "moment";
 import { OrderComponent } from "../components/OrderComponent";
 import { Redirect, useParams } from "react-router";
 import { useQuery } from "@apollo/client";
@@ -10,11 +9,16 @@ import { getOrderQuery } from "../queries/orderQueries";
 import { setOrderAction } from "../state/actions/OrderActions";
 import { useDispatch } from "react-redux";
 import Loader from "../components/Loader";
+import { addMinutes, differenceInMinutes, format, getMinutes } from "date-fns";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const minutesForDelivery = 45;
 
 const SummaryScreen = () => {
-  const [timeElapsed, setTimeElapsed] = useState(1);
+  const order = useTypedSelector((state) => state.order);
+  const [timeElapsed, setTimeElapsed] = useState(
+    getMinutes(addMinutes(order.date, minutesForDelivery).getTime())
+  );
 
   const { orderId } = useParams<{ orderId: string }>();
   const dispatch = useDispatch();
@@ -28,13 +32,13 @@ const SummaryScreen = () => {
   }, [data, dispatch]);
 
   useEffect(() => {
-    let tempTimeElapsed = 1;
+    let tempTimeElapsed = differenceInMinutes(addMinutes(order.date, minutesForDelivery), new Date());
     const deliveryCounter = setInterval(() => {
       tempTimeElapsed++;
       if (tempTimeElapsed >= minutesForDelivery) clearInterval(deliveryCounter);
       setTimeElapsed((prev) => prev + 1);
     }, 60000);
-  }, []);
+  }, [order]);
 
   if (loading) return <Loader />;
 
@@ -44,7 +48,9 @@ const SummaryScreen = () => {
     <main>
       <div className='menu container summary'>
         <div className='flex-grow '>
-          <h1>Your Order should be delivered at {moment().add(45, "minutes").format("HH:mm")}</h1>
+          <h1>
+            Your Order should be delivered at {format(addMinutes(order.date, minutesForDelivery), "hh:mm")}
+          </h1>
           <div className='grid-justify-center'>
             <ProgressBar
               radius={150}
