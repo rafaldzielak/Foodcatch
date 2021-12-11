@@ -41,3 +41,25 @@ export const createOrderMutation = gql`
     }
   }
 `;
+
+export const getOrderQuery = gql`
+  query GetOrder($id: String!) {
+    getOrder(id: $id) {
+      id
+      date
+      phone
+      dishes {
+        name
+        imgURL
+        price
+        quantity
+      }
+      firstName
+      surname
+      street
+      streetNumber
+      city
+      paymentMethod
+    }
+  }
+`;

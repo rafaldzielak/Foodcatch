@@ -14,19 +14,22 @@ import TableBook from "./screens/TableBook";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import BookingDetails from "./screens/BookingDetails";
 
-const client = new ApolloClient({ uri: "http://localhost:5000/graphql", cache: new InMemoryCache() });
+export const apolloClient = new ApolloClient({
+  uri: "http://localhost:5000/graphql",
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
     <Provider store={store}>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <Router>
           <div className='App'>
             <Navbar />
             <Switch>
               <Route exact path='/menu' component={MenuScreen} />
               <Route path='/order' component={OrderScreen} />
-              <Route path='/summary' component={SummaryScreen} />
+              <Route path='/summary/:orderId' component={SummaryScreen} />
               <Route path='/book/:readableId' component={BookingDetails} />
               <Route path='/book' component={TableBook} />
               <Route path='/' component={HomeScreen} />

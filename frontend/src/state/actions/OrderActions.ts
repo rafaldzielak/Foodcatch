@@ -8,3 +8,7 @@ export const placeOrderAction = (orderData: Order) => (dispatch: Dispatch<Action
   dispatch({ type: ActionType.SET_ORDER, payload: orderData });
   setLSCartItems([]);
 };
+
+export const setOrderAction = (orderData: Order) => (dispatch: Dispatch<Action>) => {
+  dispatch({ type: ActionType.SET_ORDER, payload: orderData });
+};

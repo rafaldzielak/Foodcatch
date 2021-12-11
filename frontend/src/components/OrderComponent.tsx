@@ -52,7 +52,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
       </nav>
       <hr />
       {dishes.map((orderItem) => (
-        <React.Fragment key={orderItem.id}>
+        <React.Fragment key={orderItem.id + orderItem.name}>
           <FadeIn>
             <div className={`order-item ${size}`}>
               <img src={orderItem.imgURL} alt='' />

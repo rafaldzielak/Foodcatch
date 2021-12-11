@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { format } from "date-fns";
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router";
 import { Booking } from "../models/booking";
 import { getBookingQuery } from "../queries/bookingQueries";
@@ -11,8 +11,6 @@ const BookingDetails = () => {
   const { data, loading, error } = useQuery<{ getBooking: Booking }>(getBookingQuery, {
     variables: { readableId },
   });
-
-  useEffect(() => {}, []);
 
   if (loading) return <div>Loading</div>;
   if (error) return <div>{error.message}</div>;

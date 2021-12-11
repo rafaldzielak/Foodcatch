@@ -1,16 +1,31 @@
 import "./SummaryScreen.scss";
 import React, { useEffect, useState } from "react";
-import { useTypedSelector } from "../hooks/useTypedSelector";
 import ProgressBar from "react-customizable-progressbar";
 import moment from "moment";
 import { OrderComponent } from "../components/OrderComponent";
-import { Redirect } from "react-router";
+import { Redirect, useParams } from "react-router";
+import { useQuery } from "@apollo/client";
+import { Order } from "../models/order";
+import { getOrderQuery } from "../queries/orderQueries";
+import { setOrderAction } from "../state/actions/OrderActions";
+import { useDispatch } from "react-redux";
+import Loader from "../components/Loader";
 
 const minutesForDelivery = 45;
 
 const SummaryScreen = () => {
-  const order = useTypedSelector((state) => state.order);
   const [timeElapsed, setTimeElapsed] = useState(1);
+
+  const { orderId } = useParams<{ orderId: string }>();
+  const dispatch = useDispatch();
+
+  const { data, loading, error } = useQuery<{ getOrder: Order }>(getOrderQuery, {
+    variables: { id: orderId },
+  });
+
+  useEffect(() => {
+    if (data) dispatch(setOrderAction(data.getOrder));
+  }, [data, dispatch]);
 
   useEffect(() => {
     let tempTimeElapsed = 1;
@@ -21,7 +36,9 @@ const SummaryScreen = () => {
     }, 60000);
   }, []);
 
-  if (!order.dishes.length) return <Redirect to='/' />;
+  if (loading) return <Loader />;
+
+  if (error) return <Redirect to='/' />;
 
   return (
     <main>
