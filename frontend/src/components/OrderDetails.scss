@@ -1,0 +1,30 @@
+.address-order {
+  margin: auto;
+  margin-top: 2rem;
+  border-left: 1px solid #aaa;
+
+  .grid {
+    max-width: 400px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    place-items: start;
+    p {
+      font-size: 1.5rem;
+    }
+  }
+  .order-details {
+    svg {
+      width: 25px;
+      vertical-align: top !important;
+    }
+  }
+}
+@media screen and (max-width: 500px) {
+  .address-order {
+    .grid {
+      max-width: 200px;
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import Loader from "../components/Loader";
 import { addMinutes, differenceInMinutes, format, getMinutes } from "date-fns";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import Address from "../components/OrderDetails";
 
 const minutesForDelivery = 45;
 
@@ -32,7 +33,7 @@ const SummaryScreen = () => {
   }, [data, dispatch]);
 
   useEffect(() => {
-    let tempTimeElapsed = differenceInMinutes(addMinutes(order.date, minutesForDelivery), new Date());
+    let tempTimeElapsed = differenceInMinutes(addMinutes(order.date, minutesForDelivery - 1), new Date());
     const deliveryCounter = setInterval(() => {
       tempTimeElapsed++;
       if (tempTimeElapsed >= minutesForDelivery) clearInterval(deliveryCounter);
@@ -75,7 +76,11 @@ const SummaryScreen = () => {
             </ProgressBar>
           </div>
         </div>
-        <OrderComponent size='extra large' hideButton hideAmountChooser showOrder />
+        <div>
+          <OrderComponent size='extra large' hideButton hideAmountChooser showOrder />
+          <hr />
+          <Address />
+        </div>
       </div>
     </main>
   );
