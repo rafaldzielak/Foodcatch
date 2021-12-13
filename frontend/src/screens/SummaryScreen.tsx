@@ -33,13 +33,15 @@ const SummaryScreen = () => {
   }, [data, dispatch]);
 
   useEffect(() => {
-    let tempTimeElapsed = differenceInMinutes(addMinutes(order.date, minutesForDelivery - 1), new Date());
+    let tempTimeElapsed = differenceInMinutes(new Date(), order.date) + 1;
+    setTimeElapsed(tempTimeElapsed);
     const deliveryCounter = setInterval(() => {
       tempTimeElapsed++;
       if (tempTimeElapsed >= minutesForDelivery) clearInterval(deliveryCounter);
-      setTimeElapsed((prev) => prev + 1);
+      setTimeElapsed(tempTimeElapsed);
     }, 60000);
-  }, [order]);
+    return () => clearInterval(deliveryCounter);
+  }, [order.date]);
 
   if (loading) return <Loader />;
 
