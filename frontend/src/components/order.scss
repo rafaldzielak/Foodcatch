@@ -125,6 +125,15 @@
         margin-right: 2rem;
       }
     }
+    .final-price {
+      .grey {
+        color: #888;
+      }
+      margin-left: auto;
+      h3 {
+        text-align: end;
+      }
+    }
 
     display: flex;
     justify-content: space-between;
