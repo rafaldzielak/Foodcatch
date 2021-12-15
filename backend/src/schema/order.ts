@@ -11,6 +11,8 @@ import {
 } from "graphql";
 import { Order, OrderAttrs } from "../models/order";
 
+const coupons = [{ couponName: "test20", discount: 20 }];
+
 export const DishType = new GraphQLObjectType({
   name: "Dish",
   fields: () => ({
@@ -53,8 +55,30 @@ export const OrderType = new GraphQLObjectType({
     streetNumber: { type: GraphQLString },
     city: { type: GraphQLString },
     paymentMethod: { type: GraphQLString },
+    couponAppliedPercentage: { type: GraphQLInt },
   }),
 });
+
+export const CouponType = new GraphQLObjectType({
+  name: "Coupon",
+  fields: () => ({
+    couponApplied: { type: GraphQLString },
+    couponAppliedPercentage: { type: GraphQLInt },
+  }),
+});
+
+export const useCoupon = {
+  type: CouponType,
+  args: {
+    couponApplied: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: async (parent: any, args: any) => {
+    const coupon = coupons.find((coupon) => coupon.couponName === args.couponApplied);
+    if (!coupon) throw new Error("Invalid coupon");
+    console.log(coupon);
+    return { couponApplied: coupon.couponName, couponAppliedPercentage: coupon.discount };
+  },
+};
 
 export const createOrder = {
   type: OrderType,
@@ -68,10 +92,16 @@ export const createOrder = {
     streetNumber: { type: new GraphQLNonNull(GraphQLString) },
     city: { type: new GraphQLNonNull(GraphQLString) },
     paymentMethod: { type: new GraphQLNonNull(GraphQLString) },
+    couponApplied: { type: GraphQLString },
   },
   resolve: async (parent: any, args: any) => {
     const date = new Date(args.date);
     const order = Order.build({ ...args, date });
+    if (args.couponApplied) {
+      const coupon = coupons.find((coupon) => coupon.couponName === args.couponApplied);
+      if (!coupon) throw new Error("Invalid coupon");
+      order.couponAppliedPercentage = coupon.discount;
+    }
     console.log(order);
     await order.save();
     return order;

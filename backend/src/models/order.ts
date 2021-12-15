@@ -11,6 +11,7 @@ export interface OrderAttrs {
   streetNumber: string;
   city: string;
   paymentMethod: "cash" | "card";
+  couponAppliedPercentage: number;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -27,6 +28,7 @@ interface OrderDoc extends mongoose.Document {
   streetNumber: string;
   city: string;
   paymentMethod: "cash" | "card";
+  couponAppliedPercentage: number;
 }
 
 const orderSchema = new mongoose.Schema({
@@ -39,6 +41,7 @@ const orderSchema = new mongoose.Schema({
   streetNumber: { type: String, required: true },
   city: { type: String, required: true },
   paymentMethod: { type: String, required: true },
+  couponAppliedPercentage: { type: Number },
 });
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
