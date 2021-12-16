@@ -21,6 +21,8 @@ const OrderScreen = () => {
   const [addressError, setAddressError] = useState("");
   const [paymentError, setPaymentError] = useState("");
 
+  const [couponApplied, setCouponApplied] = useState("");
+
   const [name, setName] = useLocalStorage("addressFirstName", "");
   const [surname, setSurname] = useLocalStorage("addressSurname", "");
   const [street, setStreet] = useLocalStorage("addressStreet", "");
@@ -56,6 +58,7 @@ const OrderScreen = () => {
         streetNumber: streetNo,
         city,
         paymentMethod: paymentType,
+        couponApplied,
       },
     }).then(({ data }) => {
       console.log(data?.createOrder);
@@ -135,7 +138,14 @@ const OrderScreen = () => {
   return (
     <>
       <div className='menu container mt'>
-        <OrderComponent size='large' hideButton showBackBtn showDelivery showCouponInput />
+        <OrderComponent
+          size='large'
+          hideButton
+          showBackBtn
+          showDelivery
+          showCouponInput
+          setCouponApplied={setCouponApplied}
+        />
         <div className='address-item'>
           {showAddressFields()}
           <PaymentMethodChooser paymentType={paymentType} setPaymentType={setPaymentType} />

@@ -1,12 +1,16 @@
 import "./order.scss";
 import "./address.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useActions";
 import { AiFillMinusSquare, AiFillPlusSquare } from "react-icons/ai";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { useHistory } from "react-router";
 import FadeIn from "react-fade-in";
+import { useLazyQuery } from "@apollo/client";
+import { useCouponQuery } from "../queries/orderQueries";
+import { Coupon } from "../models/coupon";
+import Alert from "./Alert";
 
 const getNumberWithTwoDecimals = (num: number) => (Math.round(num * 100) / 100).toFixed(2);
 
@@ -18,6 +22,7 @@ interface OrderComponentTypes {
   showOrder?: boolean;
   hideAmountChooser?: boolean;
   showCouponInput?: boolean;
+  setCouponApplied?: Function;
 }
 
 export const OrderComponent: React.FC<OrderComponentTypes> = ({
@@ -28,6 +33,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   showOrder,
   hideAmountChooser,
   showCouponInput,
+  setCouponApplied,
 }) => {
   const history = useHistory();
   const placeOrder = () => history.push("/order");
@@ -36,11 +42,20 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   const [couponInput, setCouponInput] = useState("");
   const [couponAppliedPercentage, setCouponAppliedPercentage] = useState(0);
 
+  const [fetchCoupon, { loading, data, error: couponError }] =
+    useLazyQuery<{ useCoupon: Coupon }>(useCouponQuery);
+
   const applyCouponHandler = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
     e.preventDefault();
-    if (couponInput === "test20") setCouponAppliedPercentage(20);
-    console.log("Apply coupon");
+    fetchCoupon({ variables: { couponApplied: couponInput } });
   };
+
+  useEffect(() => {
+    if (data?.useCoupon) {
+      setCouponAppliedPercentage(data.useCoupon.couponAppliedPercentage);
+      if (setCouponApplied) setCouponApplied(data.useCoupon.couponApplied);
+    }
+  }, [data, setCouponApplied]);
 
   const showPriceSummary = () => {
     const priceWithoutCoupon =
@@ -52,13 +67,13 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
           Summary: {getNumberWithTwoDecimals(priceWithoutCoupon)} zł
         </h3>
         {couponAppliedPercentage !== 0 && (
-          <>
+          <FadeIn transitionDuration={500}>
             <h3>Coupon Applied: {couponAppliedPercentage}%</h3>
             <h3>
               Final Price:{" "}
               {getNumberWithTwoDecimals((priceWithoutCoupon * (100 - couponAppliedPercentage)) / 100)} zł
             </h3>
-          </>
+          </FadeIn>
         )}
       </div>
     );
@@ -105,7 +120,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
       <div className='summary'>
         {showCouponInput && (
           <div className='coupon'>
-            <form className='form-row' onClick={applyCouponHandler}>
+            <form className='form-row' onSubmit={applyCouponHandler}>
               <input
                 type='text'
                 placeholder='Coupon'
@@ -114,6 +129,16 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
                 onChange={(e) => setCouponInput(e.target.value)}></input>
               <button>Apply Coupon</button>
             </form>
+            {couponError && !loading && (
+              <Alert fadeOutSeconds={3} hideCloseBtn>
+                {couponError.message}
+              </Alert>
+            )}
+            {couponAppliedPercentage !== 0 && !loading && (
+              <Alert fadeOutSeconds={3} hideCloseBtn type='success'>
+                Coupon Applied!
+              </Alert>
+            )}
           </div>
         )}
         {showPriceSummary()}

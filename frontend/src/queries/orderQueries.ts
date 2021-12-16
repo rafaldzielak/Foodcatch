@@ -1,5 +1,14 @@
 import { gql } from "@apollo/client";
 
+export const useCouponQuery = gql`
+  query UseCoupon($couponApplied: String!) {
+    useCoupon(couponApplied: $couponApplied) {
+      couponApplied
+      couponAppliedPercentage
+    }
+  }
+`;
+
 export const createOrderMutation = gql`
   mutation CreateOrder(
     $date: String!
@@ -11,6 +20,7 @@ export const createOrderMutation = gql`
     $streetNumber: String!
     $city: String!
     $paymentMethod: String!
+    $couponApplied: String
   ) {
     createOrder(
       date: $date
@@ -22,6 +32,7 @@ export const createOrderMutation = gql`
       streetNumber: $streetNumber
       city: $city
       paymentMethod: $paymentMethod
+      couponApplied: $couponApplied
     ) {
       id
       date
@@ -38,6 +49,7 @@ export const createOrderMutation = gql`
       streetNumber
       city
       paymentMethod
+      couponAppliedPercentage
     }
   }
 `;
@@ -60,6 +72,7 @@ export const getOrderQuery = gql`
       streetNumber
       city
       paymentMethod
+      couponAppliedPercentage
     }
   }
 `;

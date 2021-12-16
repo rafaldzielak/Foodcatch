@@ -98,6 +98,9 @@
     }
   }
   .summary {
+    .alert {
+      margin-right: 0;
+    }
     margin-left: 2rem;
     h2 {
       font-size: 2rem;
@@ -131,6 +134,7 @@
       }
       margin-left: auto;
       h3 {
+        transition: all 0.5s ease-in-out;
         text-align: end;
       }
     }
