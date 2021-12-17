@@ -9,6 +9,7 @@ export interface OrderAttrs {
   surname: string;
   street: string;
   streetNumber: string;
+  email: string;
   city: string;
   paymentMethod: "cash" | "card";
   couponAppliedPercentage: number;
@@ -26,6 +27,7 @@ interface OrderDoc extends mongoose.Document {
   surname: string;
   street: string;
   streetNumber: string;
+  email: string;
   city: string;
   paymentMethod: "cash" | "card";
   couponAppliedPercentage: number;
@@ -39,6 +41,7 @@ const orderSchema = new mongoose.Schema({
   surname: { type: String, required: true },
   street: { type: String, required: true },
   streetNumber: { type: String, required: true },
+  email: { type: String, required: true },
   city: { type: String, required: true },
   paymentMethod: { type: String, required: true },
   couponAppliedPercentage: { type: Number },

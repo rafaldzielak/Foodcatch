@@ -53,6 +53,7 @@ export const OrderType = new GraphQLObjectType({
     surname: { type: GraphQLString },
     street: { type: GraphQLString },
     streetNumber: { type: GraphQLString },
+    email: { type: GraphQLString },
     city: { type: GraphQLString },
     paymentMethod: { type: GraphQLString },
     couponAppliedPercentage: { type: GraphQLInt },
@@ -92,6 +93,7 @@ export const createOrder = {
     streetNumber: { type: new GraphQLNonNull(GraphQLString) },
     city: { type: new GraphQLNonNull(GraphQLString) },
     paymentMethod: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
     couponApplied: { type: GraphQLString },
   },
   resolve: async (parent: any, args: any) => {
