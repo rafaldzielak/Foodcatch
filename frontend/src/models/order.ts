@@ -11,4 +11,5 @@ export interface Order {
   streetNumber: string;
   city: string;
   paymentMethod: "cash" | "card";
+  couponAppliedPercentage: number;
 }

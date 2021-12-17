@@ -38,6 +38,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   const history = useHistory();
   const placeOrder = () => history.push("/order");
   const { dishes } = useTypedSelector((state) => (showOrder ? state.order : state.cart));
+  const order = useTypedSelector((state) => state.order);
   const { updateCartAction } = useActions();
   const [couponInput, setCouponInput] = useState("");
   const [couponAppliedPercentage, setCouponAppliedPercentage] = useState(0);
@@ -49,6 +50,10 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
     e.preventDefault();
     fetchCoupon({ variables: { couponApplied: couponInput } });
   };
+
+  useEffect(() => {
+    if (showOrder && order.couponAppliedPercentage) setCouponAppliedPercentage(order.couponAppliedPercentage);
+  }, [order, showOrder]);
 
   useEffect(() => {
     if (data?.useCoupon) {

@@ -79,7 +79,7 @@ const SummaryScreen = () => {
           </div>
         </div>
         <div>
-          <OrderComponent size='extra large' hideButton hideAmountChooser showOrder />
+          <OrderComponent size='extra large' hideButton hideAmountChooser showOrder showDelivery />
           <hr />
           <Address />
         </div>

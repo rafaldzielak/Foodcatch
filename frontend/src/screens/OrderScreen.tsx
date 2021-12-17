@@ -61,7 +61,6 @@ const OrderScreen = () => {
         couponApplied,
       },
     }).then(({ data }) => {
-      console.log(data?.createOrder);
       history.push(`/summary/${data?.createOrder.id}`);
       if (data) placeOrderAction(data.createOrder);
     });

@@ -15,6 +15,7 @@ const initialState: Order = {
   street: "",
   streetNumber: "",
   surname: "",
+  couponAppliedPercentage: 0,
 };
 
 export const orderReducer = (state: Order = initialState, action: Action): Order => {
