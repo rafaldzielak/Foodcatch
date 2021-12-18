@@ -16,6 +16,7 @@ export const createOrderMutation = gql`
     $dishes: [DishInput]!
     $firstName: String!
     $surname: String!
+    $email: String!
     $street: String!
     $streetNumber: String!
     $city: String!
@@ -28,6 +29,7 @@ export const createOrderMutation = gql`
       dishes: $dishes
       firstName: $firstName
       surname: $surname
+      email: $email
       street: $street
       streetNumber: $streetNumber
       city: $city
@@ -46,6 +48,7 @@ export const createOrderMutation = gql`
       firstName
       surname
       street
+      email
       streetNumber
       city
       paymentMethod
@@ -66,6 +69,7 @@ export const getOrderQuery = gql`
         price
         quantity
       }
+      email
       firstName
       surname
       street

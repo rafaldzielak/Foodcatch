@@ -8,6 +8,7 @@ const initialState: Order = {
   dishes: [
     { description: "", id: "", imgURL: "", isSpicy: false, isVege: false, name: "", price: 0, quantity: 0 },
   ],
+  email: "",
   firstName: "",
   id: "",
   paymentMethod: "card",

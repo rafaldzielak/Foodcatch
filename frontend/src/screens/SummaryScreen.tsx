@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import Loader from "../components/Loader";
 import { addMinutes, differenceInMinutes, format, getMinutes } from "date-fns";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import Address from "../components/OrderDetails";
+import OrderDetails from "../components/OrderDetails";
 
 const minutesForDelivery = 45;
 
@@ -81,7 +81,7 @@ const SummaryScreen = () => {
         <div>
           <OrderComponent size='extra large' hideButton hideAmountChooser showOrder showDelivery />
           <hr />
-          <Address />
+          <OrderDetails />
         </div>
       </div>
     </main>

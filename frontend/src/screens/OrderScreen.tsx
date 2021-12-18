@@ -25,6 +25,7 @@ const OrderScreen = () => {
 
   const [name, setName] = useLocalStorage("addressFirstName", "");
   const [surname, setSurname] = useLocalStorage("addressSurname", "");
+  const [email, setEmail] = useLocalStorage("addressEmail", "");
   const [street, setStreet] = useLocalStorage("addressStreet", "");
   const [streetNo, setStreetNo] = useLocalStorage("addressStreetNo", "");
   const [city, setCity] = useLocalStorage("addressCity", "");
@@ -51,6 +52,7 @@ const OrderScreen = () => {
       variables: {
         firstName: name,
         surname,
+        email,
         date: new Date().toISOString(),
         phone,
         dishes: cartItems,
@@ -93,6 +95,15 @@ const OrderScreen = () => {
             id='surname'
             onChange={(e) => setSurname(e.target.value)}
             value={surname}></input>
+        </div>
+        <div className='form-row'>
+          <label htmlFor='surname'>Email: </label>
+          <input
+            type='text'
+            placeholder='Email'
+            id='email'
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}></input>
         </div>
         <div className='form-row'>
           <label htmlFor='street'>Street: </label>

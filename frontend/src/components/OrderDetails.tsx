@@ -2,11 +2,11 @@ import { format } from "date-fns";
 import React from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import "./OrderDetails.scss";
-import { AiOutlineCalendar, AiOutlinePhone } from "react-icons/ai";
+import { AiOutlineCalendar, AiOutlinePhone, AiOutlineMail, AiOutlineFieldNumber } from "react-icons/ai";
 import { BsPerson, BsPinMap } from "react-icons/bs";
 import { MdOutlineLocationCity, MdOutlinePayment } from "react-icons/md";
 
-const Address = () => {
+const OrderDetails = () => {
   const order = useTypedSelector((state) => state.order);
   return (
     <div>
@@ -14,10 +14,16 @@ const Address = () => {
         <h2>Order Details</h2>
         <div className='grid order-details'>
           <p>
+            <AiOutlineFieldNumber /> <b>ID: </b> {order.id}
+          </p>
+          <p>
             <AiOutlineCalendar /> <b>Date: </b> {format(order.date, "dd.MM.yyyy hh:mm")}
           </p>
           <p>
             <AiOutlinePhone /> <b>Phone: </b> {order.phone}
+          </p>
+          <p>
+            <AiOutlineMail /> <b>Email: </b> {order.email}
           </p>
           <p>
             <BsPerson /> <b>Name: </b> {order.firstName} {order.surname}
@@ -38,4 +44,4 @@ const Address = () => {
   );
 };
 
-export default Address;
+export default OrderDetails;

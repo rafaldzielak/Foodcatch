@@ -7,6 +7,7 @@ export interface Order {
   dishes: [Dish];
   firstName: string;
   surname: string;
+  email: string;
   street: string;
   streetNumber: string;
   city: string;
