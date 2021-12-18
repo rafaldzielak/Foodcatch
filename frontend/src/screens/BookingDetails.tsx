@@ -31,7 +31,7 @@ const BookingDetails = () => {
         </div>
         <div className='date'>
           <h2 className='grey'>Date:</h2>
-          <h2>{format(new Date(Number(data?.getBooking.date!)), "EEEE, do MMMM Y - H:m")}</h2>
+          <h2>{format(new Date(Number(data?.getBooking.date!)), "EEEE, do MMMM Y - H:mm")}</h2>
         </div>
       </div>
     </div>
