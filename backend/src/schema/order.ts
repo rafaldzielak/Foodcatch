@@ -10,6 +10,7 @@ import {
   GraphQLBoolean,
 } from "graphql";
 import { Order, OrderAttrs } from "../models/order";
+import sendEmail from "../utils/sendMail";
 
 const coupons = [{ couponName: "test20", discount: 20 }];
 
@@ -106,6 +107,8 @@ export const createOrder = {
     }
     console.log(order);
     await order.save();
+    sendEmail(order.email, "FoodCatch: Booking confirmed!", `<h1> ${order.date} </h1>`);
+
     return order;
   },
 };
