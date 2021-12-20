@@ -12,9 +12,9 @@ const transport = nodeMailer.createTransport({
 });
 
 export default function sendEmail(receiver: string, subject: string, html: string) {
-  const mailOptions = { from: process.env.EMAIL_USER, to: receiver, subject, html };
+  const mailOptions = { from: process.env.EMAIL_USER, to: receiver, subject, html: html };
   transport.sendMail(mailOptions, (error, info) => {
-    console.log(error);
+    if (error) console.log(error);
     console.log("SENT: " + info.response);
   });
 }
