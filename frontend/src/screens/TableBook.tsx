@@ -39,6 +39,7 @@ const TableBook = () => {
   const [chosenMinutes, setChosenMinutes] = useLocalStorage<number>("chosenMinutes");
   const [guestName, setGuestName] = useLocalStorage<string>("guestName");
   const [guestPhone, setGuestPhone] = useLocalStorage<string>("guestPhone");
+  const [guestEmail, setGuestEmail] = useLocalStorage<string>("guestEmail");
   const [error, setError] = useState("");
   const [warning, setWarning] = useState("");
   const history = useHistory();
@@ -58,7 +59,7 @@ const TableBook = () => {
     <>
       <div className='name-phone'>
         <div className='name'>
-          <div className='ls-1'>Enter your name</div>
+          <div className='ls-1'>Name</div>
           <input
             type='text'
             className='name'
@@ -67,12 +68,21 @@ const TableBook = () => {
           />
         </div>
         <div className='phone'>
-          <div className='ls-1'>Enter your phone number</div>
+          <div className='ls-1'>Phone number</div>
           <input
             type='text'
             className='phone'
             value={guestPhone}
             onChange={(e) => setGuestPhone(e.target.value)}
+          />
+        </div>
+        <div className='email'>
+          <div className='ls-1'>Email</div>
+          <input
+            type='text'
+            className='email'
+            value={guestEmail}
+            onChange={(e) => setGuestEmail(e.target.value)}
           />
         </div>
       </div>
@@ -177,7 +187,8 @@ const TableBook = () => {
       !chosenHours ||
       chosenMinutes === null ||
       !guestName ||
-      !guestPhone
+      !guestPhone ||
+      !guestEmail
     ) {
       setWarning("");
       setError("Please fill in all fields to proceed.");
@@ -187,7 +198,7 @@ const TableBook = () => {
     setError("");
     const date = add(chosenDate, { hours: chosenHours, minutes: chosenMinutes }).toString();
     createBookingMut({
-      variables: { name: guestName, date, people: selectedPeople, phone: guestPhone },
+      variables: { name: guestName, date, people: selectedPeople, phone: guestPhone, email: guestEmail },
       refetchQueries: [{ query: getBookingQuery }],
     })
       .then(({ data }) => history.push(`/book/${data?.createBooking.readableId}`))
