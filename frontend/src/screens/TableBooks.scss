@@ -6,12 +6,13 @@
   margin-bottom: 10vh;
   .name-phone {
     display: grid;
-    grid-template-columns: 100px 80px 170px;
+    grid-template-columns: 110px 80px 160px;
     justify-content: center;
     gap: 1rem;
     input.name,
     input.phone,
     input.email {
+      margin-left: 0;
       letter-spacing: 0.5px;
       margin-right: 0;
       height: 20px;

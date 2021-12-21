@@ -8,6 +8,7 @@ export const BookType = new GraphQLObjectType({
     people: { type: GraphQLInt },
     phone: { type: GraphQLString },
     name: { type: GraphQLString },
+    email: { type: GraphQLString },
     date: { type: GraphQLString },
     readableId: { type: GraphQLString },
   }),
@@ -19,6 +20,7 @@ export const createBooking = {
     people: { type: new GraphQLNonNull(GraphQLInt) },
     phone: { type: new GraphQLNonNull(GraphQLString) },
     name: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
     date: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (parent: any, args: any) => {

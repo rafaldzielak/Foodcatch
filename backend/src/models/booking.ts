@@ -5,6 +5,7 @@ export interface BookingAttrs {
   date: Date;
   people: number;
   phone: string;
+  email: string;
 }
 
 interface BookingModel extends mongoose.Model<BookingDoc> {
@@ -16,6 +17,7 @@ interface BookingDoc extends mongoose.Document {
   date: Date;
   people: number;
   phone: string;
+  email: string;
   readableId: string;
 }
 
@@ -24,6 +26,7 @@ const bookingSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   people: { type: Number, required: true },
   phone: { type: String, required: true },
+  email: { type: String, required: true },
   readableId: { type: String },
 });
 
