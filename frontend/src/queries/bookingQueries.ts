@@ -5,6 +5,7 @@ export const getBookingQuery = gql`
     getBooking(id: $id, readableId: $readableId) {
       date
       name
+      email
       id
       people
       readableId
@@ -13,9 +14,10 @@ export const getBookingQuery = gql`
 `;
 
 export const createBookingMutation = gql`
-  mutation CreateBooking($people: Int!, $phone: String!, $name: String!, $date: String!) {
-    createBooking(people: $people, phone: $phone, name: $name, date: $date) {
+  mutation CreateBooking($people: Int!, $phone: String!, $name: String!, $date: String!, $email: String!) {
+    createBooking(people: $people, phone: $phone, name: $name, date: $date, email: $email) {
       readableId
+      email
       name
       people
       phone

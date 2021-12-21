@@ -29,6 +29,10 @@ const BookingDetails = () => {
           <h2 className='grey'>People:</h2>
           <h2>{data?.getBooking.people}</h2>
         </div>
+        <div className='email'>
+          <h2 className='grey'>Email:</h2>
+          <h2>{data?.getBooking.email}</h2>
+        </div>
         <div className='date'>
           <h2 className='grey'>Date:</h2>
           <h2>{format(new Date(Number(data?.getBooking.date!)), "EEEE, do MMMM Y - H:mm")}</h2>
