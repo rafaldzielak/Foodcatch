@@ -139,6 +139,7 @@ const generateHTMLStringForOrder = (order: OrderDoc) => {
     </head>
     <body>
       <h1> Hello ${order.firstName}, your order is confirmed! </h1>
+      <h2> For more details <a href='${process.env.SITE_URL}/summary/${order.id}'>Click here</a> </h2>
       <h2> Order: </h2>
       ${order.dishes.map((dish) => `<h3>${dish.name}: ${dish.price} zł x${dish.quantity}</h3>`).join("")}
     </body>

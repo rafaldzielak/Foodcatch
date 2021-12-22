@@ -71,6 +71,7 @@ const generateHTMLStringForBooking = (booking: BookingDoc) => {
     </head>
     <body>
       <h1> Hello ${booking.name}, your booking is confirmed! </h1>
+      <h2>For more details <a href='${process.env.SITE_URL}/book/${booking.readableId}'>Click here</a></h2>
       <h2> Booking: </h2>
       <div className='booking-details-wrapper'>
       <div>
