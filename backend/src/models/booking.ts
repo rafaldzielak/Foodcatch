@@ -12,7 +12,7 @@ interface BookingModel extends mongoose.Model<BookingDoc> {
   build(attrs: BookingAttrs): BookingDoc;
 }
 
-interface BookingDoc extends mongoose.Document {
+export interface BookingDoc extends mongoose.Document {
   name: string;
   date: Date;
   people: number;

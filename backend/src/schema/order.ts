@@ -108,8 +108,8 @@ export const createOrder = {
     }
     console.log(order);
     await order.save();
-    generateHTMLStringForBooking(order);
-    sendEmail(order.email, "FoodCatch: Order confirmed!", generateHTMLStringForBooking(order));
+    generateHTMLStringForOrder(order);
+    sendEmail(order.email, "FoodCatch: Order confirmed!", generateHTMLStringForOrder(order));
     return order;
   },
 };
@@ -127,7 +127,7 @@ export const getOrder = {
   },
 };
 
-const generateHTMLStringForBooking = (order: OrderDoc) => {
+const generateHTMLStringForOrder = (order: OrderDoc) => {
   return /*html*/ `
   <!DOCTYPE html>
   <html lang="en">
@@ -135,7 +135,7 @@ const generateHTMLStringForBooking = (order: OrderDoc) => {
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Booking Confirmed</title>
+      <title>Order Confirmed</title>
     </head>
     <body>
       <h1> Hello ${order.firstName}, your order is confirmed! </h1>
