@@ -13,6 +13,7 @@ import SummaryScreen from "./screens/SummaryScreen";
 import TableBook from "./screens/TableBook";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import BookingDetails from "./screens/BookingDetails";
+import CreateDish from "./screens/CreateDish";
 
 export const apolloClient = new ApolloClient({
   uri: "http://localhost:5000/graphql",
@@ -32,6 +33,7 @@ function App() {
               <Route path='/summary/:orderId' component={SummaryScreen} />
               <Route path='/book/:readableId' component={BookingDetails} />
               <Route path='/book' component={TableBook} />
+              <Route path='/dishes/add' component={CreateDish} />
               <Route path='/' component={HomeScreen} />
             </Switch>
             <Footer />

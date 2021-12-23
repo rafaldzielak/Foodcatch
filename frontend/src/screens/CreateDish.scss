@@ -1,0 +1,22 @@
+button {
+  margin-top: 2rem;
+  padding: 1rem 4rem;
+  font-size: 1.75rem;
+  letter-spacing: 1px;
+  &:hover {
+    color: white;
+  }
+}
+h1 {
+  font-size: 2.5rem;
+}
+
+.fs-2 {
+  font-size: 1.75rem;
+  margin-top: 1rem;
+}
+
+input {
+  margin-top: 0.5rem;
+  width: 100%;
+}

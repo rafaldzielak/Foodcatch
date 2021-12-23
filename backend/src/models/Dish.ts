@@ -1,3 +1,5 @@
+export type DishType = "Appetizers" | "Soups" | "Main Dishes" | "Desserts";
+
 export interface DishAttrs {
   id: string;
   quantity: number;
@@ -7,5 +9,5 @@ export interface DishAttrs {
   isVege: boolean;
   isSpicy: boolean;
   imgURL?: string;
-  type: string;
+  type: DishType;
 }
