@@ -11,14 +11,14 @@ interface PropTypes {
   chosenType: dishType;
 }
 
-const vegeIcon = (
+export const vegeIcon = (
   <img
     src='https://image.flaticon.com/icons/png/128/2909/2909841.png'
     alt=''
     data-tip='This Dish Is Vegetarian'
   />
 );
-const spicyIcon = (
+export const spicyIcon = (
   <img
     src='https://cdn0.iconfinder.com/data/icons/food-2-11/128/food-29-512.png'
     alt=''

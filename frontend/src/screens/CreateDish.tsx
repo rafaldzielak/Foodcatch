@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import Switch from "react-switch";
+import { spicyIcon, vegeIcon } from "../components/Dishes";
+import useToggle from "../hooks/useToggle";
 import "./CreateDish.scss";
 
 const CreateDish = () => {
@@ -6,8 +9,8 @@ const CreateDish = () => {
   const [price, setPrice] = useState<number>();
   const [description, setDescription] = useState("");
   const [imgURL, setImgURL] = useState("");
-  // const [isVege, setIsVege] = useState(false);
-  // const [isSpicy, setIsSpicy] = useState(false);
+  const [isVege, toggleIsVege] = useToggle();
+  const [isSpicy, toggleIsSpicy] = useToggle();
   // const [type, setType] = useState("");
 
   const showFormInput = () => (
@@ -39,14 +42,24 @@ const CreateDish = () => {
           <div className='ls-1 fs-2'>Image URL</div>
           <input type='text' className='imgURL' value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
         </div>
+        <div className='toggle-wrapper'>
+          <div className='toggle vege'>
+            <div className='ls-1 fs-2'>Vege {vegeIcon}</div>
+            <Switch onChange={toggleIsVege} checked={isVege} className='react-switch' />
+          </div>
+          <div className='toggle spicy'>
+            <div className='ls-1 fs-2'>Spicy {spicyIcon}</div>
+            <Switch onChange={toggleIsSpicy} checked={isSpicy} className='react-switch' />
+          </div>
+        </div>
       </div>
       <hr />
     </>
   );
 
   return (
-    <div className='container'>
-      <h1 className='ls-1'>Add dish</h1>
+    <div className='containe dish-create'>
+      <h1 className='ls-1'>Add a dish</h1>
       {showFormInput()}
       <button>Add dish</button>
     </div>
