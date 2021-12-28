@@ -1,8 +1,6 @@
 export type DishType = "Appetizers" | "Soups" | "Main Dishes" | "Desserts";
 
 export interface DishAttrs {
-  id: string;
-  quantity: number;
   price: number;
   name: string;
   description: string;
@@ -10,4 +8,9 @@ export interface DishAttrs {
   isSpicy: boolean;
   imgURL?: string;
   type: DishType;
+}
+
+export interface DishSelectAttrs extends DishAttrs {
+  id: string;
+  quantity: number;
 }

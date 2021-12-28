@@ -1,10 +1,10 @@
 import mongoose, { Schema } from "mongoose";
-import { DishAttrs } from "./Dish";
+import { DishSelectAttrs } from "./dish";
 
 export interface OrderAttrs {
   date: Date;
   phone: string;
-  dishes: [DishAttrs];
+  dishes: [DishSelectAttrs];
   firstName: string;
   surname: string;
   street: string;
@@ -22,7 +22,7 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 export interface OrderDoc extends mongoose.Document {
   date: Date;
   phone: string;
-  dishes: [DishAttrs];
+  dishes: [DishSelectAttrs];
   firstName: string;
   surname: string;
   street: string;
