@@ -183,3 +183,21 @@ img {
 .mr-5 {
   margin-right: 8rem;
 }
+
+.form-container {
+  max-width: 500px;
+  .select-wrapper {
+    margin: auto;
+    width: 50%;
+    .select {
+      margin-top: 1rem;
+      & div {
+        border-color: white;
+        & div {
+          font-size: 1.5rem;
+          width: unset !important;
+        }
+      }
+    }
+  }
+}

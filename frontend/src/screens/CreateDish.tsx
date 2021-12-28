@@ -1,8 +1,16 @@
 import React, { useState } from "react";
+import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
 import { spicyIcon, vegeIcon } from "../components/Dishes";
 import useToggle from "../hooks/useToggle";
 import "./CreateDish.scss";
+
+const options = [
+  { value: "Appetizers", label: "Appetizers" },
+  { value: "Soups", label: "Soups" },
+  { value: "Main Dishes", label: "Main Dishes" },
+  { value: "Desserts", label: "Desserts" },
+];
 
 const CreateDish = () => {
   const [title, setTitle] = useState("");
@@ -11,11 +19,20 @@ const CreateDish = () => {
   const [imgURL, setImgURL] = useState("");
   const [isVege, toggleIsVege] = useToggle();
   const [isSpicy, toggleIsSpicy] = useToggle();
-  // const [type, setType] = useState("");
+  const [type, setType] = useState<OptionTypeBase>();
 
   const showFormInput = () => (
     <>
-      <div className=''>
+      <div className='container form-container'>
+        <div className='select-wrapper'>
+          <div className='ls-1 fs-2'>Type</div>
+          <Select
+            className='ls-1 select'
+            value={type}
+            onChange={(selectedOption) => setType(selectedOption)}
+            options={options}></Select>
+        </div>
+
         <div className=''>
           <div className='ls-1 fs-2'>Name</div>
           <input type='text' className='name' value={title} onChange={(e) => setTitle(e.target.value)} />
