@@ -75,7 +75,7 @@ const CreateDish = () => {
   );
 
   return (
-    <div className='containe dish-create'>
+    <div className='container dish-create'>
       <h1 className='ls-1'>Add a dish</h1>
       {showFormInput()}
       <button>Add dish</button>
