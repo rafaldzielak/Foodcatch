@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLID, GraphQLSchema } from "graphql";
 import { createBooking, getBooking } from "./booking";
 import { createOrder, getOrder, useCoupon } from "./order";
+import { createDish } from "./dish";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -16,6 +17,7 @@ const Mutation = new GraphQLObjectType({
   fields: {
     createBooking,
     createOrder,
+    createDish,
   },
 });
 

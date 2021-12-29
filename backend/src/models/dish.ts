@@ -45,4 +45,4 @@ dishSchema.statics.build = (attrs: DishAttrs) => {
   return new Dish(attrs);
 };
 
-const Dish = mongoose.model<DishDoc, DishModel>("Dish", dishSchema);
+export const Dish = mongoose.model<DishDoc, DishModel>("Dish", dishSchema);

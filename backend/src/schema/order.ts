@@ -1,48 +1,16 @@
-import { format } from "date-fns";
 import {
-  GraphQLObjectType,
   GraphQLID,
   GraphQLInt,
-  GraphQLString,
-  GraphQLNonNull,
-  GraphQLInputObjectType,
-  GraphQLFloat,
   GraphQLList,
-  GraphQLBoolean,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
 } from "graphql";
-import { Order, OrderAttrs, OrderDoc } from "../models/order";
+import { Order, OrderDoc } from "../models/order";
 import sendEmail from "../utils/sendMail/sendMail";
+import { DishInputType, DishType } from "./dish";
 
 const coupons = [{ couponName: "test20", discount: 20 }];
-
-export const DishType = new GraphQLObjectType({
-  name: "Dish",
-  fields: () => ({
-    name: { type: GraphQLString },
-    imgURL: { type: GraphQLString },
-    price: { type: GraphQLFloat },
-    quantity: { type: GraphQLInt },
-    id: { type: GraphQLString },
-    description: { type: GraphQLString },
-    isVege: { type: GraphQLBoolean },
-    isSpicy: { type: GraphQLBoolean },
-    type: { type: GraphQLString },
-  }),
-});
-export const DishInputType = new GraphQLInputObjectType({
-  name: "DishInput",
-  fields: () => ({
-    name: { type: new GraphQLNonNull(GraphQLString) },
-    imgURL: { type: GraphQLString },
-    price: { type: new GraphQLNonNull(GraphQLFloat) },
-    quantity: { type: new GraphQLNonNull(GraphQLInt) },
-    id: { type: new GraphQLNonNull(GraphQLString) },
-    description: { type: new GraphQLNonNull(GraphQLString) },
-    isVege: { type: new GraphQLNonNull(GraphQLBoolean) },
-    isSpicy: { type: new GraphQLNonNull(GraphQLBoolean) },
-    type: { type: GraphQLString },
-  }),
-});
 
 export const OrderType = new GraphQLObjectType({
   name: "Order",
