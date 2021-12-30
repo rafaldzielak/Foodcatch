@@ -10,6 +10,7 @@ export interface Dish {
   isVege: boolean;
   isSpicy: boolean;
   imgURL: string;
+  type?: string;
 }
 
 interface AddToCartAction {

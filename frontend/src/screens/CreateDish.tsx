@@ -1,8 +1,11 @@
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
 import { spicyIcon, vegeIcon } from "../components/Dishes";
 import useToggle from "../hooks/useToggle";
+import { createDishMutation } from "../queries/dishQueries";
+import { Dish } from "../state/actionInterfaces";
 import "./CreateDish.scss";
 
 const options = [
@@ -20,6 +23,14 @@ const CreateDish = () => {
   const [isVege, toggleIsVege] = useToggle();
   const [isSpicy, toggleIsSpicy] = useToggle();
   const [type, setType] = useState<OptionTypeBase>();
+
+  const [createOrderMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
+
+  const handleAddDish = () => {
+    createOrderMut({
+      variables: { name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
+    });
+  };
 
   const showFormInput = () => (
     <>
@@ -78,7 +89,7 @@ const CreateDish = () => {
     <div className='container dish-create'>
       <h1 className='ls-1'>Add a dish</h1>
       {showFormInput()}
-      <button>Add dish</button>
+      <button onClick={handleAddDish}>Add dish</button>
     </div>
   );
 };
