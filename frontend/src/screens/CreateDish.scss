@@ -1,4 +1,13 @@
 .dish-create {
+  input,
+  textarea {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  textarea {
+    resize: vertical;
+    height: 100px;
+  }
   button {
     margin-top: 2rem;
     padding: 1rem 4rem;
@@ -15,11 +24,6 @@
   .fs-2 {
     font-size: 1.75rem;
     margin-top: 1rem;
-  }
-
-  input {
-    margin-top: 0.5rem;
-    width: 100%;
   }
 
   .toggle-wrapper {

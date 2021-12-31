@@ -59,8 +59,7 @@ const CreateDish = () => {
         </div>
         <div className='description'>
           <div className='ls-1 fs-2'>Description</div>
-          <input
-            type='text'
+          <textarea
             className='description'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
