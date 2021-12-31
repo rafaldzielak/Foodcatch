@@ -7,6 +7,8 @@ import useToggle from "../hooks/useToggle";
 import { createDishMutation } from "../queries/dishQueries";
 import { Dish } from "../state/actionInterfaces";
 import "./CreateDish.scss";
+import Alert from "../components/Alert";
+import { Link } from "react-router-dom";
 
 const options = [
   { value: "Appetizers", label: "Appetizers" },
@@ -23,13 +25,19 @@ const CreateDish = () => {
   const [isVege, toggleIsVege] = useToggle();
   const [isSpicy, toggleIsSpicy] = useToggle();
   const [type, setType] = useState<OptionTypeBase>();
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [createOrderMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
 
   const handleAddDish = () => {
+    setSuccessMessage("");
+    setErrorMessage("");
     createOrderMut({
       variables: { name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
-    });
+    })
+      .then(() => setSuccessMessage("Dish created successfully!"))
+      .catch((error) => setErrorMessage(error.message));
   };
 
   const showFormInput = () => (
@@ -86,6 +94,12 @@ const CreateDish = () => {
 
   return (
     <div className='container dish-create'>
+      {successMessage && (
+        <Alert type='success'>
+          {successMessage} <Link to='/menu'>Click here to go to menu</Link>
+        </Alert>
+      )}
+      {errorMessage && <Alert>{errorMessage}</Alert>}
       <h1 className='ls-1'>Add a dish</h1>
       {showFormInput()}
       <button onClick={handleAddDish}>Add dish</button>

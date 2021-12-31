@@ -25,7 +25,7 @@ const Alert: React.FC<PropTypes> = ({ hideCloseBtn, type = "danger", children, f
   if (returnEmpty) return <> </>;
   return (
     <FadeIn>
-      <div className={`alert alert-${type}`}>
+      <div className={`alert alert-${type} ls-1`}>
         {children}
 
         <div className='close-btn'>{!hideCloseBtn && <IoMdClose />}</div>
