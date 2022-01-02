@@ -26,6 +26,16 @@
     margin-top: 1rem;
   }
 
+  img.food-img {
+    width: 300px;
+    margin-top: 2rem;
+    height: 200px;
+    object-fit: cover;
+    background-color: #eee;
+    box-shadow: none;
+    border: none;
+  }
+
   .toggle-wrapper {
     margin-top: 1rem;
     display: flex;

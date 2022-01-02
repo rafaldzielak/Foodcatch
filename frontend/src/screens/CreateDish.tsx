@@ -51,6 +51,16 @@ const CreateDish = () => {
             onChange={(selectedOption) => setType(selectedOption)}
             options={options}></Select>
         </div>
+        {
+          <img
+            className='food-img'
+            src={imgURL || "https://bibliotekant.pl/wp-content/uploads/2021/04/placeholder-image.png"}
+            alt={imgURL}></img>
+        }
+        <div className='imgURL'>
+          <div className='ls-1 fs-2'>Image URL</div>
+          <input type='text' className='imgURL' value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
+        </div>
 
         <div className=''>
           <div className='ls-1 fs-2'>Name</div>
@@ -72,10 +82,6 @@ const CreateDish = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        </div>
-        <div className='imgURL'>
-          <div className='ls-1 fs-2'>Image URL</div>
-          <input type='text' className='imgURL' value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
         </div>
         <div className='toggle-wrapper'>
           <div className='toggle vege'>
