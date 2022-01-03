@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import "./dishes.scss";
 import ReactTooltip from "react-tooltip";
-import { dishesMock } from "../mocks/dishesMock";
 import { useActions } from "../hooks/useActions";
 import { dishType } from "../screens/MenuScreen";
 import { useState } from "react";
 import ModalImg from "./ModalImg";
+import { useQuery } from "@apollo/client";
+import { Dish } from "../state/actionInterfaces";
+import { getDishesQuery } from "../queries/dishQueries";
+import Loader from "./Loader";
+import Alert from "./Alert";
+import { getDishesAction } from "../state/actions/DishActions";
+import { useDispatch } from "react-redux";
 
 interface PropTypes {
   chosenType: dishType;
@@ -32,15 +38,25 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
 
   const closeModal = () => setModalImgUrl("");
 
+  const { data, loading, error } = useQuery<{ getDishes: Dish[] }>(getDishesQuery);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data?.getDishes) dispatch(getDishesAction(data?.getDishes));
+  }, [data, dispatch]);
+
   useEffect(() => {
     ReactTooltip.rebuild();
-  }, [chosenType]);
+  }, [chosenType, data]);
 
   return (
     <div className='dishes'>
+      {loading && <Loader />}
+      {error && <Alert>{error}</Alert>}
       {modalImgUrl && <ModalImg imgUrl={modalImgUrl} closeAction={closeModal} />}
-      {dishesMock
-        .filter((dish) => dish.type === chosenType)
+      {data?.getDishes
+        ?.filter((dish) => dish.type === chosenType)
         .map((dish) => (
           <React.Fragment key={dish.id}>
             <div className='dish'>

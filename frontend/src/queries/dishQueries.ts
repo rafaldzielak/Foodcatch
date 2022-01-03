@@ -31,3 +31,18 @@ export const createDishMutation = gql`
     }
   }
 `;
+
+export const getDishesQuery = gql`
+  {
+    getDishes {
+      id
+      name
+      imgURL
+      price
+      description
+      isVege
+      isSpicy
+      type
+    }
+  }
+`;
