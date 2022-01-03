@@ -33,4 +33,14 @@ interface SetOrderAction {
   payload: Order;
 }
 
-export type Action = AddToCartAction | RemoveFromCartAction | UpdateCartItemAction | SetOrderAction;
+interface GetDishesAction {
+  type: ActionType.GET_DISHES;
+  payload: Dish[];
+}
+
+export type Action =
+  | AddToCartAction
+  | RemoveFromCartAction
+  | UpdateCartItemAction
+  | SetOrderAction
+  | GetDishesAction;

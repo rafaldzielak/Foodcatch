@@ -4,4 +4,5 @@ export enum ActionType {
   UPDATE_CART_ITEM = "UPDATE_CART_ITEM",
   SET_ORDER = "SET_ORDER",
   GET_ORDER = "GET_ORDER",
+  GET_DISHES = "GET_DISHES",
 }
