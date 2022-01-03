@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import {
   GraphQLObjectType,
   GraphQLInt,
@@ -6,8 +5,8 @@ import {
   GraphQLNonNull,
   GraphQLInputObjectType,
   GraphQLFloat,
-  GraphQLList,
   GraphQLBoolean,
+  GraphQLList,
 } from "graphql";
 import { Dish } from "../models/dish";
 
@@ -59,5 +58,13 @@ export const createDish = {
     console.log(dish);
     await dish.save();
     return dish;
+  },
+};
+
+export const getDishes = {
+  type: new GraphQLList(DishType),
+  resolve: async () => {
+    const dishes = await Dish.find({});
+    return dishes;
   },
 };
