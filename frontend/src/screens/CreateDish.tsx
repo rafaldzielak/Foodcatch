@@ -36,7 +36,15 @@ const CreateDish = () => {
     createOrderMut({
       variables: { name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
     })
-      .then(() => setSuccessMessage("Dish created successfully!"))
+      .then(() => {
+        setSuccessMessage("Dish created successfully!");
+        setTitle("");
+        setPrice(0);
+        setImgURL("");
+        setDescription("");
+        toggleIsSpicy(false);
+        toggleIsVege(false);
+      })
       .catch((error) => setErrorMessage(error.message));
   };
 
