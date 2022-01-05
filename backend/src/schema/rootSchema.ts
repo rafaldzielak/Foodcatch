@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLID, GraphQLSchema } from "graphql";
 import { createBooking, getBooking } from "./booking";
 import { createOrder, getOrder, useCoupon } from "./order";
-import { createDish, getDishes } from "./dish";
+import { createDish, getDishes, getDish } from "./dish";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -10,6 +10,7 @@ const RootQuery = new GraphQLObjectType({
     getOrder,
     useCoupon,
     getDishes,
+    getDish,
   },
 });
 

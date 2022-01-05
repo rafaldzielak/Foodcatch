@@ -68,3 +68,15 @@ export const getDishes = {
     return dishes;
   },
 };
+
+export const getDish = {
+  type: DishType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: async (parents: any, args: any) => {
+    const dish = await Dish.findById(args.id);
+    if (!dish) throw new Error("Dish with given ID not found!");
+    return dish;
+  },
+};
