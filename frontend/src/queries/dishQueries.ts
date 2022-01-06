@@ -46,3 +46,18 @@ export const getDishesQuery = gql`
     }
   }
 `;
+
+export const getDishQuery = gql`
+  query getDish($id: String!) {
+    getDish(id: $id) {
+      id
+      name
+      imgURL
+      price
+      description
+      isVege
+      isSpicy
+      type
+    }
+  }
+`;
