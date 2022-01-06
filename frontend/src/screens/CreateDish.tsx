@@ -1,14 +1,16 @@
-import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
 import { spicyIcon, vegeIcon } from "../components/Dishes";
 import useToggle from "../hooks/useToggle";
-import { createDishMutation } from "../queries/dishQueries";
+import { createDishMutation, getDishQuery } from "../queries/dishQueries";
 import { Dish } from "../state/actionInterfaces";
 import "./CreateDish.scss";
 import Alert from "../components/Alert";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
+import Loader from "../components/Loader";
 
 const options = [
   { value: "Appetizers", label: "Appetizers" },
@@ -27,6 +29,24 @@ const CreateDish = () => {
   const [type, setType] = useState<OptionTypeBase>();
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { id } = useParams<{ id: string }>();
+
+  const [fetchDish, { loading, error }] = useLazyQuery<{ getDish: Dish }>(getDishQuery);
+
+  useEffect(() => {
+    if (id)
+      fetchDish({ variables: { id } }).then((response) => {
+        setTitle(response.data?.getDish.name || "");
+        setImgURL(response.data?.getDish.imgURL || "");
+        setPrice(response.data?.getDish.price || 0);
+        setDescription(response.data?.getDish.description || "");
+        toggleIsVege(response.data?.getDish.isVege);
+        toggleIsSpicy(response.data?.getDish.isSpicy);
+        const type = response.data?.getDish.type;
+        setType({ value: type, label: type });
+      });
+  }, [fetchDish, id, toggleIsSpicy, toggleIsVege]);
 
   const [createOrderMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
 
@@ -103,6 +123,7 @@ const CreateDish = () => {
         </div>
       </div>
       <hr />
+      <button onClick={handleAddDish}>Add dish</button>
     </>
   );
 
@@ -114,9 +135,9 @@ const CreateDish = () => {
         </Alert>
       )}
       {errorMessage && <Alert>{errorMessage}</Alert>}
-      <h1 className='ls-1'>Add a dish</h1>
-      {showFormInput()}
-      <button onClick={handleAddDish}>Add dish</button>
+      <h1 className='ls-1'>{id ? "Edit" : "Add"} a dish</h1>
+      {error && <Alert>{error.message}</Alert>}
+      {loading && !error ? <Loader /> : showFormInput()}
     </div>
   );
 };

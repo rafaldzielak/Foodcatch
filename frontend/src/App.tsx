@@ -34,6 +34,7 @@ function App() {
               <Route path='/book/:readableId' component={BookingDetails} />
               <Route path='/book' component={TableBook} />
               <Route path='/dishes/add' component={CreateDish} />
+              <Route path='/dishes/edit/:id' component={CreateDish} />
               <Route path='/' component={HomeScreen} />
             </Switch>
             <Footer />
