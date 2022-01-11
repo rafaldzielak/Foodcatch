@@ -1,12 +1,11 @@
-import { Action } from "../actionInterfaces/index";
+import { Action, Dish } from "../actionInterfaces/index";
 import { Dispatch } from "redux";
 import { ActionType } from "../actionInterfaces/actionTypes";
-import { dishesMock } from "../../mocks/dishesMock";
 import { setLSCartItems } from "./common";
 
 export const addToCartAction = (id: string) => (dispatch: Dispatch<Action>, getState: any) => {
-  const { cart } = getState();
-  const foundDish = dishesMock.find((dish) => dish.id === id);
+  const { cart, dishes: dishesState } = getState();
+  const foundDish = dishesState.dishes.find((dish: Dish) => dish.id === id);
   if (foundDish) dispatch({ type: ActionType.ADD_TO_CART, payload: { ...foundDish, quantity: 1 } });
   setLSCartItems(cart.items);
 };
