@@ -17,7 +17,7 @@ import CreateDish from "./screens/CreateDish";
 
 export const apolloClient = new ApolloClient({
   uri: "http://localhost:5000/graphql",
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ addTypename: false }),
 });
 
 function App() {
