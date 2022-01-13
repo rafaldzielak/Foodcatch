@@ -21,7 +21,7 @@ const options = [
 
 const CreateDish = () => {
   const [title, setTitle] = useState("");
-  const [price, setPrice] = useState<number>();
+  const [price, setPrice] = useState<number>(0);
   const [description, setDescription] = useState("");
   const [imgURL, setImgURL] = useState("");
   const [isVege, toggleIsVege] = useToggle();
@@ -99,12 +99,12 @@ const CreateDish = () => {
           <input
             type='number'
             className='phone'
-            value={price}
+            value={price || ""}
             onChange={(e) => setPrice(Number(e.target.value))}
           />
         </div>
         <div className='description'>
-          <div className='ls-1 fs-2'>Description</div>
+          <div className='ls-1 fs-2'>Description (add description to more or less fit the area below)</div>
           <textarea
             className='description'
             value={description}
