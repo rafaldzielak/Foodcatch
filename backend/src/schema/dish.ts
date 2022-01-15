@@ -80,3 +80,16 @@ export const getDish = {
     return dish;
   },
 };
+
+export const deleteDish = {
+  type: DishType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: async (parents: any, args: any) => {
+    const dish = await Dish.findById(args.id);
+    if (!dish) throw new Error("Dish with given ID not found!");
+    await dish.remove();
+    return dish;
+  },
+};
