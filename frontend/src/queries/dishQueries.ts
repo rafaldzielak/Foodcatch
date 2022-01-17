@@ -61,3 +61,45 @@ export const getDishQuery = gql`
     }
   }
 `;
+
+export const editDishMutation = gql`
+  mutation EditDish(
+    $name: String
+    $imgURL: String
+    $price: Float
+    $description: String
+    $isVege: Boolean
+    $isSpicy: Boolean
+    $type: String
+    $id: String!
+  ) {
+    editDish(
+      id: $id
+      name: $name
+      imgURL: $imgURL
+      price: $price
+      description: $description
+      isVege: $isVege
+      isSpicy: $isSpicy
+      type: $type
+    ) {
+      name
+      imgURL
+      price
+      quantity
+      id
+      description
+      isVege
+      isSpicy
+      type
+    }
+  }
+`;
+
+export const deleteDishMutation = gql`
+  mutation deleteDish($id: String!) {
+    deleteDish(id: $id) {
+      id
+    }
+  }
+`;
