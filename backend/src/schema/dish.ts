@@ -81,6 +81,27 @@ export const getDish = {
   },
 };
 
+export const editDish = {
+  type: DishType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+    name: { type: GraphQLString },
+    imgURL: { type: GraphQLString },
+    price: { type: GraphQLFloat },
+    quantity: { type: GraphQLInt },
+    description: { type: GraphQLString },
+    isVege: { type: GraphQLBoolean },
+    isSpicy: { type: GraphQLBoolean },
+    type: { type: GraphQLString },
+  },
+  resolve: async (parents: any, args: any) => {
+    const dish = await Dish.findByIdAndUpdate(args.id, args, { new: true });
+    console.log(dish);
+    if (!dish) throw new Error("Dish with given ID not found!");
+    return dish;
+  },
+};
+
 export const deleteDish = {
   type: DishType,
   args: {
