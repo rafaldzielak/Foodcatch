@@ -4,7 +4,7 @@ import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
 import { spicyIcon, vegeIcon } from "../components/Dishes";
 import useToggle from "../hooks/useToggle";
-import { createDishMutation, getDishQuery } from "../queries/dishQueries";
+import { createDishMutation, getDishQuery, editDishMutation } from "../queries/dishQueries";
 import { Dish } from "../state/actionInterfaces";
 import "./CreateDish.scss";
 import Alert from "../components/Alert";
@@ -48,12 +48,13 @@ const CreateDish = () => {
       });
   }, [fetchDish, id, toggleIsSpicy, toggleIsVege]);
 
-  const [createOrderMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
+  const [createDishMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
+  const [editDishMut] = useMutation<{ createOrder: Dish }>(editDishMutation);
 
   const handleAddDish = () => {
     setSuccessMessage("");
     setErrorMessage("");
-    createOrderMut({
+    createDishMut({
       variables: { name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
     })
       .then(() => {
@@ -65,6 +66,16 @@ const CreateDish = () => {
         toggleIsSpicy(false);
         toggleIsVege(false);
       })
+      .catch((error) => setErrorMessage(error.message));
+  };
+
+  const handleEditDish = () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+    editDishMut({
+      variables: { id, name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
+    })
+      .then(() => setSuccessMessage("Dish edited successfully!"))
       .catch((error) => setErrorMessage(error.message));
   };
 
@@ -123,7 +134,13 @@ const CreateDish = () => {
         </div>
       </div>
       <hr />
-      <button onClick={handleAddDish}>Add dish</button>
+      <button
+        onClick={() => {
+          if (id) handleEditDish();
+          else handleAddDish();
+        }}>
+        {id ? "Edit" : "Add"} dish
+      </button>
     </>
   );
 
