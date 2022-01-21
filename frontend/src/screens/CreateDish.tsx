@@ -4,7 +4,12 @@ import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
 import { spicyIcon, vegeIcon } from "../components/Dishes";
 import useToggle from "../hooks/useToggle";
-import { createDishMutation, getDishQuery, editDishMutation } from "../queries/dishQueries";
+import {
+  createDishMutation,
+  getDishQuery,
+  deleteDishMutation,
+  editDishMutation,
+} from "../queries/dishQueries";
 import { Dish } from "../state/actionInterfaces";
 import "./CreateDish.scss";
 import Alert from "../components/Alert";
@@ -50,6 +55,7 @@ const CreateDish = () => {
 
   const [createDishMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
   const [editDishMut] = useMutation<{ createOrder: Dish }>(editDishMutation);
+  const [deleteDishMut] = useMutation<{ deleteDish: Pick<Dish, "id"> }>(deleteDishMutation);
 
   const handleAddDish = () => {
     setSuccessMessage("");
@@ -76,6 +82,24 @@ const CreateDish = () => {
       variables: { id, name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
     })
       .then(() => setSuccessMessage("Dish edited successfully!"))
+      .catch((error) => setErrorMessage(error.message));
+  };
+
+  const handleRemoveDish = () => {
+    setSuccessMessage("");
+    setErrorMessage("");
+    deleteDishMut({
+      variables: { id },
+    })
+      .then(() => {
+        setSuccessMessage("Dish removed successfully!");
+        setTitle("");
+        setPrice(0);
+        setImgURL("");
+        setDescription("");
+        toggleIsSpicy(false);
+        toggleIsVege(false);
+      })
       .catch((error) => setErrorMessage(error.message));
   };
 
@@ -138,9 +162,15 @@ const CreateDish = () => {
         onClick={() => {
           if (id) handleEditDish();
           else handleAddDish();
-        }}>
+        }}
+        className={id ? "mr-1" : ""}>
         {id ? "Edit" : "Add"} dish
       </button>
+      {id && (
+        <button className='bg-error' onClick={handleRemoveDish}>
+          Remove dish
+        </button>
+      )}
     </>
   );
 
