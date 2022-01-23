@@ -1,4 +1,5 @@
 import { Order } from "../../models/order";
+import { User } from "../../models/user";
 import { ActionType } from "./actionTypes";
 
 export interface Dish {
@@ -38,9 +39,15 @@ interface GetDishesAction {
   payload: Dish[];
 }
 
+interface LoginUserAction {
+  type: ActionType.LOGIN_USER;
+  payload: User;
+}
+
 export type Action =
   | AddToCartAction
   | RemoveFromCartAction
   | UpdateCartItemAction
   | SetOrderAction
-  | GetDishesAction;
+  | GetDishesAction
+  | LoginUserAction;
