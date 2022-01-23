@@ -14,6 +14,7 @@ import TableBook from "./screens/TableBook";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import BookingDetails from "./screens/BookingDetails";
 import CreateDish from "./screens/CreateDish";
+import LoginScreen from "./screens/Login";
 
 export const apolloClient = new ApolloClient({
   uri: "http://localhost:5000/graphql",
@@ -35,6 +36,7 @@ function App() {
               <Route path='/book' component={TableBook} />
               <Route path='/dishes/add' component={CreateDish} />
               <Route path='/dishes/edit/:id' component={CreateDish} />
+              <Route path='/admin' component={LoginScreen} />
               <Route path='/' component={HomeScreen} />
             </Switch>
             <Footer />

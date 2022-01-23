@@ -57,6 +57,11 @@ svg {
   margin: auto;
 }
 
+.container.narrow {
+  width: 700px;
+  margin: auto;
+}
+
 .mt {
   margin-top: 2rem !important;
 }
@@ -178,6 +183,21 @@ a {
 
 img {
   border-radius: 4px !important;
+}
+
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 2rem !important;
+}
+.mt-1 {
+  margin-top: 0.5rem !important;
+}
+
+.mt-2 {
+  margin-top: 2rem !important;
 }
 
 .mr-1 {
