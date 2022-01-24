@@ -12,6 +12,8 @@ import Loader from "./Loader";
 import Alert from "./Alert";
 import { getDishesAction } from "../state/actions/DishActions";
 import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { Link } from "react-router-dom";
 
 interface PropTypes {
   chosenType: dishType;
@@ -41,6 +43,7 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
   const { data, loading, error } = useQuery<{ getDishes: Dish[] }>(getDishesQuery);
 
   const dispatch = useDispatch();
+  const { isAdmin } = useTypedSelector((state) => state.user);
 
   useEffect(() => {
     if (data?.getDishes) dispatch(getDishesAction(data?.getDishes));
@@ -72,6 +75,13 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
                 <button className='ls-2' onClick={() => addToCartAction(dish.id)}>
                   Add to Order
                 </button>
+                {isAdmin && (
+                  <Link to={`/dishes/edit/${dish.id}`}>
+                    <button className='ls-2 mt-1 alt' onClick={() => addToCartAction(dish.id)}>
+                      Edit Dish
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
             <hr />

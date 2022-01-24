@@ -9,6 +9,7 @@ import {
   getDishQuery,
   deleteDishMutation,
   editDishMutation,
+  getDishesQuery,
 } from "../queries/dishQueries";
 import { Dish } from "../state/actionInterfaces";
 import "./CreateDish.scss";
@@ -54,8 +55,12 @@ const CreateDish = () => {
   }, [fetchDish, id, toggleIsSpicy, toggleIsVege]);
 
   const [createDishMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
-  const [editDishMut] = useMutation<{ createOrder: Dish }>(editDishMutation);
-  const [deleteDishMut] = useMutation<{ deleteDish: Pick<Dish, "id"> }>(deleteDishMutation);
+  const [editDishMut] = useMutation<{ createOrder: Dish }>(editDishMutation, {
+    refetchQueries: [getDishesQuery, getDishQuery],
+  });
+  const [deleteDishMut] = useMutation<{ deleteDish: Pick<Dish, "id"> }>(deleteDishMutation, {
+    refetchQueries: [getDishesQuery, getDishQuery],
+  });
 
   const handleAddDish = () => {
     setSuccessMessage("");

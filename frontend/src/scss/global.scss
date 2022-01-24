@@ -108,6 +108,10 @@ button {
   position: relative;
   letter-spacing: 1px;
 
+  &.alt {
+    background-color: rgba(0, 90, 180, 0.75) !important;
+  }
+
   &.big {
     background-color: #666;
     letter-spacing: 0.15rem;
