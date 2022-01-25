@@ -24,8 +24,8 @@ const LoginScreen = () => {
   const handleLoginUser = () => {
     loginUserMut({ variables: { email, password } })
       .then(({ data }) => {
-        const { email, isAdmin } = data?.loginUser as User;
-        if (data) dispatch(loginUserAction({ email, isAdmin }));
+        const { email, isAdmin, jwt } = data?.loginUser as User;
+        if (data) dispatch(loginUserAction({ email, isAdmin, jwt }));
         history.push(`/`);
       })
       .catch((error) => setLoginError(error.message));

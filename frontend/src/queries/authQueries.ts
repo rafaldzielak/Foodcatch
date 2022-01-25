@@ -5,6 +5,7 @@ export const loginUserMutation = gql`
     loginUser(email: $email, password: $password) {
       email
       isAdmin
+      jwt
     }
   }
 `;
