@@ -9,6 +9,7 @@ export const UserType = new GraphQLObjectType({
   fields: () => ({
     email: { type: GraphQLString },
     isAdmin: { type: GraphQLBoolean },
+    jwt: { type: GraphQLString },
   }),
 });
 
@@ -40,10 +41,10 @@ export const loginUser = {
     const isValid = await bcrypt.compare(password, user.password);
 
     if (!isValid) throw new Error("Invalid credentials!");
-    const token = sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET!, {
+    const jwt = sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET!, {
       expiresIn: "30d",
     });
-    res.cookie("jwt", token);
-    return user;
+    res.cookie("jwt", jwt);
+    return { email: user.email, isAdmin: user.isAdmin, jwt };
   },
 };

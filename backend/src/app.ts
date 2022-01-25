@@ -21,12 +21,12 @@ const PORT = 5000;
 app.use(cookieParser());
 app.use((req, res, next) => {
   const token = req.cookies.jwt;
-  console.log(token);
   if (!token) {
     next();
   } else {
     const data = verify(token, process.env.JWT_SECRET!) as any;
     (req as any).email = data.email;
+    (req as any).jwt = token;
     next();
   }
 });
