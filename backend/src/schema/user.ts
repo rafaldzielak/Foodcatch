@@ -48,3 +48,19 @@ export const loginUser = {
     return { email: user.email, isAdmin: user.isAdmin, jwt };
   },
 };
+
+export const getUser = {
+  type: UserType,
+  args: {},
+  resolve: async (parent: any, args: any, context: Context) => {
+    const { req } = context;
+
+    const email: string = (req as any).email;
+    if (!email) throw new Error("Invalid token!");
+    const user = await User.findOne({ email });
+    if (!user) throw new Error("No user with that email!");
+    console.log((req as any).jwt);
+
+    return { email: user.email, isAdmin: user.isAdmin, jwt: (req as any).jwt };
+  },
+};
