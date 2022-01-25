@@ -9,3 +9,13 @@ export const loginUserMutation = gql`
     }
   }
 `;
+
+export const getUserQuery = gql`
+  {
+    getUser {
+      email
+      isAdmin
+      jwt
+    }
+  }
+`;
