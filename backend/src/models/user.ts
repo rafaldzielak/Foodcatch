@@ -27,7 +27,6 @@ userSchema.statics.build = async (attrs: UserAttrs) => {
   const { email, password } = attrs;
 
   let existingUser = await User.findOne({ email });
-  console.log(existingUser);
   if (existingUser) throw new Error("User with that email already exists!");
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);

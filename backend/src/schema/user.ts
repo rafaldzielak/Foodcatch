@@ -4,6 +4,8 @@ import { sign } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { Context } from "../app";
 
+const emptyUser = { email: null, isAdmin: false, jwt: null };
+
 export const UserType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
@@ -54,12 +56,10 @@ export const getUser = {
   args: {},
   resolve: async (parent: any, args: any, context: Context) => {
     const { req } = context;
-
     const email: string = (req as any).email;
-    if (!email) throw new Error("Invalid token!");
+    if (!email) return emptyUser;
     const user = await User.findOne({ email });
-    if (!user) throw new Error("No user with that email!");
-    console.log((req as any).jwt);
+    if (!user) return emptyUser;
 
     return { email: user.email, isAdmin: user.isAdmin, jwt: (req as any).jwt };
   },
