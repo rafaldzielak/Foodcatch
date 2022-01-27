@@ -16,3 +16,8 @@ export const fetchUserFromDbAction = () => async (dispatch: Dispatch<Action>) =>
     if (res?.data?.getUser?.email) dispatch({ type: ActionType.LOGIN_USER, payload: res.data.getUser });
   }
 };
+
+export const logoutUserAction = () => (dispatch: Dispatch<Action>) => {
+  dispatch({ type: ActionType.LOGOUT_USER });
+  localStorage.removeItem("jwt");
+};

@@ -44,10 +44,15 @@ interface LoginUserAction {
   payload: User;
 }
 
+interface LogoutUserAction {
+  type: ActionType.LOGOUT_USER;
+}
+
 export type Action =
   | AddToCartAction
   | RemoveFromCartAction
   | UpdateCartItemAction
   | SetOrderAction
   | GetDishesAction
-  | LoginUserAction;
+  | LoginUserAction
+  | LogoutUserAction;

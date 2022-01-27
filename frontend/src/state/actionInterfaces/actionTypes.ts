@@ -6,4 +6,5 @@ export enum ActionType {
   GET_ORDER = "GET_ORDER",
   GET_DISHES = "GET_DISHES",
   LOGIN_USER = "LOGIN_USER",
+  LOGOUT_USER = "LOGOUT_USER",
 }
