@@ -11,15 +11,11 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import SummaryScreen from "./screens/SummaryScreen";
 import TableBook from "./screens/TableBook";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import BookingDetails from "./screens/BookingDetails";
 import CreateDish from "./screens/CreateDish";
 import LoginScreen from "./screens/Login";
-
-export const apolloClient = new ApolloClient({
-  uri: "http://localhost:5000/graphql",
-  cache: new InMemoryCache({ addTypename: false }),
-});
+import { apolloClient } from "./utils/apolloClient";
 
 function App() {
   return (
