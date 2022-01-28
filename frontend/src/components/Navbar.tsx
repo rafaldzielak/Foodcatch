@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import "./Navbar.scss";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchUserFromDbAction } from "../state/actions/AuthActions";
+import { fetchUserFromDbAction, logoutUserAction } from "../state/actions/AuthActions";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -11,6 +12,12 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(fetchUserFromDbAction());
   }, [dispatch]);
+
+  const user = useTypedSelector((state) => state.user);
+
+  const handleUserLogout = () => {
+    dispatch(logoutUserAction());
+  };
 
   if (pathname !== "/")
     return (
@@ -21,6 +28,13 @@ const Navbar = () => {
               <img src='./img/logo2.png' alt='' /> <span className='title'>FoodCatch</span>
             </Link>
           </div>
+          {user.email && user.isAdmin && (
+            <div>
+              <h4>
+                You are logged in as an admin. <button onClick={handleUserLogout}>Logout</button>
+              </h4>
+            </div>
+          )}
         </div>
       </nav>
     );
