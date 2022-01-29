@@ -6,6 +6,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from "graphql";
+import { Context } from "../app";
 import { Order, OrderDoc } from "../models/order";
 import sendEmail from "../utils/sendMail/sendMail";
 import { DishInputType, DishType } from "./dish";
@@ -92,6 +93,23 @@ export const getOrder = {
     console.log(order);
     if (!order) throw new Error("Order with given ID not found");
     return order;
+  },
+};
+
+export const getOrders = {
+  type: new GraphQLList(OrderType),
+  args: {
+    page: { type: new GraphQLNonNull(GraphQLInt) },
+  },
+  resolve: async (parent: any, args: any, context: Context) => {
+    const { req, res } = context;
+    if (!(req as any).email) throw new Error("You are not logged in as an admin!");
+    const orders = await Order.find()
+      .limit(5)
+      .skip((args.page - 1) * 5)
+      .sort("-date");
+    if (!orders || !orders.length) throw new Error("No orderds found!");
+    return orders;
   },
 };
 
