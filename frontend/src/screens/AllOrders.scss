@@ -1,0 +1,33 @@
+.all-orders {
+  table {
+    color: #111;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-collapse: collapse;
+    margin: auto;
+    thead {
+      font-size: 1.5rem;
+
+      th {
+        padding: 1rem 0.5rem;
+      }
+    }
+    tbody {
+      margin-top: 1rem;
+    }
+    td {
+      padding: 0.4rem 1rem;
+      border: none;
+    }
+    tr:nth-of-type(odd) {
+      background-color: #eaeaea;
+    }
+    td:last-of-type {
+      border-left: 1px solid #ddd;
+      padding-left: 1rem;
+    }
+  }
+  button {
+    padding: 0.25rem 1rem !important;
+  }
+}

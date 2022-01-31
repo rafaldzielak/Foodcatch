@@ -15,7 +15,7 @@ export const setOrderAction = (orderData: Order) => (dispatch: Dispatch<Action>)
   dispatch({ type: ActionType.SET_ORDER, payload: { ...orderData, date } });
 };
 
-const convertStringDateToDate = (dateString: any) => {
+export const convertStringDateToDate = (dateString: any) => {
   const numberString = Number(dateString);
   return new Date(numberString);
 };
