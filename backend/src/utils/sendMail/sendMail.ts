@@ -15,6 +15,6 @@ export default function sendEmail(receiver: string, subject: string, html: strin
   const mailOptions = { from: process.env.EMAIL_USER, to: receiver, subject, html: html };
   transport.sendMail(mailOptions, (error, info) => {
     if (error) console.log(error);
-    console.log("SENT: " + info.response);
+    console.log("SENT: " + info?.response);
   });
 }

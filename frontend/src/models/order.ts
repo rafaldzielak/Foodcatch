@@ -1,7 +1,7 @@
 import { Dish } from "../state/actionInterfaces";
 
 export interface Order {
-  id: String;
+  id: string;
   date: Date;
   phone: string;
   dishes: [Dish];
@@ -13,4 +13,11 @@ export interface Order {
   city: string;
   paymentMethod: "cash" | "card";
   couponAppliedPercentage: number;
+}
+
+export interface OrdersResponse {
+  orders: Order[];
+  count: number;
+  page: number;
+  allPages: number;
 }

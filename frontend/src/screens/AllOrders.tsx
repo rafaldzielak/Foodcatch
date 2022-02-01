@@ -4,16 +4,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
-import { Order } from "../models/order";
+import { OrdersResponse } from "../models/order";
 import { getOrdersQuery } from "../queries/orderQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
 
 const AllOrders = () => {
-  const { data, loading, error } = useQuery<{ getOrders: Order[] }>(getOrdersQuery);
+  const { data, loading, error } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery);
 
   if (loading) return <Loader />;
-
   return (
     <div className='container all-orders'>
       {error && <Alert hideCloseBtn>{error.message}</Alert>}
@@ -29,7 +28,7 @@ const AllOrders = () => {
           <th>Address</th>
         </thead>
         <tbody>
-          {data?.getOrders.map((order) => {
+          {data?.getOrders?.orders.map((order) => {
             const {
               id,
               email,
@@ -44,7 +43,7 @@ const AllOrders = () => {
               streetNumber,
             } = order;
             return (
-              <tr>
+              <tr key={order.id}>
                 <td>{id}</td>
                 <td>{email}</td>
                 <td>{format(convertStringDateToDate(date), "dd.MM.yyyy hh:mm")}</td>

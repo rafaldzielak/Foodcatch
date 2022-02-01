@@ -84,23 +84,28 @@ export const getOrderQuery = gql`
 export const getOrdersQuery = gql`
   query GetOrders($page: Int) {
     getOrders(page: $page) {
-      id
-      date
-      phone
-      dishes {
-        name
-        imgURL
-        price
-        quantity
+      orders {
+        id
+        date
+        phone
+        dishes {
+          name
+          imgURL
+          price
+          quantity
+        }
+        email
+        firstName
+        surname
+        street
+        streetNumber
+        city
+        paymentMethod
+        couponAppliedPercentage
       }
-      email
-      firstName
-      surname
-      street
-      streetNumber
-      city
-      paymentMethod
-      couponAppliedPercentage
+      count
+      page
+      allPages
     }
   }
 `;

@@ -12,6 +12,7 @@ import sendEmail from "../utils/sendMail/sendMail";
 import { DishInputType, DishType } from "./dish";
 
 const coupons = [{ couponName: "test20", discount: 20 }];
+const RESULT_PER_PAGE = 20;
 
 export const OrderType = new GraphQLObjectType({
   name: "Order",
@@ -28,6 +29,16 @@ export const OrderType = new GraphQLObjectType({
     city: { type: GraphQLString },
     paymentMethod: { type: GraphQLString },
     couponAppliedPercentage: { type: GraphQLInt },
+  }),
+});
+
+const OrdersResponseType = new GraphQLObjectType({
+  name: "Orders",
+  fields: () => ({
+    orders: { type: new GraphQLList(OrderType) },
+    count: { type: GraphQLInt },
+    page: { type: GraphQLInt },
+    allPages: { type: GraphQLInt },
   }),
 });
 
@@ -97,19 +108,21 @@ export const getOrder = {
 };
 
 export const getOrders = {
-  type: new GraphQLList(OrderType),
+  type: OrdersResponseType,
   args: {
-    page: { type: new GraphQLNonNull(GraphQLInt) },
+    page: { type: GraphQLInt },
   },
   resolve: async (parent: any, args: any, context: Context) => {
     const { req, res } = context;
+    const page = args.page || 1;
     if (!(req as any).email) throw new Error("You are not logged in as an admin!");
     const orders = await Order.find()
-      .limit(5)
-      .skip((args.page - 1) * 5)
+      .limit(RESULT_PER_PAGE)
+      .skip((page - 1) * 5)
       .sort("-date");
-    if (!orders || !orders.length) throw new Error("No orderds found!");
-    return orders;
+    const count = await Order.count();
+    if (!orders || !orders.length) throw new Error("No orders found!");
+    return { orders, count, page, allPages: Math.ceil(count / RESULT_PER_PAGE) };
   },
 };
 
