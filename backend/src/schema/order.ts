@@ -118,8 +118,9 @@ export const getOrders = {
     if (!(req as any).email) throw new Error("You are not logged in as an admin!");
     const orders = await Order.find()
       .limit(RESULT_PER_PAGE)
-      .skip((page - 1) * 5)
+      .skip((page - 1) * RESULT_PER_PAGE)
       .sort("-date");
+
     const count = await Order.count();
     if (!orders || !orders.length) throw new Error("No orders found!");
     return { orders, count, page, allPages: Math.ceil(count / RESULT_PER_PAGE) };

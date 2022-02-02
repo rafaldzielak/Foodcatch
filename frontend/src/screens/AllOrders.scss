@@ -30,4 +30,33 @@
   button {
     padding: 0.25rem 1rem !important;
   }
+  ul.react-paginate {
+    margin: auto;
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    li {
+      min-width: 50px;
+      // border: 1px solid #aaa;
+      padding: 1rem 0;
+      font-weight: 600;
+
+      font-size: 2rem;
+      &.selected {
+        background-color: rgba(0, 90, 180, 0.75);
+        color: white;
+        a:hover {
+          background-color: inherit;
+        }
+      }
+      a {
+        cursor: pointer;
+        padding: 1rem 2rem;
+        transition: all 0.2s ease-in;
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+    }
+  }
 }

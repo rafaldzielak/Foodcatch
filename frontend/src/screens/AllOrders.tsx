@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { format } from "date-fns";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
@@ -8,24 +8,36 @@ import { OrdersResponse } from "../models/order";
 import { getOrdersQuery } from "../queries/orderQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
+import ReactPaginate from "react-paginate";
+import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 
 const AllOrders = () => {
-  const { data, loading, error } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  if (loading) return <Loader />;
+  const { data, loading, error, refetch } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery, {
+    variables: { page: currentPage },
+  });
+
+  useEffect(() => {
+    refetch({ variables: { page: currentPage } });
+  }, [currentPage, refetch]);
+
+  if (loading || !data) return <Loader />;
   return (
     <div className='container all-orders'>
       {error && <Alert hideCloseBtn>{error.message}</Alert>}
       <table>
         <thead>
-          <th>ID</th>
-          <th>Email</th>
-          <th>Date</th>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Dishes</th>
-          <th>Payment</th>
-          <th>Address</th>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Dishes</th>
+            <th>Payment</th>
+            <th>Address</th>
+          </tr>
         </thead>
         <tbody>
           {data?.getOrders?.orders.map((order) => {
@@ -63,6 +75,16 @@ const AllOrders = () => {
         </tbody>
       </table>
       {console.log(data?.getOrders)}
+      <ReactPaginate
+        className='react-paginate'
+        breakLabel='...'
+        previousLabel={<HiOutlineChevronLeft />}
+        nextLabel={<HiOutlineChevronRight />}
+        onPageChange={(event) => setCurrentPage(event.selected + 1)}
+        initialPage={currentPage - 1}
+        pageRangeDisplayed={5}
+        pageCount={data.getOrders.allPages}
+      />
     </div>
   );
 };
