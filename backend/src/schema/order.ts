@@ -8,6 +8,7 @@ import {
 } from "graphql";
 import { Context } from "../app";
 import { Order, OrderDoc } from "../models/order";
+import { regexFilter } from "../utils/filterDB";
 import sendEmail from "../utils/sendMail/sendMail";
 import { DishInputType, DishType } from "./dish";
 
@@ -111,12 +112,23 @@ export const getOrders = {
   type: OrdersResponseType,
   args: {
     page: { type: GraphQLInt },
+    id: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    email: { type: GraphQLString },
+    date: { type: GraphQLString },
+    phone: { type: GraphQLString },
   },
   resolve: async (parent: any, args: any, context: Context) => {
     const { req, res } = context;
     const page = args.page || 1;
     if (!(req as any).email) throw new Error("You are not logged in as an admin!");
-    const orders = await Order.find()
+    const filter: regexFilter = {};
+    for (const [key, value] of Object.entries(args)) {
+      if (key !== "page") filter[key] = { $regex: value as string, $options: "i" };
+    }
+
+    const orders = await Order.find(filter)
       .limit(RESULT_PER_PAGE)
       .skip((page - 1) * RESULT_PER_PAGE)
       .sort("-date");
