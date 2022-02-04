@@ -19,7 +19,7 @@ const AllOrders = () => {
   });
 
   useEffect(() => {
-    refetch({ variables: { page: currentPage } });
+    refetch({ page: currentPage });
   }, [currentPage, refetch]);
 
   const renderOrdersTable = () => (
