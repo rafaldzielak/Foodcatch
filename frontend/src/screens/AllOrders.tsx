@@ -13,6 +13,11 @@ import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 
 const AllOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterId, setFilterId] = useState("");
+  const [filterEmail, setFilterEmail] = useState("");
+  const [filterFirstName, setFilterFirstName] = useState("");
+  const [filterSurname, setFilterSurname] = useState("");
+  const [filterPhone, setFilterPhone] = useState("");
 
   const { data, loading, error, refetch } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery, {
     variables: { page: currentPage },
@@ -73,12 +78,65 @@ const AllOrders = () => {
     </table>
   );
 
+  const renderFilterInputs = () => (
+    <>
+      <div className='form-row'>
+        <div className='form-col'>
+          <label htmlFor='id'>ID: </label>
+          <input
+            type='text'
+            placeholder='ID'
+            id='id'
+            onChange={(e) => setFilterId(e.target.value)}
+            value={filterId}></input>
+        </div>
+        <div className='form-col'>
+          <label htmlFor='email'>Email: </label>
+          <input
+            type='text'
+            placeholder='Email'
+            id='email'
+            onChange={(e) => setFilterEmail(e.target.value)}
+            value={filterEmail}></input>
+        </div>
+        <div className='form-col'>
+          <label htmlFor='name'>First name: </label>
+          <input
+            type='text'
+            placeholder='Name'
+            id='name'
+            onChange={(e) => setFilterFirstName(e.target.value)}
+            value={filterFirstName}></input>
+        </div>
+        <div className='form-col'>
+          <label htmlFor='surname'>Surname: </label>
+          <input
+            type='text'
+            placeholder='Surname'
+            id='surname'
+            onChange={(e) => setFilterSurname(e.target.value)}
+            value={filterSurname}></input>
+        </div>
+        <div className='form-col'>
+          <label htmlFor='phone'>Phone: </label>
+          <input
+            type='text'
+            placeholder='Phone'
+            id='phone'
+            onChange={(e) => setFilterPhone(e.target.value)}
+            value={filterPhone}></input>
+        </div>
+      </div>
+    </>
+  );
+
   if (loading) return <Loader />;
   return (
     <div className='container all-orders'>
       {error && <Alert hideCloseBtn>{error.message}</Alert>}
       {data && (
         <>
+          {renderFilterInputs()}
           {renderOrdersTable()}
           <ReactPaginate
             className='react-paginate'

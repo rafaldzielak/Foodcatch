@@ -59,4 +59,22 @@
       }
     }
   }
+
+  .form-row {
+    justify-content: center;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    .form-col {
+      label {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      input {
+        margin-top: 0.25rem;
+        padding: 0.75rem;
+      }
+    }
+  }
 }
