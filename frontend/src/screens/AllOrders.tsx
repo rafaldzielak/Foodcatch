@@ -20,11 +20,11 @@ const AllOrders = () => {
   const [surnameValue, setSurnameValue] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
 
-  const email = useDebounce<string>(emailValue, 500);
-  const id = useDebounce<string>(idValue, 500);
-  const firstName = useDebounce<string>(firstNameValue, 500);
-  const surname = useDebounce<string>(surnameValue, 500);
-  const phone = useDebounce<string>(phoneValue, 500);
+  const email = useDebounce<string>(emailValue);
+  const id = useDebounce<string>(idValue);
+  const firstName = useDebounce<string>(firstNameValue);
+  const surname = useDebounce<string>(surnameValue);
+  const phone = useDebounce<string>(phoneValue);
 
   const { data, loading, error, refetch } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery, {
     variables: { page: currentPage },
