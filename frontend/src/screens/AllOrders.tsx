@@ -10,22 +10,29 @@ import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
 import ReactPaginate from "react-paginate";
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
+import useDebounce from "../hooks/useDebounce";
 
 const AllOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [filterId, setFilterId] = useState("");
-  const [filterEmail, setFilterEmail] = useState("");
-  const [filterFirstName, setFilterFirstName] = useState("");
-  const [filterSurname, setFilterSurname] = useState("");
-  const [filterPhone, setFilterPhone] = useState("");
+  const [idValue, setIdValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+  const [firstNameValue, setFirstNameValue] = useState("");
+  const [surnameValue, setSurnameValue] = useState("");
+  const [phoneValue, setPhoneValue] = useState("");
+
+  const email = useDebounce<string>(emailValue, 500);
+  const id = useDebounce<string>(idValue, 500);
+  const firstName = useDebounce<string>(firstNameValue, 500);
+  const surname = useDebounce<string>(surnameValue, 500);
+  const phone = useDebounce<string>(phoneValue, 500);
 
   const { data, loading, error, refetch } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery, {
     variables: { page: currentPage },
   });
 
   useEffect(() => {
-    refetch({ page: currentPage });
-  }, [currentPage, refetch]);
+    refetch({ page: currentPage, email, id, firstName, surname, phone });
+  }, [currentPage, refetch, email, id, firstName, surname, phone]);
 
   const renderOrdersTable = () => (
     <table>
@@ -87,8 +94,8 @@ const AllOrders = () => {
             type='text'
             placeholder='ID'
             id='id'
-            onChange={(e) => setFilterId(e.target.value)}
-            value={filterId}></input>
+            onChange={(e) => setIdValue(e.target.value)}
+            value={idValue}></input>
         </div>
         <div className='form-col'>
           <label htmlFor='email'>Email: </label>
@@ -96,8 +103,8 @@ const AllOrders = () => {
             type='text'
             placeholder='Email'
             id='email'
-            onChange={(e) => setFilterEmail(e.target.value)}
-            value={filterEmail}></input>
+            onChange={(e) => setEmailValue(e.target.value)}
+            value={emailValue}></input>
         </div>
         <div className='form-col'>
           <label htmlFor='name'>First name: </label>
@@ -105,8 +112,8 @@ const AllOrders = () => {
             type='text'
             placeholder='Name'
             id='name'
-            onChange={(e) => setFilterFirstName(e.target.value)}
-            value={filterFirstName}></input>
+            onChange={(e) => setFirstNameValue(e.target.value)}
+            value={firstNameValue}></input>
         </div>
         <div className='form-col'>
           <label htmlFor='surname'>Surname: </label>
@@ -114,8 +121,8 @@ const AllOrders = () => {
             type='text'
             placeholder='Surname'
             id='surname'
-            onChange={(e) => setFilterSurname(e.target.value)}
-            value={filterSurname}></input>
+            onChange={(e) => setSurnameValue(e.target.value)}
+            value={surnameValue}></input>
         </div>
         <div className='form-col'>
           <label htmlFor='phone'>Phone: </label>
@@ -123,8 +130,8 @@ const AllOrders = () => {
             type='text'
             placeholder='Phone'
             id='phone'
-            onChange={(e) => setFilterPhone(e.target.value)}
-            value={filterPhone}></input>
+            onChange={(e) => setPhoneValue(e.target.value)}
+            value={phoneValue}></input>
         </div>
       </div>
     </>

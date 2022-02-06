@@ -8,7 +8,7 @@ import {
 } from "graphql";
 import { Context } from "../app";
 import { Order, OrderDoc } from "../models/order";
-import { regexFilter } from "../utils/filterDB";
+import { idFilter, regexFilter } from "../utils/filterDB";
 import sendEmail from "../utils/sendMail/sendMail";
 import { DishInputType, DishType } from "./dish";
 
@@ -114,7 +114,7 @@ export const getOrders = {
     page: { type: GraphQLInt },
     id: { type: GraphQLString },
     firstName: { type: GraphQLString },
-    lastName: { type: GraphQLString },
+    surname: { type: GraphQLString },
     email: { type: GraphQLString },
     date: { type: GraphQLString },
     phone: { type: GraphQLString },
@@ -123,17 +123,18 @@ export const getOrders = {
     const { req, res } = context;
     const page = args.page || 1;
     if (!(req as any).email) throw new Error("You are not logged in as an admin!");
-    const filter: regexFilter = {};
-    for (const [key, value] of Object.entries(args)) {
-      if (key !== "page") filter[key] = { $regex: value as string, $options: "i" };
+    const filter: regexFilter | idFilter = {};
+    for (const [filterKey, filterValue] of Object.entries(args)) {
+      if (filterKey !== "page" && filterKey !== "id" && filterValue)
+        filter[filterKey] = { $regex: filterValue as string, $options: "i" };
+      if (filterKey === "id" && filterValue) filter._id = args.id;
     }
-
     const orders = await Order.find(filter)
       .limit(RESULT_PER_PAGE)
       .skip((page - 1) * RESULT_PER_PAGE)
       .sort("-date");
 
-    const count = await Order.count();
+    const count = await Order.countDocuments(filter);
     if (!orders || !orders.length) throw new Error("No orders found!");
     return { orders, count, page, allPages: Math.ceil(count / RESULT_PER_PAGE) };
   },

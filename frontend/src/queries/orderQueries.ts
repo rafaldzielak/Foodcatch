@@ -82,8 +82,24 @@ export const getOrderQuery = gql`
 `;
 
 export const getOrdersQuery = gql`
-  query GetOrders($page: Int) {
-    getOrders(page: $page) {
+  query GetOrders(
+    $page: Int
+    $id: String
+    $firstName: String
+    $surname: String
+    $email: String
+    $date: String
+    $phone: String
+  ) {
+    getOrders(
+      page: $page
+      id: $id
+      firstName: $firstName
+      surname: $surname
+      email: $email
+      date: $date
+      phone: $phone
+    ) {
       orders {
         id
         date
