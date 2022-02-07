@@ -140,10 +140,10 @@ const AllOrders = () => {
   if (loading) return <Loader />;
   return (
     <div className='container all-orders'>
+      {renderFilterInputs()}
       {error && <Alert hideCloseBtn>{error.message}</Alert>}
-      {data && (
+      {data && !error && (
         <>
-          {renderFilterInputs()}
           {renderOrdersTable()}
           <ReactPaginate
             className='react-paginate'

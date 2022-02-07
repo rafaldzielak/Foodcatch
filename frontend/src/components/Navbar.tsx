@@ -31,7 +31,11 @@ const Navbar = () => {
           {user.email && user.isAdmin && (
             <div>
               <h4>
-                You are logged in as an admin. <button onClick={handleUserLogout}>Logout</button>
+                <span className='mr-1'>You are logged in as an admin.</span>
+                <Link to='/admin/orders' className='mr-1'>
+                  <button>Orders</button>
+                </Link>
+                <button onClick={handleUserLogout}>Logout</button>
               </h4>
             </div>
           )}
