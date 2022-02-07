@@ -1,4 +1,5 @@
 import {
+  GraphQLBoolean,
   GraphQLID,
   GraphQLInt,
   GraphQLList,
@@ -30,6 +31,10 @@ export const OrderType = new GraphQLObjectType({
     city: { type: GraphQLString },
     paymentMethod: { type: GraphQLString },
     couponAppliedPercentage: { type: GraphQLInt },
+    orderPaymentId: { type: GraphQLString },
+    orderPaymentProvider: { type: GraphQLString },
+    isPaid: { type: GraphQLBoolean },
+    isDelivered: { type: GraphQLBoolean },
   }),
 });
 
@@ -78,6 +83,10 @@ export const createOrder = {
     paymentMethod: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },
     couponApplied: { type: GraphQLString },
+    orderPaymentId: { type: GraphQLString },
+    orderPaymentProvider: { type: GraphQLString },
+    isPaid: { type: GraphQLBoolean },
+    isDelivered: { type: GraphQLBoolean },
   },
   resolve: async (parent: any, args: any) => {
     const date = new Date(args.date);
