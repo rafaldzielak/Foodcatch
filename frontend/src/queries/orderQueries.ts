@@ -118,6 +118,10 @@ export const getOrdersQuery = gql`
         city
         paymentMethod
         couponAppliedPercentage
+        orderPaymentId
+        orderPaymentProvider
+        isPaid
+        isDelivered
       }
       count
       page

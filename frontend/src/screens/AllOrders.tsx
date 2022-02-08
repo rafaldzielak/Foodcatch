@@ -11,6 +11,8 @@ import "./AllOrders.scss";
 import ReactPaginate from "react-paginate";
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 import useDebounce from "../hooks/useDebounce";
+import { BsCheckSquareFill } from "react-icons/bs";
+import { FaTimes } from "react-icons/fa";
 
 const AllOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,6 +48,8 @@ const AllOrders = () => {
           <th>Dishes</th>
           <th>Payment</th>
           <th>Address</th>
+          <th>Paid</th>
+          <th>Delivered</th>
         </tr>
       </thead>
       <tbody>
@@ -62,9 +66,11 @@ const AllOrders = () => {
             city,
             street,
             streetNumber,
+            isPaid,
+            isDelivered,
           } = order;
           return (
-            <tr key={order.id}>
+            <tr key={id}>
               <td>{id}</td>
               <td>{email}</td>
               <td>{format(convertStringDateToDate(date), "dd.MM.yyyy hh:mm")}</td>
@@ -73,6 +79,10 @@ const AllOrders = () => {
               <td>{dishes.length}</td>
               <td>{paymentMethod[0].toUpperCase() + paymentMethod.substring(1)}</td>
               <td>{`${street} ${streetNumber}, ${city}`}</td>
+              <td>{isPaid ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}</td>
+              <td>
+                {isDelivered ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}
+              </td>
               <td>
                 <Link to={`/summary/${id}`}>
                   <button>Details</button>

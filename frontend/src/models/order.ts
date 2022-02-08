@@ -13,6 +13,10 @@ export interface Order {
   city: string;
   paymentMethod: "cash" | "card";
   couponAppliedPercentage: number;
+  isPaid: boolean;
+  isDelivered: boolean;
+  orderPaymentProvider: "stripe" | "paypal";
+  orderPaymentId: string;
 }
 
 export interface OrdersResponse {

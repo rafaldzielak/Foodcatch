@@ -17,6 +17,10 @@ const initialState: Order = {
   streetNumber: "",
   surname: "",
   couponAppliedPercentage: 0,
+  isDelivered: false,
+  isPaid: false,
+  orderPaymentId: "",
+  orderPaymentProvider: "paypal",
 };
 
 export const orderReducer = (state: Order = initialState, action: Action): Order => {

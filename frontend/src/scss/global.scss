@@ -36,6 +36,16 @@ h3 {
 
 svg {
   vertical-align: middle !important;
+  &.success {
+    path {
+      color: #4bb543;
+    }
+  }
+  &.danger {
+    path {
+      color: #d04349;
+    }
+  }
 }
 
 .App {
