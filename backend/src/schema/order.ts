@@ -96,7 +96,6 @@ export const createOrder = {
       if (!coupon) throw new Error("Invalid coupon");
       order.couponAppliedPercentage = coupon.discount;
     }
-    console.log(order);
     await order.save();
     generateHTMLStringForOrder(order);
     sendEmail(order.email, "FoodCatch: Order confirmed!", generateHTMLStringForOrder(order));
@@ -111,7 +110,6 @@ export const getOrder = {
   },
   resolve: async (parent: any, args: any) => {
     const order = await Order.findById(args.id);
-    console.log(order);
     if (!order) throw new Error("Order with given ID not found");
     return order;
   },

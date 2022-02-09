@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const transport = nodeMailer.createTransport({
-  service: "outlook",
+  host: "smtp-mail.outlook.com",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
