@@ -45,9 +45,9 @@ const AllOrders = () => {
           <th>Date</th>
           <th>Name</th>
           <th>Phone</th>
+          <th>Address</th>
           <th>Dishes</th>
           <th>Payment</th>
-          <th>Address</th>
           <th>Paid</th>
           <th>Delivered</th>
         </tr>
@@ -72,13 +72,13 @@ const AllOrders = () => {
           return (
             <tr key={id}>
               <td>{id}</td>
-              <td>{email}</td>
+              <td className='email'>{email}</td>
               <td>{format(convertStringDateToDate(date), "dd.MM.yyyy hh:mm")}</td>
-              <td>{`${firstName} ${surname}`}</td>
+              <td className='name'>{`${firstName} ${surname}`}</td>
               <td>{phone}</td>
+              <td className='address'>{`${street} ${streetNumber}, ${city}`}</td>
               <td>{dishes.length}</td>
               <td>{paymentMethod[0].toUpperCase() + paymentMethod.substring(1)}</td>
-              <td>{`${street} ${streetNumber}, ${city}`}</td>
               <td>{isPaid ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}</td>
               <td>
                 {isDelivered ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}
