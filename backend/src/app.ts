@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
+import { User } from "./models/user";
 
 export type Context = { req: Request; res: Response };
 
@@ -19,14 +20,16 @@ app.use(cors());
 const PORT = 5000;
 
 app.use(cookieParser());
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
   let jwt = req.get("Authorization");
   if (jwt) jwt = jwt.replace("Bearer ", "");
   if (!jwt) {
     next();
   } else {
     const data = verify(jwt, process.env.JWT_SECRET!) as any;
-    (req as any).email = data.email;
+    const user = await User.findOne({ email: data.email });
+    (req as any).isAdmin = user?.isAdmin;
+    (req as any).email = user?.email;
     (req as any).jwt = jwt;
     next();
   }

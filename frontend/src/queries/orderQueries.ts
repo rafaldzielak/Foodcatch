@@ -57,6 +57,60 @@ export const createOrderMutation = gql`
   }
 `;
 
+export const editOrderMutation = gql`
+  mutation EditOrder(
+    $id: String!
+    $isDelivered: Boolean
+    $date: String
+    $phone: String
+    $dishes: [DishInput]
+    $firstName: String
+    $surname: String
+    $email: String
+    $street: String
+    $streetNumber: String
+    $city: String
+    $paymentMethod: String
+  ) {
+    editOrder(
+      id: $id
+      isDelivered: $isDelivered
+      date: $date
+      phone: $phone
+      dishes: $dishes
+      firstName: $firstName
+      surname: $surname
+      email: $email
+      street: $street
+      streetNumber: $streetNumber
+      city: $city
+      paymentMethod: $paymentMethod
+    ) {
+      id
+      date
+      phone
+      dishes {
+        name
+        imgURL
+        price
+        quantity
+      }
+      firstName
+      surname
+      street
+      email
+      streetNumber
+      city
+      paymentMethod
+      couponAppliedPercentage
+      orderPaymentId
+      orderPaymentProvider
+      isPaid
+      isDelivered
+    }
+  }
+`;
+
 export const getOrderQuery = gql`
   query GetOrder($id: String!) {
     getOrder(id: $id) {

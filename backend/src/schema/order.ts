@@ -103,6 +103,35 @@ export const createOrder = {
   },
 };
 
+export const editOrder = {
+  type: OrderType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+    date: { type: GraphQLString },
+    phone: { type: GraphQLString },
+    dishes: { type: new GraphQLList(DishInputType) },
+    firstName: { type: GraphQLString },
+    surname: { type: GraphQLString },
+    street: { type: GraphQLString },
+    streetNumber: { type: GraphQLString },
+    city: { type: GraphQLString },
+    paymentMethod: { type: GraphQLString },
+    email: { type: GraphQLString },
+    orderPaymentId: { type: GraphQLString },
+    orderPaymentProvider: { type: GraphQLString },
+    isDelivered: { type: GraphQLBoolean },
+  },
+  resolve: async (parent: any, args: any, context: Context) => {
+    if (!(context.req as any).isAdmin) throw new Error("You are not logged in as an admin!");
+    const order = Order.findById(args.id);
+    if (!order) throw new Error("Order with that ID not found!");
+    const fieldsToUpdate = { ...args };
+    if (args.date) fieldsToUpdate.date = new Date(args.date);
+    const updatedOrder = await Order.findByIdAndUpdate(args.id, fieldsToUpdate, { new: true });
+    return updatedOrder;
+  },
+};
+
 export const getOrder = {
   type: OrderType,
   args: {
@@ -129,7 +158,7 @@ export const getOrders = {
   resolve: async (parent: any, args: any, context: Context) => {
     const { req, res } = context;
     const page = args.page || 1;
-    if (!(req as any).email) throw new Error("You are not logged in as an admin!");
+    if (!(req as any).isAdmin) throw new Error("You are not logged in as an admin!");
     const filter: regexFilter | idFilter = {};
     for (const [filterKey, filterValue] of Object.entries(args)) {
       if (filterKey !== "page" && filterKey !== "id" && filterValue)
