@@ -1,18 +1,21 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
-import { OrdersResponse } from "../models/order";
-import { getOrdersQuery } from "../queries/orderQueries";
+import { Order, OrdersResponse } from "../models/order";
+import { editOrderMutation, getOrdersQuery } from "../queries/orderQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
 import ReactPaginate from "react-paginate";
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 import useDebounce from "../hooks/useDebounce";
 import { BsCheckSquareFill } from "react-icons/bs";
+import { MdMoped } from "react-icons/md";
 import { FaTimes } from "react-icons/fa";
+import { HiCheck } from "react-icons/hi";
+import ReactTooltip from "react-tooltip";
 
 const AllOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,9 +35,15 @@ const AllOrders = () => {
     variables: { page: currentPage },
   });
 
+  const [editOrderMut] = useMutation<{ editOrder: Order }>(editOrderMutation, {
+    refetchQueries: [getOrdersQuery],
+  });
+
   useEffect(() => {
     refetch({ page: currentPage, email, id, firstName, surname, phone });
   }, [currentPage, refetch, email, id, firstName, surname, phone]);
+
+  const handleDeliverOrder = (id: string) => editOrderMut({ variables: { id, isDelivered: true } });
 
   const renderOrdersTable = () => (
     <table>
@@ -82,6 +91,15 @@ const AllOrders = () => {
               <td>{isPaid ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}</td>
               <td>
                 {isDelivered ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}
+              </td>
+              <td>
+                <button
+                  className={isDelivered ? "disabled" : ""}
+                  data-tip='Mark as delivered'
+                  onClick={() => handleDeliverOrder(id)}>
+                  <MdMoped />
+                  <HiCheck />
+                </button>
               </td>
               <td>
                 <Link to={`/summary/${id}`}>
@@ -167,6 +185,7 @@ const AllOrders = () => {
           />
         </>
       )}
+      <ReactTooltip effect='solid' />
     </div>
   );
 };
