@@ -13,6 +13,7 @@ import { IdFilter, RegexFilter } from "../utils/filterDB";
 import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
 import { DishInputType, DishType } from "./dish";
+import { getFilter } from "./utils";
 
 const coupons = [{ couponName: "test20", discount: 20 }];
 
@@ -159,18 +160,8 @@ export const getOrders = {
     const { req, res } = context;
     const page = args.page || 1;
     if (!(req as any).isAdmin) throw new Error("You are not logged in as an admin!");
-    const filter: RegexFilter | IdFilter = {};
-    console.log(args);
-    for (const [filterKey, filterValue] of Object.entries(args)) {
-      console.log(filterKey, filterValue, typeof filterValue);
+    const filter = getFilter(args);
 
-      if (filterKey !== "page" && filterKey !== "id" && filterValue)
-        filter[filterKey] = {
-          $regex: filterValue as string | number,
-          $options: typeof filterValue === "string" ? "i" : undefined,
-        };
-      if (filterKey === "id" && filterValue) filter._id = args.id;
-    }
     const orders = await Order.find(filter)
       .limit(RESULT_PER_PAGE)
       .skip((page - 1) * RESULT_PER_PAGE)
