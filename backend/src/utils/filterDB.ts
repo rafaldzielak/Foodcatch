@@ -1,7 +1,7 @@
-export type regexFilter = {
-  [key: string]: { $regex: string; $options?: string };
+export type RegexFilter = {
+  [key: string]: { $regex: string | number; $options?: string } | number;
 };
 
-export type idFilter = {
+export type IdFilter = {
   _id: string;
 };

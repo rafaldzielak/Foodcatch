@@ -1,7 +1,17 @@
 import { format } from "date-fns";
-import { GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLString, GraphQLNonNull } from "graphql";
+import {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLList,
+} from "graphql";
+import { Context } from "../app";
 import { Booking, BookingAttrs, BookingDoc } from "../models/booking";
 import sendEmail from "../utils/sendMail/sendMail";
+import { RESULT_PER_PAGE } from "./consts";
+import { getFilter } from "./utils";
 
 export const BookType = new GraphQLObjectType({
   name: "Booking",
@@ -13,6 +23,16 @@ export const BookType = new GraphQLObjectType({
     email: { type: GraphQLString },
     date: { type: GraphQLString },
     readableId: { type: GraphQLString },
+  }),
+});
+
+const OrdersResponseType = new GraphQLObjectType({
+  name: "Bookings",
+  fields: () => ({
+    bookings: { type: new GraphQLList(BookType) },
+    count: { type: GraphQLInt },
+    page: { type: GraphQLInt },
+    allPages: { type: GraphQLInt },
   }),
 });
 
@@ -51,6 +71,35 @@ export const getBooking = {
     else booking = await Booking.findOne({ readableId: readableId });
     if (!booking) throw new Error("No booking with given ID");
     return booking;
+  },
+};
+
+export const getBookings = {
+  type: OrdersResponseType,
+  args: {
+    page: { type: GraphQLInt },
+    people: { type: GraphQLInt },
+    id: { type: GraphQLString },
+    readableId: { type: GraphQLString },
+    name: { type: GraphQLString },
+    email: { type: GraphQLString },
+    date: { type: GraphQLString },
+    phone: { type: GraphQLString },
+  },
+  resolve: async (parent: any, args: any, context: Context) => {
+    const { req, res } = context;
+    if (!(req as any).isAdmin) throw new Error("You are not logged in as an admin!");
+
+    const page = args.page || 1;
+    const filter = getFilter(args);
+    const bookings = await Booking.find(filter)
+      .limit(RESULT_PER_PAGE)
+      .skip((page - 1) * RESULT_PER_PAGE)
+      .sort("-date");
+
+    const count = await Booking.countDocuments(filter);
+    if (!bookings || !bookings.length) throw new Error("No bookings found!");
+    return { bookings, count, page, allPages: Math.ceil(count / RESULT_PER_PAGE) };
   },
 };
 
