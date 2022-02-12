@@ -123,6 +123,8 @@ export const getOrderQuery = gql`
         price
         quantity
       }
+      isPaid
+      isDelivered
       email
       firstName
       surname

@@ -13,7 +13,7 @@ import { addMinutes, differenceInMinutes, format, getMinutes } from "date-fns";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import OrderDetails from "../components/OrderDetails";
 
-const minutesForDelivery = 45;
+const minutesForDelivery = Number(process.env.REACT_APP_MINUTES_FOR_DELIVERY);
 
 const SummaryScreen = () => {
   const order = useTypedSelector((state) => state.order);
@@ -51,14 +51,17 @@ const SummaryScreen = () => {
     <main>
       <div className='menu container summary'>
         <div className='flex-grow '>
-          <h1>
-            Your Order should be delivered at {format(addMinutes(order.date, minutesForDelivery), "hh:mm")}
-          </h1>
+          {!order.isDelivered && (
+            <h1>
+              Your Order should be delivered at {format(addMinutes(order.date, minutesForDelivery), "hh:mm")}
+            </h1>
+          )}
+
           <div className='grid-justify-center'>
             <ProgressBar
               radius={150}
               steps={minutesForDelivery}
-              progress={timeElapsed}
+              progress={order.isDelivered ? minutesForDelivery : timeElapsed}
               fillColor='#f2f2f2'
               strokeWidth={2}
               strokeColor='#656d78'
@@ -66,11 +69,13 @@ const SummaryScreen = () => {
               pointerStrokeWidth={2}
               pointerStrokeColor='#656d78'>
               <div className='indicator-volume'>
-                {timeElapsed < minutesForDelivery ? (
+                {timeElapsed < minutesForDelivery && !order.isDelivered ? (
                   <h1 className='percentage'>{minutesForDelivery - timeElapsed} minutes left</h1>
                 ) : (
                   <div>
-                    <h1>Your Order should be any minute!</h1>
+                    <h1>
+                      {order.isDelivered ? "Your Order was delivered!" : "Your Order should be any minute!"}
+                    </h1>
                     <span className='circle-trouble'>Having trouble? Call us at 070 8297 3841 </span>
                   </div>
                 )}
