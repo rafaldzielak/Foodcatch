@@ -6,9 +6,11 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLList,
+  GraphQLBoolean,
 } from "graphql";
 import { Context } from "../app";
 import { Booking, BookingAttrs, BookingDoc } from "../models/booking";
+import { DateFilter, RegexFilter } from "../utils/filterDB";
 import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
 import { checkAuthorization, getFilter } from "./utils";
@@ -85,17 +87,19 @@ export const getBookings = {
     email: { type: GraphQLString },
     date: { type: GraphQLString },
     phone: { type: GraphQLString },
+    getPast: { type: GraphQLBoolean },
   },
   resolve: async (parent: any, args: any, context: Context) => {
     const { req, res } = context;
     checkAuthorization(req);
-    console.log(args);
-    const page = args.page || 1;
+    const { page = 1, getPast } = args;
     const filter = getFilter(args);
+    if (getPast) filter.date = { $lte: new Date() };
+    else filter.date = { $gte: new Date() };
     const bookings = await Booking.find(filter)
       .limit(RESULT_PER_PAGE)
       .skip((page - 1) * RESULT_PER_PAGE)
-      .sort("date");
+      .sort(getPast ? "-date" : "date");
 
     const count = await Booking.countDocuments(filter);
     if (!bookings?.length) throw new Error("No bookings found!");

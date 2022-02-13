@@ -1,7 +1,7 @@
-import { IdFilter, RegexFilter } from "../utils/filterDB";
+import { DateFilter, IdFilter, RegexFilter } from "../utils/filterDB";
 
-export const getFilter = (args: any[any]) => {
-  const filter: RegexFilter | IdFilter = {};
+export const getFilter = (args: any[any]): RegexFilter & IdFilter & DateFilter => {
+  const filter: RegexFilter & IdFilter & DateFilter = {};
 
   for (const [filterKey, filterValue] of Object.entries(args)) {
     if (!filterValue || filterKey === "page") continue;
