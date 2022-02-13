@@ -77,9 +77,7 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
                 </button>
                 {isAdmin && (
                   <Link to={`/dishes/edit/${dish.id}`}>
-                    <button className='ls-2 mt-1 alt' onClick={() => addToCartAction(dish.id)}>
-                      Edit Dish
-                    </button>
+                    <button className='ls-2 mt-1 alt'>Edit Dish</button>
                   </Link>
                 )}
               </div>

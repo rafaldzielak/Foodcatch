@@ -12,6 +12,8 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { Booking } from "../models/booking";
 import { useHistory } from "react-router";
 import { add } from "date-fns";
+import { Link } from "react-router-dom";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const hours = [
   { value: "14", label: "14" },
@@ -43,6 +45,8 @@ const TableBook = () => {
   const [error, setError] = useState("");
   const [warning, setWarning] = useState("");
   const history = useHistory();
+
+  const user = useTypedSelector((state) => state.user);
 
   useEffect(() => {
     if (selectedPeople === 12) setWarning("Please contact us directly for more than 11 people.");
@@ -229,6 +233,11 @@ const TableBook = () => {
         <button className='small' onClick={bookTableHandler}>
           Book a Table
         </button>
+        {user.email && user.isAdmin && (
+          <Link to='/admin/bookings' className='ml-1'>
+            <button className='small'>All Bookings</button>
+          </Link>
+        )}
       </Modal>
     </>
   );

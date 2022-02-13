@@ -35,6 +35,9 @@ const Navbar = () => {
                 <Link to='/admin/orders' className='mr-1'>
                   <button>Orders</button>
                 </Link>
+                <Link to='/admin/bookings' className='mr-1'>
+                  <button>Bookings</button>
+                </Link>
                 <button onClick={handleUserLogout}>Logout</button>
               </h4>
             </div>
