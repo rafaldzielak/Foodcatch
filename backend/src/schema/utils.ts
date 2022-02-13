@@ -14,3 +14,7 @@ export const getFilter = (args: any[any]) => {
   }
   return filter;
 };
+
+export const checkAuthorization = (req: any) => {
+  if (!req.isAdmin) throw new Error("You are not logged in as an admin!");
+};

@@ -11,7 +11,7 @@ import { Context } from "../app";
 import { Booking, BookingAttrs, BookingDoc } from "../models/booking";
 import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
-import { getFilter } from "./utils";
+import { checkAuthorization, getFilter } from "./utils";
 
 export const BookType = new GraphQLObjectType({
   name: "Booking",
@@ -88,17 +88,17 @@ export const getBookings = {
   },
   resolve: async (parent: any, args: any, context: Context) => {
     const { req, res } = context;
-    if (!(req as any).isAdmin) throw new Error("You are not logged in as an admin!");
-
+    checkAuthorization(req);
+    console.log(args);
     const page = args.page || 1;
     const filter = getFilter(args);
     const bookings = await Booking.find(filter)
       .limit(RESULT_PER_PAGE)
       .skip((page - 1) * RESULT_PER_PAGE)
-      .sort("-date");
+      .sort("date");
 
     const count = await Booking.countDocuments(filter);
-    if (!bookings || !bookings.length) throw new Error("No bookings found!");
+    if (!bookings?.length) throw new Error("No bookings found!");
     return { bookings, count, page, allPages: Math.ceil(count / RESULT_PER_PAGE) };
   },
 };

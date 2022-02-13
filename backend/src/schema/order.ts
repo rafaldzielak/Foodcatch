@@ -13,7 +13,7 @@ import { IdFilter, RegexFilter } from "../utils/filterDB";
 import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
 import { DishInputType, DishType } from "./dish";
-import { getFilter } from "./utils";
+import { checkAuthorization, getFilter } from "./utils";
 
 const coupons = [{ couponName: "test20", discount: 20 }];
 
@@ -123,7 +123,7 @@ export const editOrder = {
     isDelivered: { type: GraphQLBoolean },
   },
   resolve: async (parent: any, args: any, context: Context) => {
-    if (!(context.req as any).isAdmin) throw new Error("You are not logged in as an admin!");
+    checkAuthorization(context.req);
     const order = Order.findById(args.id);
     if (!order) throw new Error("Order with that ID not found!");
     const fieldsToUpdate = { ...args };
@@ -158,8 +158,8 @@ export const getOrders = {
   },
   resolve: async (parent: any, args: any, context: Context) => {
     const { req, res } = context;
+    checkAuthorization(req);
     const page = args.page || 1;
-    if (!(req as any).isAdmin) throw new Error("You are not logged in as an admin!");
     const filter = getFilter(args);
 
     const orders = await Order.find(filter)

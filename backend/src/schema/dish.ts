@@ -8,7 +8,9 @@ import {
   GraphQLBoolean,
   GraphQLList,
 } from "graphql";
+import { Context } from "../app";
 import { Dish } from "../models/dish";
+import { checkAuthorization } from "./utils";
 
 export const DishType = new GraphQLObjectType({
   name: "Dish",
@@ -94,7 +96,8 @@ export const editDish = {
     isSpicy: { type: GraphQLBoolean },
     type: { type: GraphQLString },
   },
-  resolve: async (parents: any, args: any) => {
+  resolve: async (parents: any, args: any, context: Context) => {
+    checkAuthorization(context.req);
     const dish = await Dish.findByIdAndUpdate(args.id, args, { new: true });
     console.log(dish);
     if (!dish) throw new Error("Dish with given ID not found!");
@@ -107,7 +110,8 @@ export const deleteDish = {
   args: {
     id: { type: new GraphQLNonNull(GraphQLString) },
   },
-  resolve: async (parents: any, args: any) => {
+  resolve: async (parents: any, args: any, context: Context) => {
+    checkAuthorization(context.req);
     const dish = await Dish.findById(args.id);
     if (!dish) throw new Error("Dish with given ID not found!");
     await dish.remove();
