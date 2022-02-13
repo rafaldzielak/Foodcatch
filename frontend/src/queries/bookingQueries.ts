@@ -24,3 +24,40 @@ export const createBookingMutation = gql`
     }
   }
 `;
+
+export const getBookingsQuery = gql`
+  query GetBookings(
+    $page: Int
+    $id: String
+    $people: Int
+    $readableId: String
+    $name: String
+    $email: String
+    $date: String
+    $phone: String
+  ) {
+    getBookings(
+      page: $page
+      id: $id
+      readableId: $readableId
+      people: $people
+      name: $name
+      email: $email
+      date: $date
+      phone: $phone
+    ) {
+      bookings {
+        date
+        name
+        email
+        id
+        phone
+        people
+        readableId
+      }
+      count
+      page
+      allPages
+    }
+  }
+`;
