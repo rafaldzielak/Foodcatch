@@ -35,6 +35,7 @@ export const getBookingsQuery = gql`
     $email: String
     $date: String
     $phone: String
+    $getPast: Boolean
   ) {
     getBookings(
       page: $page
@@ -45,6 +46,7 @@ export const getBookingsQuery = gql`
       email: $email
       date: $date
       phone: $phone
+      getPast: $getPast
     ) {
       bookings {
         date

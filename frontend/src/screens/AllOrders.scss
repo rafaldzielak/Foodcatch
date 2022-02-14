@@ -37,6 +37,7 @@
   }
   ul.react-paginate {
     margin: auto;
+    margin-top: 1rem;
     display: flex;
     list-style-type: none;
     justify-content: center;
@@ -79,6 +80,10 @@
       input {
         margin-top: 0.25rem;
         padding: 0.75rem;
+        &.get-past {
+          margin-top: 9px;
+          height: 20px;
+        }
       }
     }
   }

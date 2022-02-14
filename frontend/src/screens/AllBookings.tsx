@@ -12,6 +12,7 @@ import useDebounce from "../hooks/useDebounce";
 import ReactTooltip from "react-tooltip";
 import { BookingsResponse } from "../models/booking";
 import { getBookingsQuery } from "../queries/bookingQueries";
+import useToggle from "../hooks/useToggle";
 
 const AllBookings = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +21,7 @@ const AllBookings = () => {
   const [nameValue, setNameValue] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
   const [peopleValue, setPeopleValue] = useState<number>(0);
+  const [getPast, togglePast] = useToggle();
 
   const email = useDebounce<string>(emailValue);
   const id = useDebounce<string>(idValue);
@@ -28,7 +30,7 @@ const AllBookings = () => {
   const people = useDebounce<number>(peopleValue);
 
   const { data, loading, error, refetch } = useQuery<{ getBookings: BookingsResponse }>(getBookingsQuery, {
-    variables: { page: currentPage, email, id, name, phone, people: people },
+    variables: { page: currentPage, email, id, name, phone, people, getPast },
   });
 
   useEffect(() => {
@@ -39,7 +41,7 @@ const AllBookings = () => {
   useEffect(() => {
     console.log("REFETCH");
     refetch({ page: 1 });
-  }, [email, id, name, phone, refetch, peopleValue]);
+  }, [email, id, name, phone, refetch, peopleValue, getPast]);
 
   const renderOrdersTable = () => (
     <table>
@@ -62,7 +64,7 @@ const AllBookings = () => {
               <td>{id}</td>
               <td>{readableId}</td>
               <td className='email'>{email}</td>
-              <td>{format(convertStringDateToDate(date), "dd.MM.yyyy hh:mm")}</td>
+              <td>{format(convertStringDateToDate(date), "dd.MM.yyyy HH:mm")}</td>
               <td className='name'>{name}</td>
               <td>{phone}</td>
               <td>{people}</td>
@@ -127,6 +129,15 @@ const AllBookings = () => {
             onChange={(e) => setPeopleValue(Number(e.target.value))}
             value={peopleValue || ""}></input>
         </div>
+        <div className='form-col'>
+          <label htmlFor='past'>Display past: </label>
+          <input
+            type='checkbox'
+            id='past'
+            className='get-past'
+            onChange={() => togglePast()}
+            checked={getPast}></input>
+        </div>
       </div>
     </>
   );
@@ -138,6 +149,7 @@ const AllBookings = () => {
       {error && <Alert hideCloseBtn>{error.message}</Alert>}
       {data && !error && (
         <>
+          <h1>{getPast ? "Past bookings:" : "Planned bookings:"}</h1>
           {renderOrdersTable()}
           <ReactPaginate
             className='react-paginate'

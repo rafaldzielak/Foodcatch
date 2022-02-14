@@ -82,7 +82,7 @@ const AllOrders = () => {
             <tr key={id}>
               <td>{id}</td>
               <td className='email'>{email}</td>
-              <td>{format(convertStringDateToDate(date), "dd.MM.yyyy hh:mm")}</td>
+              <td>{format(convertStringDateToDate(date), "dd.MM.yyyy HH:mm")}</td>
               <td className='name'>{`${firstName} ${surname}`}</td>
               <td>{phone}</td>
               <td className='address'>{`${street} ${streetNumber}, ${city}`}</td>
