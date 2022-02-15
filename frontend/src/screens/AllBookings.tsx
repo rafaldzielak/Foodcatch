@@ -36,10 +36,8 @@ const AllBookings = () => {
   useEffect(() => {
     refetch();
   }, [currentPage, refetch]);
-  console.log(data);
 
   useEffect(() => {
-    console.log("REFETCH");
     refetch({ page: 1 });
   }, [email, id, name, phone, refetch, peopleValue, getPast]);
 

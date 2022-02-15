@@ -235,7 +235,7 @@ const TableBook = () => {
         </button>
         {user.email && user.isAdmin && (
           <Link to='/admin/bookings' className='ml-1'>
-            <button className='small'>All Bookings</button>
+            <button className='small alt'>All Bookings</button>
           </Link>
         )}
       </Modal>

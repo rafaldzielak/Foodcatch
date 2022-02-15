@@ -9,11 +9,11 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
+  const user = useTypedSelector((state) => state.user);
+
   useEffect(() => {
     dispatch(fetchUserFromDbAction());
   }, [dispatch]);
-
-  const user = useTypedSelector((state) => state.user);
 
   const handleUserLogout = () => {
     dispatch(logoutUserAction());
@@ -32,13 +32,18 @@ const Navbar = () => {
             <div>
               <h4>
                 <span className='mr-1'>You are logged in as an admin.</span>
+                <Link to='/dishes/add' className='mr-1'>
+                  <button className='alt'>Add a dish</button>
+                </Link>
                 <Link to='/admin/orders' className='mr-1'>
-                  <button>Orders</button>
+                  <button className='alt'>Orders</button>
                 </Link>
                 <Link to='/admin/bookings' className='mr-1'>
-                  <button>Bookings</button>
+                  <button className='alt'>Bookings</button>
                 </Link>
-                <button onClick={handleUserLogout}>Logout</button>
+                <button className='alt' onClick={handleUserLogout}>
+                  Logout
+                </button>
               </h4>
             </div>
           )}
