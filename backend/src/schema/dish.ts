@@ -55,7 +55,8 @@ export const createDish = {
     isSpicy: { type: new GraphQLNonNull(GraphQLBoolean) },
     type: { type: GraphQLString },
   },
-  resolve: async (parent: any, args: any) => {
+  resolve: async (parent: any, args: any, context: Context) => {
+    checkAuthorization(context.req);
     const dish = Dish.build({ ...args });
     console.log(dish);
     await dish.save();
