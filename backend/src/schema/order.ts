@@ -50,7 +50,7 @@ const OrdersResponseType = new GraphQLObjectType({
 });
 
 export const CouponType = new GraphQLObjectType({
-  name: "Coupon",
+  name: "CouponOld",
   fields: () => ({
     couponApplied: { type: GraphQLString },
     couponAppliedPercentage: { type: GraphQLInt },

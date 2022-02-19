@@ -10,7 +10,6 @@ import {
 } from "graphql";
 import { Context } from "../app";
 import { Booking, BookingAttrs, BookingDoc } from "../models/booking";
-import { DateFilter, RegexFilter } from "../utils/filterDB";
 import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
 import { checkAuthorization, getFilter } from "./utils";
