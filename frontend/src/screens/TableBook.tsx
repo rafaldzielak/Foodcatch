@@ -14,6 +14,7 @@ import { useHistory } from "react-router";
 import { add } from "date-fns";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { compareDates, getCurrentDateWithoutTime } from "../utils/dateFormatting";
 
 const hours = [
   { value: "14", label: "14" },
@@ -30,8 +31,6 @@ const minutes = [
   { value: "00", label: "00" },
   { value: "30", label: "30" },
 ];
-
-const getCurrentDateWithoutTime = () => new Date(new Date().setHours(0, 0, 0, 0));
 
 const TableBook = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -121,13 +120,6 @@ const TableBook = () => {
     );
   };
 
-  const compareDates = () => {
-    const currentDate = getCurrentDateWithoutTime();
-    if (chosenDate >= currentDate) return chosenDate;
-    setChosenDate(currentDate);
-    return currentDate;
-  };
-
   const showDateAndTimeChooser = () => (
     <div className='date-time'>
       <div>
@@ -139,7 +131,7 @@ const TableBook = () => {
           maxDate={addDays(new Date(), 60)}
           minDetail={"year"}
           onChange={(e: Date) => setChosenDate(new Date(e.toDateString()))}
-          value={compareDates()}
+          value={compareDates(chosenDate, setChosenDate)}
         />
       </div>
       <div className='time-select-wrapper'>
