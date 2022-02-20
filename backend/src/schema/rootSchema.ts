@@ -3,13 +3,14 @@ import { createBooking, getBooking, getBookings } from "./booking";
 import { createOrder, getOrder, getOrders, useCoupon, editOrder } from "./order";
 import { createDish, getDishes, getDish, deleteDish, editDish } from "./dish";
 import { createUser, loginUser, getUser } from "./user";
-import { createCoupon } from "./coupon";
+import { createCoupon, getCoupons } from "./coupon";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
     getBooking,
     getBookings,
+    getCoupons,
     getOrder,
     getOrders,
     useCoupon,

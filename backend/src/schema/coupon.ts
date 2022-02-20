@@ -4,6 +4,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
   GraphQLInputObjectType,
+  GraphQLList,
 } from "graphql";
 import { Context } from "../app";
 import { Coupon } from "../models/coupon";
@@ -18,6 +19,16 @@ const couponGraphQL = {
 export const CouponType = new GraphQLObjectType({
   name: "Coupon",
   fields: () => couponGraphQL,
+});
+
+const CouponResponseType = new GraphQLObjectType({
+  name: "Coupons",
+  fields: () => ({
+    coupons: { type: new GraphQLList(CouponType) },
+    count: { type: GraphQLInt },
+    page: { type: GraphQLInt },
+    allPages: { type: GraphQLInt },
+  }),
 });
 
 export const DishInputType = new GraphQLInputObjectType({
@@ -40,5 +51,16 @@ export const createCoupon = {
     const coupon = Coupon.build({ ...args, validUntil });
     await coupon.save();
     return coupon;
+  },
+};
+
+export const getCoupons = {
+  type: CouponResponseType,
+  args: {},
+  resolve: async (parent: any, args: any, context: Context) => {
+    checkAuthorization(context.req);
+    const coupons = await Coupon.find();
+    const count = await Coupon.count();
+    return { coupons, count };
   },
 };
