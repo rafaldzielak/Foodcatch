@@ -18,6 +18,7 @@ import LoginScreen from "./screens/Login";
 import { apolloClient } from "./utils/apolloClient";
 import AllOrders from "./screens/AllOrders";
 import AllBookings from "./screens/AllBookings";
+import AllCoupons from "./screens/AllCoupons";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path='/dishes/edit/:id' component={CreateDish} />
               <Route path='/admin/orders' component={AllOrders} />
               <Route path='/admin/bookings' component={AllBookings} />
+              <Route path='/admin/coupons' component={AllCoupons} />
               <Route path='/admin' component={LoginScreen} />
               <Route path='/' component={HomeScreen} />
             </Switch>

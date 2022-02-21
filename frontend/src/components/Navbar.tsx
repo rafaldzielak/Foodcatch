@@ -41,6 +41,9 @@ const Navbar = () => {
                 <Link to='/admin/bookings' className='mr-1'>
                   <button className='alt'>Bookings</button>
                 </Link>
+                <Link to='/admin/coupons' className='mr-1'>
+                  <button className='alt'>Coupons</button>
+                </Link>
                 <button className='alt' onClick={handleUserLogout}>
                   Logout
                 </button>

@@ -85,6 +85,31 @@
           height: 20px;
         }
       }
+      &.form-col-flex {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        button.create {
+          margin-top: 0.15rem;
+          height: 38px;
+        }
+        .react-date-picker {
+          margin-top: 0.15rem;
+          .react-date-picker__wrapper {
+            border: none !important;
+            background-color: white;
+            box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+            .react-date-picker__inputGroup__input {
+              padding: 0 !important;
+              margin: 0 !important;
+              min-width: 30px;
+              font-size: 14px;
+              background-color: inherit !important;
+              box-shadow: none;
+            }
+          }
+        }
+      }
     }
   }
 }
