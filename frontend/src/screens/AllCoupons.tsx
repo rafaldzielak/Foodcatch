@@ -1,12 +1,12 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { addDays, format } from "date-fns";
 import React, { useState } from "react";
 import DatePicker from "react-date-picker";
 import { BiCalendar } from "react-icons/bi";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
-import { CouponResponse } from "../models/coupon";
-import { getCouponsQuery } from "../queries/couponQueries";
+import { CouponFromDB, CouponResponse } from "../models/coupon";
+import { createCouponMutation, getCouponsQuery } from "../queries/couponQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import { compareDates, getCurrentDateWithoutTime } from "../utils/dateFormatting";
 import "./AllOrders.scss";
@@ -17,6 +17,10 @@ const AllCoupons = () => {
   const [validUntil, setValidUntil] = useState<Date>(new Date());
 
   const { data, loading, error } = useQuery<{ getCoupons: CouponResponse }>(getCouponsQuery);
+
+  const [editOrderMut] = useMutation<{ createCoupon: CouponFromDB }>(createCouponMutation, {
+    refetchQueries: [getCouponsQuery],
+  });
 
   const renderCouponsTable = () => (
     <table>
@@ -41,6 +45,11 @@ const AllCoupons = () => {
       </tbody>
     </table>
   );
+
+  const createCouponHandler = () => {
+    if (!newCouponText || !discount) return;
+    editOrderMut({ variables: { couponName: newCouponText, percentage: discount, validUntil } });
+  };
 
   const renderCouponInputs = () => (
     <div className='form-row'>
@@ -77,7 +86,9 @@ const AllCoupons = () => {
       </div>
       <div className='form-col form-col-flex'>
         <label htmlFor='discount'> &#8205; </label>
-        <button className='create'>Create coupon</button>
+        <button onClick={createCouponHandler} className='create'>
+          Create coupon
+        </button>
       </div>
     </div>
   );

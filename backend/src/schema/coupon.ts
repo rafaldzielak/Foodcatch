@@ -31,11 +31,6 @@ const CouponResponseType = new GraphQLObjectType({
   }),
 });
 
-export const DishInputType = new GraphQLInputObjectType({
-  name: "CouponInput",
-  fields: () => couponGraphQL,
-});
-
 export const createCoupon = {
   type: CouponType,
   args: {
