@@ -6,11 +6,11 @@ import FadeIn from "react-fade-in";
 interface PropTypes {
   hideCloseBtn?: boolean;
   type?: "danger" | "warning" | "info" | "success";
-  closeModal?: () => {};
+  onClose?: () => void;
   fadeOutSeconds?: number;
 }
 
-const Alert: React.FC<PropTypes> = ({ hideCloseBtn, type = "danger", children, fadeOutSeconds }) => {
+const Alert: React.FC<PropTypes> = ({ hideCloseBtn, type = "danger", children, fadeOutSeconds, onClose }) => {
   const [returnEmpty, setReturnEmpty] = useState(false);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Alert: React.FC<PropTypes> = ({ hideCloseBtn, type = "danger", children, f
         {children}
 
         {!hideCloseBtn && (
-          <div className='close-btn' onClick={() => setReturnEmpty(true)}>
+          <div className='close-btn' onClick={() => (onClose ? onClose() : setReturnEmpty(true))}>
             <IoMdClose />
           </div>
         )}
