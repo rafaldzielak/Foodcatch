@@ -3,7 +3,7 @@ import { createBooking, getBooking, getBookings } from "./booking";
 import { createOrder, getOrder, getOrders, useCoupon, editOrder } from "./order";
 import { createDish, getDishes, getDish, deleteDish, editDish } from "./dish";
 import { createUser, loginUser, getUser } from "./user";
-import { createCoupon, getCoupons } from "./coupon";
+import { createCoupon, getCoupons, editCoupon } from "./coupon";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -32,6 +32,7 @@ const Mutation = new GraphQLObjectType({
     createUser,
     loginUser,
     createCoupon,
+    editCoupon,
   },
 });
 

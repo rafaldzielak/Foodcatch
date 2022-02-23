@@ -49,6 +49,24 @@ export const createCoupon = {
   },
 };
 
+export const editCoupon = {
+  type: CouponType,
+  args: {
+    couponName: { type: new GraphQLNonNull(GraphQLString) },
+    validUntil: { type: GraphQLString },
+    percentage: { type: GraphQLInt },
+  },
+  resolve: async (parent: any, args: any, context: Context) => {
+    checkAuthorization(context.req);
+    const { couponName } = args;
+    const existingCoupon = await Coupon.findOne({ couponName: args.couponName });
+    if (!existingCoupon) throw new Error("No coupon with that name found!");
+    const updatedCoupon = await Coupon.findOneAndUpdate({ couponName }, { ...args }, { new: true });
+    console.log(updatedCoupon);
+    return updatedCoupon;
+  },
+};
+
 export const getCoupons = {
   type: CouponResponseType,
   args: {},
