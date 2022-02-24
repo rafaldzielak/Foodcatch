@@ -22,3 +22,13 @@ export const createCouponMutation = gql`
     }
   }
 `;
+
+export const editCouponMutation = gql`
+  mutation EditCoupon($couponName: String!, $validUntil: String, $percentage: Int) {
+    editCoupon(couponName: $couponName, validUntil: $validUntil, percentage: $percentage) {
+      percentage
+      couponName
+      validUntil
+    }
+  }
+`;
