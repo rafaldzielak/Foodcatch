@@ -67,6 +67,21 @@ export const editCoupon = {
   },
 };
 
+export const removeCoupon = {
+  type: CouponType,
+  args: {
+    couponName: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: async (parent: any, args: any, context: Context) => {
+    checkAuthorization(context.req);
+    const { couponName } = args;
+    const existingCoupon = await Coupon.findOne({ couponName: args.couponName });
+    if (!existingCoupon) throw new Error("No coupon with that name found!");
+    const removedCoupon = await Coupon.findOneAndDelete({ couponName });
+    return removedCoupon;
+  },
+};
+
 export const getCoupons = {
   type: CouponResponseType,
   args: {},
