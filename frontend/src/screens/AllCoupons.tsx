@@ -7,7 +7,12 @@ import { FaEdit, FaTimesCircle } from "react-icons/fa";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
 import { CouponFromDB, CouponResponse } from "../models/coupon";
-import { createCouponMutation, editCouponMutation, getCouponsQuery } from "../queries/couponQueries";
+import {
+  createCouponMutation,
+  editCouponMutation,
+  getCouponsQuery,
+  removeCouponMutation,
+} from "../queries/couponQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import { compareDates, getCurrentDateWithoutTime } from "../utils/dateFormatting";
 import "./AllOrders.scss";
@@ -27,10 +32,34 @@ const AllCoupons = () => {
   const [editCouponMut] = useMutation<{ editCoupon: CouponFromDB }>(editCouponMutation, {
     refetchQueries: [getCouponsQuery],
   });
+  const [removeCouponMut] = useMutation<{ removeCoupon: CouponFromDB }>(removeCouponMutation, {
+    refetchQueries: [getCouponsQuery],
+  });
+
+  useEffect(() => {
+    setError(getError?.message || "");
+  }, [getError]);
 
   useEffect(() => {
     setEditCoupon("");
   }, [newCouponText]);
+
+  const createCouponHandler = () => {
+    if ((!newCouponText && !editCouponText) || !discount) return;
+    if (editCouponText) {
+      editCouponMut({ variables: { couponName: editCouponText, percentage: discount, validUntil } }).catch(
+        (error) => setError(error.message)
+      );
+    } else {
+      createCouponMut({ variables: { couponName: newCouponText, percentage: discount, validUntil } }).catch(
+        (error) => setError(error.message)
+      );
+    }
+  };
+
+  const removeCouponHandler = (couponName: string) => {
+    removeCouponMut({ variables: { couponName } });
+  };
 
   const renderCouponsTable = () => (
     <table>
@@ -60,7 +89,7 @@ const AllCoupons = () => {
                 />
               </td>
               <td className='danger'>
-                <FaTimesCircle className='pointer' />
+                <FaTimesCircle className='pointer' onClick={() => removeCouponHandler(couponName)} />
               </td>
             </tr>
           );
@@ -68,20 +97,6 @@ const AllCoupons = () => {
       </tbody>
     </table>
   );
-
-  const createCouponHandler = () => {
-    console.log(newCouponText, discount);
-    if ((!newCouponText && !editCouponText) || !discount) return;
-    if (editCouponText) {
-      editCouponMut({ variables: { couponName: editCouponText, percentage: discount, validUntil } }).catch(
-        (error) => setError(error.message)
-      );
-    } else {
-      createCouponMut({ variables: { couponName: newCouponText, percentage: discount, validUntil } }).catch(
-        (error) => setError(error.message)
-      );
-    }
-  };
 
   const renderCouponInputs = () => (
     <div className='form-row'>
@@ -126,7 +141,6 @@ const AllCoupons = () => {
   );
 
   if (loading) return <Loader />;
-  // if (error || getError) return <Alert>{error || getError}</Alert>;
 
   return (
     <div className='container all-orders'>

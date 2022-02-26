@@ -149,6 +149,9 @@ button {
   &.wide {
     margin-top: 2rem;
     width: 400px;
+    &-s {
+      width: 150px;
+    }
   }
 
   &.transparent {
@@ -237,6 +240,18 @@ img {
 
 .mr-5 {
   margin-right: 8rem;
+}
+
+.admin-blue {
+  color: rgba(0, 90, 180, 1);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.danger {
+  color: #ef5350;
 }
 
 .bg-error {
