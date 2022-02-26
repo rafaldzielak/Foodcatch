@@ -23,6 +23,16 @@ export const createCouponMutation = gql`
   }
 `;
 
+export const removeCouponMutation = gql`
+  mutation RemoveCoupon($couponName: String!) {
+    removeCoupon(couponName: $couponName) {
+      couponName
+      validUntil
+      percentage
+    }
+  }
+`;
+
 export const editCouponMutation = gql`
   mutation EditCoupon($couponName: String!, $validUntil: String, $percentage: Int) {
     editCoupon(couponName: $couponName, validUntil: $validUntil, percentage: $percentage) {
