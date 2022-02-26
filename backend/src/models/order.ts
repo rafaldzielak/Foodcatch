@@ -34,6 +34,7 @@ export interface OrderDoc extends mongoose.Document {
   email: string;
   city: string;
   paymentMethod: "cash" | "card";
+  paymentUrl: string;
   couponAppliedPercentage: number;
   orderPaymentId: string;
   orderPaymentProvider: "stripe" | "paypal";
@@ -52,6 +53,7 @@ const orderSchema = new mongoose.Schema({
   email: { type: String, required: true },
   city: { type: String, required: true },
   paymentMethod: { type: String, required: true },
+  paymentUrl: { type: String },
   couponAppliedPercentage: { type: Number },
   orderPaymentId: { type: String },
   orderPaymentProvider: { type: String },

@@ -9,11 +9,13 @@ import {
 } from "graphql";
 import { Context } from "../app";
 import { Order, OrderDoc } from "../models/order";
-import { IdFilter, RegexFilter } from "../utils/filterDB";
 import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
 import { DishInputType, DishType } from "./dish";
 import { checkAuthorization, getFilter } from "./utils";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, { apiVersion: "2020-08-27" });
 
 const coupons = [{ couponName: "test20", discount: 20 }];
 
@@ -31,6 +33,7 @@ export const OrderType = new GraphQLObjectType({
     email: { type: GraphQLString },
     city: { type: GraphQLString },
     paymentMethod: { type: GraphQLString },
+    paymentUrl: { type: GraphQLString },
     couponAppliedPercentage: { type: GraphQLInt },
     orderPaymentId: { type: GraphQLString },
     orderPaymentProvider: { type: GraphQLString },
@@ -91,13 +94,30 @@ export const createOrder = {
   },
   resolve: async (parent: any, args: any) => {
     const date = new Date(args.date);
+
     const order = Order.build({ ...args, date });
     if (args.couponApplied) {
       const coupon = coupons.find((coupon) => coupon.couponName === args.couponApplied);
       if (!coupon) throw new Error("Invalid coupon");
       order.couponAppliedPercentage = coupon.discount;
     }
+    const stripeSession = await stripe.checkout.sessions.create({
+      success_url: `${process.env.CLIENT_URL}/summary/${order.id}`,
+      cancel_url: `${process.env.CLIENT_URL}/summary/${order.id}`,
+      payment_method_types: ["card", "p24"],
+      mode: "payment",
+      line_items: order.dishes.map((item) => ({
+        price_data: { currency: "pln", product_data: { name: item.name }, unit_amount: item.price * 100 },
+        quantity: item.quantity,
+      })),
+    });
+    console.log(stripeSession);
+
+    console.log(stripeSession.url);
+    order.paymentUrl = stripeSession.url || "";
     await order.save();
+    console.log(order);
+
     generateHTMLStringForOrder(order);
     sendEmail(order.email, "FoodCatch: Order confirmed!", generateHTMLStringForOrder(order));
     return order;
