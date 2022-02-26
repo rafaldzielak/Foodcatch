@@ -16,10 +16,12 @@
       font-size: 2rem;
       margin: 0;
       grid-area: title;
-      img {
+      img,
+      svg {
         cursor: pointer;
-        width: 25px;
-        height: 25px;
+        width: 27px;
+        height: 27px;
+        padding-bottom: 0.65rem;
       }
     }
     .desc {

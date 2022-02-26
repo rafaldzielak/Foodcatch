@@ -14,25 +14,14 @@ import { getDishesAction } from "../state/actions/DishActions";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { Link } from "react-router-dom";
+import { BroccoliImg, PepperImg } from "../assets/svg";
 
 interface PropTypes {
   chosenType: dishType;
 }
 
-export const vegeIcon = (
-  <img
-    src='https://image.flaticon.com/icons/png/128/2909/2909841.png'
-    alt=''
-    data-tip='This Dish Is Vegetarian'
-  />
-);
-export const spicyIcon = (
-  <img
-    src='https://cdn0.iconfinder.com/data/icons/food-2-11/128/food-29-512.png'
-    alt=''
-    data-tip='This Dish Is Spicy'
-  />
-);
+export const vegeIcon = <BroccoliImg data-tip='This Dish Is Vegetarian' />;
+export const spicyIcon = <PepperImg data-tip='This Dish Is Spicy' />;
 
 const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
   const { addToCartAction } = useActions();
@@ -40,25 +29,25 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
 
   const closeModal = () => setModalImgUrl("");
 
-  const { data, loading, error } = useQuery<{ getDishes: Dish[] }>(getDishesQuery);
+  const { data: orderData, loading, error } = useQuery<{ getDishes: Dish[] }>(getDishesQuery);
 
   const dispatch = useDispatch();
   const { isAdmin } = useTypedSelector((state) => state.user);
 
   useEffect(() => {
-    if (data?.getDishes) dispatch(getDishesAction(data?.getDishes));
-  }, [data, dispatch]);
+    if (orderData?.getDishes) dispatch(getDishesAction(orderData?.getDishes));
+  }, [orderData, dispatch]);
 
   useEffect(() => {
     ReactTooltip.rebuild();
-  }, [chosenType, data]);
+  }, [chosenType, orderData]);
 
   return (
     <div className='dishes'>
       {loading && <Loader />}
       {error && <Alert>{error}</Alert>}
       {modalImgUrl && <ModalImg imgUrl={modalImgUrl} closeAction={closeModal} />}
-      {data?.getDishes
+      {orderData?.getDishes
         ?.filter((dish) => dish.type === chosenType)
         .map((dish) => (
           <React.Fragment key={dish.id}>
