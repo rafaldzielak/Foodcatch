@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
 import { Order, OrdersResponse } from "../models/order";
-import { editOrderMutation, getOrdersQuery } from "../queries/orderQueries";
+import { editOrderMutation, getOrderQuery, getOrdersQuery } from "../queries/orderQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
 import ReactPaginate from "react-paginate";
@@ -36,7 +36,7 @@ const AllOrders = () => {
   });
 
   const [editOrderMut] = useMutation<{ editOrder: Order }>(editOrderMutation, {
-    refetchQueries: [getOrdersQuery],
+    refetchQueries: [getOrdersQuery, getOrderQuery],
   });
 
   useEffect(() => {
