@@ -7,6 +7,14 @@
   margin-top: 1rem;
   color: black;
 
+  &.wide {
+    padding-left: 4rem;
+    padding-right: 4rem;
+    &.pr-2 {
+      padding-right: 6rem;
+    }
+  }
+
   .close-btn {
     padding: 0.5rem;
     cursor: pointer;
