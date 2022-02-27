@@ -12,6 +12,7 @@ export interface Order {
   streetNumber: string;
   city: string;
   paymentMethod: "cash" | "card";
+  paymentUrl: string;
   couponAppliedPercentage: number;
   isPaid: boolean;
   isDelivered: boolean;

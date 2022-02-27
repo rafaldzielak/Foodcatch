@@ -12,6 +12,7 @@ const initialState: Order = {
   firstName: "",
   id: "",
   paymentMethod: "card",
+  paymentUrl: "",
   phone: "",
   street: "",
   streetNumber: "",
