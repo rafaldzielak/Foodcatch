@@ -12,6 +12,7 @@ import { useMutation } from "@apollo/client";
 import { createOrderMutation } from "../queries/orderQueries";
 import { Order } from "../models/order";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import Loader from "../components/Loader";
 
 export type PaymentType = "cash" | "card";
 
@@ -30,6 +31,7 @@ const OrderScreen = () => {
   const [streetNo, setStreetNo] = useLocalStorage("addressStreetNo", "");
   const [city, setCity] = useLocalStorage("addressCity", "");
   const [phone, setPhone] = useLocalStorage("addressPhone", "");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { placeOrderAction } = useActions();
   const history = useHistory();
@@ -48,6 +50,8 @@ const OrderScreen = () => {
     if (!paymentType) setPaymentError("Please select payment type");
     if (!isFormValid) setAddressError("Please fill in every field");
     if (!isFormValid || !paymentType) return;
+
+    setIsLoading(true);
     createOrderMut({
       variables: {
         firstName: name,
@@ -144,6 +148,8 @@ const OrderScreen = () => {
       </form>
     </div>
   );
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
