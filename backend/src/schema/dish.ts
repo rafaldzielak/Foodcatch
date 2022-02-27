@@ -23,6 +23,8 @@ export const DishType = new GraphQLObjectType({
     description: { type: GraphQLString },
     isVege: { type: GraphQLBoolean },
     isSpicy: { type: GraphQLBoolean },
+    isNew: { type: GraphQLBoolean },
+    isBestseller: { type: GraphQLBoolean },
     type: { type: GraphQLString },
   }),
 });
@@ -38,6 +40,8 @@ export const DishInputType = new GraphQLInputObjectType({
     description: { type: new GraphQLNonNull(GraphQLString) },
     isVege: { type: new GraphQLNonNull(GraphQLBoolean) },
     isSpicy: { type: new GraphQLNonNull(GraphQLBoolean) },
+    isNew: { type: new GraphQLNonNull(GraphQLBoolean) },
+    isBestseller: { type: new GraphQLNonNull(GraphQLBoolean) },
     type: { type: GraphQLString },
   }),
 });
@@ -53,6 +57,8 @@ export const createDish = {
     description: { type: new GraphQLNonNull(GraphQLString) },
     isVege: { type: new GraphQLNonNull(GraphQLBoolean) },
     isSpicy: { type: new GraphQLNonNull(GraphQLBoolean) },
+    isNew: { type: new GraphQLNonNull(GraphQLBoolean) },
+    isBestseller: { type: new GraphQLNonNull(GraphQLBoolean) },
     type: { type: GraphQLString },
   },
   resolve: async (parent: any, args: any, context: Context) => {
@@ -95,6 +101,8 @@ export const editDish = {
     description: { type: GraphQLString },
     isVege: { type: GraphQLBoolean },
     isSpicy: { type: GraphQLBoolean },
+    isNew: { type: new GraphQLNonNull(GraphQLBoolean) },
+    isBestseller: { type: new GraphQLNonNull(GraphQLBoolean) },
     type: { type: GraphQLString },
   },
   resolve: async (parents: any, args: any, context: Context) => {

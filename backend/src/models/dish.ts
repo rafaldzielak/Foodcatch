@@ -7,6 +7,8 @@ export interface DishAttrs {
   name: string;
   description: string;
   isVege: boolean;
+  isNew: boolean;
+  isBestseller: boolean;
   isSpicy: boolean;
   imgURL?: string;
   type: DishType;
@@ -27,6 +29,8 @@ export interface DishDoc extends mongoose.Document {
   description: string;
   isVege: boolean;
   isSpicy: boolean;
+  isNew: boolean;
+  isBestseller: boolean;
   imgURL?: string;
   type: DishType;
 }
@@ -38,6 +42,8 @@ const dishSchema = new mongoose.Schema({
   type: { type: String, required: true },
   isVege: { type: Boolean, required: true },
   isSpicy: { type: Boolean, required: true },
+  isNew: { type: Boolean, required: true },
+  isBestseller: { type: Boolean, required: true },
   imgURL: { type: String },
 });
 
