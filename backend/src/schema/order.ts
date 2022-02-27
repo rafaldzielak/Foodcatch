@@ -17,6 +17,19 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, { apiVersion: "2020-08-27" });
 
+const isOrderPaidViaStripe = async (order: OrderDoc) => {
+  try {
+    console.log(order.orderPaymentId);
+    const session = await stripe.checkout.sessions.retrieve(order.orderPaymentId);
+    const paymentStatus = session.payment_status;
+    if (paymentStatus === "paid") return true;
+  } catch (error) {
+    console.log("CATCH");
+    return false;
+  }
+  return false;
+};
+
 const coupons = [{ couponName: "test20", discount: 20 }];
 
 export const OrderType = new GraphQLObjectType({
@@ -115,6 +128,7 @@ export const createOrder = {
 
     console.log(stripeSession.url);
     order.paymentUrl = stripeSession.url || "";
+    order.orderPaymentId = stripeSession.id || "";
     await order.save();
     console.log(order);
 
@@ -161,6 +175,15 @@ export const getOrder = {
   resolve: async (parent: any, args: any) => {
     const order = await Order.findById(args.id);
     if (!order) throw new Error("Order with given ID not found");
+    console.log(order.isPaid);
+    if (!order.isPaid) {
+      console.log("AAA");
+      const isPaid = await isOrderPaidViaStripe(order);
+      if (isPaid) {
+        order.isPaid = true;
+        order.save();
+      }
+    }
     return order;
   },
 };
