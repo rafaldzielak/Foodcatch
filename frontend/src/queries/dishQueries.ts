@@ -8,6 +8,8 @@ export const createDishMutation = gql`
     $description: String!
     $isVege: Boolean!
     $isSpicy: Boolean!
+    $isNew: Boolean!
+    $isBestseller: Boolean!
     $type: String!
   ) {
     createDish(
@@ -17,6 +19,8 @@ export const createDishMutation = gql`
       description: $description
       isVege: $isVege
       isSpicy: $isSpicy
+      isNew: $isNew
+      isBestseller: $isBestseller
       type: $type
     ) {
       name
@@ -27,6 +31,8 @@ export const createDishMutation = gql`
       description
       isVege
       isSpicy
+      isNew
+      isBestseller
       type
     }
   }
@@ -42,6 +48,8 @@ export const getDishesQuery = gql`
       description
       isVege
       isSpicy
+      isNew
+      isBestseller
       type
     }
   }
@@ -55,6 +63,8 @@ export const getDishQuery = gql`
       imgURL
       price
       description
+      isNew
+      isBestseller
       isVege
       isSpicy
       type
@@ -70,6 +80,8 @@ export const editDishMutation = gql`
     $description: String
     $isVege: Boolean
     $isSpicy: Boolean
+    $isNew: Boolean!
+    $isBestseller: Boolean!
     $type: String
     $id: String!
   ) {
@@ -81,6 +93,8 @@ export const editDishMutation = gql`
       description: $description
       isVege: $isVege
       isSpicy: $isSpicy
+      isNew: $isNew
+      isBestseller: $isBestseller
       type: $type
     ) {
       name
@@ -91,6 +105,8 @@ export const editDishMutation = gql`
       description
       isVege
       isSpicy
+      isNew
+      isBestseller
       type
     }
   }

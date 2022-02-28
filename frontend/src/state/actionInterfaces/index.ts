@@ -10,6 +10,8 @@ export interface Dish {
   description: string;
   isVege: boolean;
   isSpicy: boolean;
+  isNew: boolean;
+  isBestseller: boolean;
   imgURL: string;
   type?: string;
 }
