@@ -2,7 +2,7 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
-import { spicyIcon, vegeIcon } from "../components/Dishes";
+import { bestsellerIcon, newIcon, spicyIcon, vegeIcon } from "../components/Dishes";
 import useToggle from "../hooks/useToggle";
 import {
   createDishMutation,
@@ -32,6 +32,8 @@ const CreateDish = () => {
   const [imgURL, setImgURL] = useState("");
   const [isVege, toggleIsVege] = useToggle();
   const [isSpicy, toggleIsSpicy] = useToggle();
+  const [isNew, toggleIsNew] = useToggle();
+  const [isBestseller, toggleIsBestseller] = useToggle();
   const [type, setType] = useState<OptionTypeBase>();
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -49,10 +51,12 @@ const CreateDish = () => {
         setDescription(response.data?.getDish.description || "");
         toggleIsVege(response.data?.getDish.isVege);
         toggleIsSpicy(response.data?.getDish.isSpicy);
+        toggleIsNew(response.data?.getDish.isNew);
+        toggleIsBestseller(response.data?.getDish.isBestseller);
         const type = response.data?.getDish.type;
         setType({ value: type, label: type });
       });
-  }, [fetchDish, id, toggleIsSpicy, toggleIsVege]);
+  }, [fetchDish, id, toggleIsBestseller, toggleIsNew, toggleIsSpicy, toggleIsVege]);
 
   const [createDishMut] = useMutation<{ createOrder: Dish }>(createDishMutation);
   const [editDishMut] = useMutation<{ createOrder: Dish }>(editDishMutation, {
@@ -66,7 +70,17 @@ const CreateDish = () => {
     setSuccessMessage("");
     setErrorMessage("");
     createDishMut({
-      variables: { name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
+      variables: {
+        name: title,
+        price,
+        description,
+        imgURL,
+        isVege,
+        isSpicy,
+        isNew,
+        isBestseller,
+        type: type?.value,
+      },
     })
       .then(() => {
         setSuccessMessage("Dish created successfully!");
@@ -84,7 +98,18 @@ const CreateDish = () => {
     setSuccessMessage("");
     setErrorMessage("");
     editDishMut({
-      variables: { id, name: title, price, description, imgURL, isVege, isSpicy, type: type?.value },
+      variables: {
+        id,
+        name: title,
+        price,
+        description,
+        imgURL,
+        isVege,
+        isSpicy,
+        isNew,
+        isBestseller,
+        type: type?.value,
+      },
     })
       .then(() => setSuccessMessage("Dish edited successfully!"))
       .catch((error) => setErrorMessage(error.message));
@@ -159,6 +184,14 @@ const CreateDish = () => {
           <div className='toggle spicy'>
             <div className='ls-1 fs-2'>Spicy {spicyIcon}</div>
             <Switch onChange={toggleIsSpicy} checked={isSpicy} className='react-switch' />
+          </div>
+          <div className='toggle vege'>
+            <div className='ls-1 fs-2'>New {newIcon}</div>
+            <Switch onChange={toggleIsNew} checked={isNew} className='react-switch' />
+          </div>
+          <div className='toggle spicy'>
+            <div className='ls-1 fs-2'>Bestseller {bestsellerIcon}</div>
+            <Switch onChange={toggleIsBestseller} checked={isBestseller} className='react-switch' />
           </div>
         </div>
       </div>

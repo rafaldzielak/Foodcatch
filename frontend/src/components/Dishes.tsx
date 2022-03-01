@@ -14,14 +14,16 @@ import { getDishesAction } from "../state/actions/DishActions";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { Link } from "react-router-dom";
-import { BroccoliImg, PepperImg } from "../assets/svg";
+import { BroccoliImg, PepperImg, BestSellerImg, NewImg } from "../assets/svg";
 
 interface PropTypes {
   chosenType: dishType;
 }
 
-export const vegeIcon = <BroccoliImg data-tip='This Dish Is Vegetarian' />;
-export const spicyIcon = <PepperImg data-tip='This Dish Is Spicy' />;
+export const vegeIcon = <BroccoliImg data-tip='Vegetarian' />;
+export const spicyIcon = <PepperImg data-tip='Spicy' />;
+export const bestsellerIcon = <BestSellerImg data-tip='Our Bestseller' />;
+export const newIcon = <NewImg data-tip='New in Our Offer' />;
 
 const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
   const { addToCartAction } = useActions();
@@ -49,31 +51,36 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
       {modalImgUrl && <ModalImg imgUrl={modalImgUrl} closeAction={closeModal} />}
       {orderData?.getDishes
         ?.filter((dish) => dish.type === chosenType)
-        .map((dish) => (
-          <React.Fragment key={dish.id}>
-            <div className='dish'>
-              <div className='img'>
-                <img src={dish.imgURL} alt='' onClick={() => setModalImgUrl(dish.imgURL)} />
+        .map((dish) => {
+          const { isNew, isBestseller, isSpicy, isVege } = dish;
+          console.log(dish);
+          return (
+            <React.Fragment key={dish.id}>
+              <div className='dish'>
+                <div className='img'>
+                  <img src={dish.imgURL} alt='' onClick={() => setModalImgUrl(dish.imgURL)} />
+                </div>
+                <h2>
+                  {dish.name} {isVege && vegeIcon} {isSpicy && spicyIcon} {isNew && newIcon}{" "}
+                  {isBestseller && bestsellerIcon}
+                </h2>
+                <p className='desc'>{dish.description}</p>
+                <div className='price'>
+                  <p>{dish.price} zł</p>
+                  <button className='ls-2' onClick={() => addToCartAction(dish.id)}>
+                    Add to Order
+                  </button>
+                  {isAdmin && (
+                    <Link to={`/dishes/edit/${dish.id}`}>
+                      <button className='ls-2 mt-1 alt'>Edit Dish</button>
+                    </Link>
+                  )}
+                </div>
               </div>
-              <h2>
-                {dish.name} {dish.isVege && vegeIcon} {dish.isSpicy && spicyIcon}
-              </h2>
-              <p className='desc'>{dish.description}</p>
-              <div className='price'>
-                <p>{dish.price} zł</p>
-                <button className='ls-2' onClick={() => addToCartAction(dish.id)}>
-                  Add to Order
-                </button>
-                {isAdmin && (
-                  <Link to={`/dishes/edit/${dish.id}`}>
-                    <button className='ls-2 mt-1 alt'>Edit Dish</button>
-                  </Link>
-                )}
-              </div>
-            </div>
-            <hr />
-          </React.Fragment>
-        ))}
+              <hr />
+            </React.Fragment>
+          );
+        })}
       <ReactTooltip effect='solid' />
     </div>
   );
