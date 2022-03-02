@@ -52,6 +52,7 @@ export const OrderType = new GraphQLObjectType({
     orderPaymentProvider: { type: GraphQLString },
     isPaid: { type: GraphQLBoolean },
     isDelivered: { type: GraphQLBoolean },
+    notes: { type: GraphQLString },
   }),
 });
 
@@ -104,6 +105,7 @@ export const createOrder = {
     orderPaymentProvider: { type: GraphQLString },
     isPaid: { type: GraphQLBoolean },
     isDelivered: { type: GraphQLBoolean },
+    notes: { type: GraphQLString },
   },
   resolve: async (parent: any, args: any) => {
     const date = new Date(args.date);
@@ -155,6 +157,7 @@ export const editOrder = {
     orderPaymentId: { type: GraphQLString },
     orderPaymentProvider: { type: GraphQLString },
     isDelivered: { type: GraphQLBoolean },
+    notes: { type: GraphQLString },
   },
   resolve: async (parent: any, args: any, context: Context) => {
     checkAuthorization(context.req);
