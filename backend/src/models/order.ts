@@ -17,6 +17,7 @@ export interface OrderAttrs {
   orderPaymentProvider: "stripe" | "paypal";
   isPaid: boolean;
   isDelivered: boolean;
+  notes: string;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -40,6 +41,7 @@ export interface OrderDoc extends mongoose.Document {
   orderPaymentProvider: "stripe" | "paypal";
   isPaid: boolean;
   isDelivered: boolean;
+  notes: string;
 }
 
 const orderSchema = new mongoose.Schema({
@@ -59,6 +61,7 @@ const orderSchema = new mongoose.Schema({
   orderPaymentProvider: { type: String },
   isPaid: { type: Boolean },
   isDelivered: { type: Boolean },
+  notes: { type: String },
 });
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {

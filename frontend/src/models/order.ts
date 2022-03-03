@@ -18,6 +18,7 @@ export interface Order {
   isDelivered: boolean;
   orderPaymentProvider: "stripe" | "paypal";
   orderPaymentId: string;
+  notes: string;
 }
 
 export interface OrdersResponse {

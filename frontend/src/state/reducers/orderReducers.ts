@@ -32,7 +32,8 @@ const initialState: Order = {
   isDelivered: false,
   isPaid: false,
   orderPaymentId: "",
-  orderPaymentProvider: "paypal",
+  orderPaymentProvider: "stripe",
+  notes: "",
 };
 
 export const orderReducer = (state: Order = initialState, action: Action): Order => {

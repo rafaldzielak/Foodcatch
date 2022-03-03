@@ -22,6 +22,7 @@ export const createOrderMutation = gql`
     $city: String!
     $paymentMethod: String!
     $couponApplied: String
+    $notes: String
   ) {
     createOrder(
       date: $date
@@ -35,6 +36,7 @@ export const createOrderMutation = gql`
       city: $city
       paymentMethod: $paymentMethod
       couponApplied: $couponApplied
+      notes: $notes
     ) {
       id
       date
@@ -45,6 +47,7 @@ export const createOrderMutation = gql`
         price
         quantity
       }
+      notes
       firstName
       surname
       street
@@ -95,6 +98,7 @@ export const editOrderMutation = gql`
         price
         quantity
       }
+      notes
       firstName
       surname
       street
@@ -123,6 +127,7 @@ export const getOrderQuery = gql`
         price
         quantity
       }
+      notes
       paymentUrl
       isPaid
       isDelivered
@@ -167,6 +172,7 @@ export const getOrdersQuery = gql`
           price
           quantity
         }
+        notes
         email
         firstName
         surname
