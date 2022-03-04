@@ -5,6 +5,7 @@ import "./OrderDetails.scss";
 import { AiOutlineCalendar, AiOutlinePhone, AiOutlineMail, AiOutlineFieldNumber } from "react-icons/ai";
 import { BsPerson, BsPinMap } from "react-icons/bs";
 import { MdOutlineLocationCity, MdOutlinePayment } from "react-icons/md";
+import { BiCommentError } from "react-icons/bi";
 
 const OrderDetails = () => {
   const order = useTypedSelector((state) => state.order);
@@ -39,6 +40,14 @@ const OrderDetails = () => {
             {order.paymentMethod[0].toUpperCase() + order.paymentMethod.substr(1)}
           </p>
         </div>
+        {order.notes && (
+          <div>
+            <p>
+              <BiCommentError /> <b>Order comments:</b>
+            </p>
+            {order.notes}
+          </div>
+        )}
       </div>
     </div>
   );

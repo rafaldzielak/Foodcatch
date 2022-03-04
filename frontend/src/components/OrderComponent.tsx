@@ -1,6 +1,6 @@
 import "./order.scss";
 import "./address.scss";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { useActions } from "../hooks/useActions";
 import { AiFillMinusSquare, AiFillPlusSquare } from "react-icons/ai";
@@ -22,7 +22,9 @@ interface OrderComponentTypes {
   showOrder?: boolean;
   hideAmountChooser?: boolean;
   showCouponInput?: boolean;
-  setCouponApplied?: Function;
+  setCouponApplied?: Dispatch<SetStateAction<string>>;
+  orderCommentsInput?: string;
+  setOrderCommentsInput?: Dispatch<SetStateAction<string>>;
 }
 
 export const OrderComponent: React.FC<OrderComponentTypes> = ({
@@ -34,6 +36,8 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   hideAmountChooser,
   showCouponInput,
   setCouponApplied,
+  orderCommentsInput,
+  setOrderCommentsInput,
 }) => {
   const history = useHistory();
   const placeOrder = () => history.push("/order");
@@ -122,6 +126,19 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
 
   const showSummaryArea = () => (
     <>
+      {showCouponInput && (
+        <div className='mt-2 mx-2'>
+          <h3>Comments On the Order</h3>
+          <textarea
+            name=''
+            id=''
+            rows={2}
+            value={orderCommentsInput}
+            onChange={(e) => {
+              if (setOrderCommentsInput) setOrderCommentsInput(e.target.value);
+            }}></textarea>
+        </div>
+      )}
       <div className='summary'>
         {showCouponInput && (
           <div className='coupon'>

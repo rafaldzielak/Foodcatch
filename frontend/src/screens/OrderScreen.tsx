@@ -32,6 +32,7 @@ const OrderScreen = () => {
   const [city, setCity] = useLocalStorage("addressCity", "");
   const [phone, setPhone] = useLocalStorage("addressPhone", "");
   const [isLoading, setIsLoading] = useState(false);
+  const [orderCommentsInput, setOrderCommentsInput] = useState("");
 
   const { placeOrderAction } = useActions();
   const history = useHistory();
@@ -52,6 +53,7 @@ const OrderScreen = () => {
     if (!isFormValid || !paymentType) return;
 
     setIsLoading(true);
+    console.log(cartItems);
     createOrderMut({
       variables: {
         firstName: name,
@@ -65,6 +67,7 @@ const OrderScreen = () => {
         city,
         paymentMethod: paymentType,
         couponApplied,
+        notes: orderCommentsInput,
       },
     }).then(({ data }) => {
       history.push(`/summary/${data?.createOrder.id}`);
@@ -161,6 +164,8 @@ const OrderScreen = () => {
           showDelivery
           showCouponInput
           setCouponApplied={setCouponApplied}
+          orderCommentsInput={orderCommentsInput}
+          setOrderCommentsInput={setOrderCommentsInput}
         />
         <div className='address-item'>
           {showAddressFields()}
