@@ -26,11 +26,15 @@ app.use(async (req, res, next) => {
   if (!jwt) {
     next();
   } else {
-    const data = verify(jwt, process.env.JWT_SECRET!) as any;
-    const user = await User.findOne({ email: data.email });
-    (req as any).isAdmin = user?.isAdmin;
-    (req as any).email = user?.email;
-    (req as any).jwt = jwt;
+    try {
+      const data = verify(jwt, process.env.JWT_SECRET!) as any;
+      const user = await User.findOne({ email: data.email });
+      (req as any).isAdmin = user?.isAdmin;
+      (req as any).email = user?.email;
+      (req as any).jwt = jwt;
+    } catch (error) {
+      console.log(error);
+    }
     next();
   }
 });
