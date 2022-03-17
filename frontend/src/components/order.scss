@@ -26,6 +26,8 @@
     grid-template-areas: "img title quantity price";
     grid-template-columns: 60px 3fr 1fr;
     .title {
+      padding-left: 0.1rem;
+      padding-right: 0.1rem;
       grid-area: title;
     }
     .price {
@@ -173,10 +175,8 @@
       grid-template-columns: unset;
 
       img {
-        object-fit: cover;
         width: 60px;
         height: 60px;
-        grid-area: img;
       }
       h3,
       h4 {
@@ -198,10 +198,15 @@
     .order {
       .order-item {
         grid-template-areas:
-          "img"
-          "title"
-          "quantity"
-          "price";
+          "img title"
+          "img quantity"
+          "img price";
+        img {
+          margin-left: 10vw;
+          width: 80px;
+          height: 80px;
+        }
+        grid-template-columns: 80px auto;
       }
       &.extra {
         min-width: unset !important;
