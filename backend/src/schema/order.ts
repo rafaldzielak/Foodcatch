@@ -109,6 +109,7 @@ export const createOrder = {
   },
   resolve: async (parent: any, args: any) => {
     const date = new Date(args.date);
+    console.log(args);
 
     const order = Order.build({ ...args, date });
     if (args.couponApplied) {
@@ -122,7 +123,11 @@ export const createOrder = {
       payment_method_types: ["card", "p24"],
       mode: "payment",
       line_items: order.dishes.map((item) => ({
-        price_data: { currency: "pln", product_data: { name: item.name }, unit_amount: item.price * 100 },
+        price_data: {
+          currency: "pln",
+          product_data: { name: item.name },
+          unit_amount: Math.round(item.price * 100),
+        },
         quantity: item.quantity,
       })),
     });
@@ -180,7 +185,6 @@ export const getOrder = {
     if (!order) throw new Error("Order with given ID not found");
     console.log(order.isPaid);
     if (!order.isPaid) {
-      console.log("AAA");
       const isPaid = await isOrderPaidViaStripe(order);
       if (isPaid) {
         order.isPaid = true;
