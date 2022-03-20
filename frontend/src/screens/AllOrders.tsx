@@ -13,7 +13,7 @@ import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 import useDebounce from "../hooks/useDebounce";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { MdMoped } from "react-icons/md";
-import { FaTimes } from "react-icons/fa";
+import { FaInfo, FaTimes } from "react-icons/fa";
 import { HiCheck } from "react-icons/hi";
 import ReactTooltip from "react-tooltip";
 
@@ -34,7 +34,6 @@ const AllOrders = () => {
   const { data, loading, error, refetch } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery, {
     variables: { page: currentPage },
   });
-
   const [editOrderMut] = useMutation<{ editOrder: Order }>(editOrderMutation, {
     refetchQueries: [getOrdersQuery, getOrderQuery],
   });
@@ -57,6 +56,7 @@ const AllOrders = () => {
           <th>Address</th>
           <th>Dishes</th>
           <th>Payment</th>
+          <th>Notes</th>
           <th>Paid</th>
           <th>Delivered</th>
         </tr>
@@ -77,6 +77,7 @@ const AllOrders = () => {
             streetNumber,
             isPaid,
             isDelivered,
+            notes,
           } = order;
           return (
             <tr key={id}>
@@ -88,6 +89,7 @@ const AllOrders = () => {
               <td className='address'>{`${street} ${streetNumber}, ${city}`}</td>
               <td>{dishes.length}</td>
               <td>{paymentMethod[0].toUpperCase() + paymentMethod.substring(1)}</td>
+              <td>{notes && <FaInfo data-tip={notes} />}</td>
               <td>{isPaid ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}</td>
               <td>
                 {isDelivered ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}
