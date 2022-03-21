@@ -45,6 +45,7 @@ const AllCoupons = () => {
   }, [newCouponText]);
 
   const createCouponHandler = () => {
+    setError("");
     if ((!newCouponText && !editCouponText) || !discount) return;
     if (editCouponText) {
       editCouponMut({ variables: { couponName: editCouponText, percentage: discount, validUntil } }).catch(

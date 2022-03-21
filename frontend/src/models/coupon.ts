@@ -1,6 +1,6 @@
 export interface Coupon {
-  couponApplied: string;
-  couponAppliedPercentage: number;
+  couponName: string;
+  percentage: number;
 }
 
 export interface CouponFromDB {

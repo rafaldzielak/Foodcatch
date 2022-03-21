@@ -3,8 +3,9 @@ import { gql } from "@apollo/client";
 export const useCouponQuery = gql`
   query UseCoupon($couponApplied: String!) {
     useCoupon(couponApplied: $couponApplied) {
-      couponApplied
-      couponAppliedPercentage
+      couponName
+      percentage
+      validUntil
     }
   }
 `;

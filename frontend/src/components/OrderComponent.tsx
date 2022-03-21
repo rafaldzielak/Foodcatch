@@ -47,7 +47,7 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   const [couponInput, setCouponInput] = useState("");
   const [couponAppliedPercentage, setCouponAppliedPercentage] = useState(0);
 
-  const [fetchCoupon, { loading, data, error: couponError }] =
+  const [fetchCoupon, { loading, data: couponData, error: couponError }] =
     useLazyQuery<{ useCoupon: Coupon }>(useCouponQuery);
 
   const applyCouponHandler = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
@@ -60,11 +60,11 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
   }, [order, showOrder]);
 
   useEffect(() => {
-    if (data?.useCoupon) {
-      setCouponAppliedPercentage(data.useCoupon.couponAppliedPercentage);
-      if (setCouponApplied) setCouponApplied(data.useCoupon.couponApplied);
+    if (couponData?.useCoupon) {
+      setCouponAppliedPercentage(couponData.useCoupon.percentage);
+      if (setCouponApplied) setCouponApplied(couponData.useCoupon.couponName);
     }
-  }, [data, setCouponApplied]);
+  }, [couponData, setCouponApplied]);
 
   const showPriceSummary = () => {
     const priceWithoutCoupon =
@@ -148,7 +148,10 @@ export const OrderComponent: React.FC<OrderComponentTypes> = ({
                 placeholder='Coupon'
                 id='name'
                 value={couponInput}
-                onChange={(e) => setCouponInput(e.target.value)}></input>
+                onChange={(e) => {
+                  setCouponInput(e.target.value);
+                  if (setCouponApplied) setCouponApplied(e?.target?.value);
+                }}></input>
               <button>Apply Coupon</button>
             </form>
             {couponError && !loading && (

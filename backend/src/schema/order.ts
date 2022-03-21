@@ -13,13 +13,12 @@ import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
 import { DishInputType, DishType } from "./dish";
 import { checkAuthorization, getFilter } from "./utils";
-import Stripe from "stripe";
-
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, { apiVersion: "2020-08-27" });
+import { Coupon } from "../models/coupon";
+import stripe from "../utils/stripe";
+import { getCouponUtil } from "./coupon";
 
 const isOrderPaidViaStripe = async (order: OrderDoc) => {
   try {
-    console.log(order.orderPaymentId);
     const session = await stripe.checkout.sessions.retrieve(order.orderPaymentId);
     const paymentStatus = session.payment_status;
     if (paymentStatus === "paid") return true;
@@ -74,19 +73,6 @@ export const CouponType = new GraphQLObjectType({
   }),
 });
 
-export const useCoupon = {
-  type: CouponType,
-  args: {
-    couponApplied: { type: new GraphQLNonNull(GraphQLString) },
-  },
-  resolve: async (parent: any, args: any) => {
-    const coupon = coupons.find((coupon) => coupon.couponName === args.couponApplied);
-    if (!coupon) throw new Error("Invalid coupon");
-    console.log(coupon);
-    return { couponApplied: coupon.couponName, couponAppliedPercentage: coupon.discount };
-  },
-};
-
 export const createOrder = {
   type: OrderType,
   args: {
@@ -109,13 +95,11 @@ export const createOrder = {
   },
   resolve: async (parent: any, args: any) => {
     const date = new Date(args.date);
-    console.log(args);
 
     const order = Order.build({ ...args, date });
     if (args.couponApplied) {
-      const coupon = coupons.find((coupon) => coupon.couponName === args.couponApplied);
-      if (!coupon) throw new Error("Invalid coupon");
-      order.couponAppliedPercentage = coupon.discount;
+      const coupon = await getCouponUtil(args.couponApplied);
+      order.couponAppliedPercentage = coupon.percentage;
     }
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: `${process.env.CLIENT_URL}/summary/${order.id}`,
@@ -130,14 +114,13 @@ export const createOrder = {
         },
         quantity: item.quantity,
       })),
+      discounts: [{ coupon: args.couponApplied ?? undefined }],
     });
     console.log(stripeSession);
 
-    console.log(stripeSession.url);
     order.paymentUrl = stripeSession.url || "";
     order.orderPaymentId = stripeSession.id || "";
     await order.save();
-    console.log(order);
 
     generateHTMLStringForOrder(order);
     sendEmail(order.email, "FoodCatch: Order confirmed!", generateHTMLStringForOrder(order));
@@ -183,7 +166,6 @@ export const getOrder = {
   resolve: async (parent: any, args: any) => {
     const order = await Order.findById(args.id);
     if (!order) throw new Error("Order with given ID not found");
-    console.log(order.isPaid);
     if (!order.isPaid) {
       const isPaid = await isOrderPaidViaStripe(order);
       if (isPaid) {

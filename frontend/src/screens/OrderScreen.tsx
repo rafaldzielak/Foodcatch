@@ -53,7 +53,6 @@ const OrderScreen = () => {
     if (!isFormValid || !paymentType) return;
 
     setIsLoading(true);
-    console.log(cartItems);
     createOrderMut({
       variables: {
         firstName: name,
@@ -69,10 +68,13 @@ const OrderScreen = () => {
         couponApplied,
         notes: orderCommentsInput,
       },
-    }).then(({ data }) => {
-      history.push(`/summary/${data?.createOrder.id}`);
-      if (data) placeOrderAction(data.createOrder);
-    });
+    })
+      .then(({ data }) => {
+        history.push(`/summary/${data?.createOrder.id}`);
+        if (data) placeOrderAction(data.createOrder);
+      })
+      .catch((error) => setPaymentError(error.message))
+      .finally(() => setIsLoading(false));
   };
 
   const showAddressFields = () => (
