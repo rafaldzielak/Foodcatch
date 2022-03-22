@@ -19,41 +19,41 @@ const Navbar = () => {
     dispatch(logoutUserAction());
   };
 
-  if (pathname !== "/")
-    return (
-      <nav className='navbar'>
-        <div className='container'>
-          <div>
-            <Link to='/'>
-              <img src='./img/logo2.png' alt='' /> <span className='title'>FoodCatch</span>
-            </Link>
-          </div>
-          {user.email && user.isAdmin && (
-            <div>
-              <h4>
-                <span className='mr-1'>You are logged in as an admin.</span>
-                <Link to='/dishes/add' className='mr-1'>
-                  <button className='alt'>Add a dish</button>
-                </Link>
-                <Link to='/admin/orders' className='mr-1'>
-                  <button className='alt'>Orders</button>
-                </Link>
-                <Link to='/admin/bookings' className='mr-1'>
-                  <button className='alt'>Bookings</button>
-                </Link>
-                <Link to='/admin/coupons' className='mr-1'>
-                  <button className='alt'>Coupons</button>
-                </Link>
-                <button className='alt' onClick={handleUserLogout}>
-                  Logout
-                </button>
-              </h4>
-            </div>
-          )}
+  if (pathname === "/") return null;
+
+  return (
+    <nav className='navbar'>
+      <div className='container'>
+        <div>
+          <Link to='/'>
+            <img src='./img/logo2.png' alt='' /> <span className='title'>FoodCatch</span>
+          </Link>
         </div>
-      </nav>
-    );
-  else return <></>;
+        {user.email && user.isAdmin && (
+          <div>
+            <h4>
+              <span className='mr-1'>You are logged in as an admin.</span>
+              <Link to='/dishes/add' className='mr-1'>
+                <button className='alt'>Add a dish</button>
+              </Link>
+              <Link to='/admin/orders' className='mr-1'>
+                <button className='alt'>Orders</button>
+              </Link>
+              <Link to='/admin/bookings' className='mr-1'>
+                <button className='alt'>Bookings</button>
+              </Link>
+              <Link to='/admin/coupons' className='mr-1'>
+                <button className='alt'>Coupons</button>
+              </Link>
+              <button className='alt' onClick={handleUserLogout}>
+                Logout
+              </button>
+            </h4>
+          </div>
+        )}
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

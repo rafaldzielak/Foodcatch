@@ -43,7 +43,7 @@ const CreateDish = () => {
   const [fetchDish, { loading, error }] = useLazyQuery<{ getDish: Dish }>(getDishQuery);
 
   useEffect(() => {
-    if (id)
+    if (id) {
       fetchDish({ variables: { id } }).then((response) => {
         setTitle(response.data?.getDish.name || "");
         setImgURL(response.data?.getDish.imgURL || "");
@@ -56,6 +56,7 @@ const CreateDish = () => {
         const type = response.data?.getDish.type;
         setType({ value: type, label: type });
       });
+    }
   }, [fetchDish, id, toggleIsBestseller, toggleIsNew, toggleIsSpicy, toggleIsVege]);
 
   const [createDishMut] = useMutation<{ createOrder: Dish }>(createDishMutation);

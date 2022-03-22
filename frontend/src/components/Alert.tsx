@@ -30,7 +30,7 @@ const Alert: React.FC<PropTypes> = ({
     }
   }, [fadeOutSeconds]);
 
-  if (returnEmpty) return <> </>;
+  if (returnEmpty) return null;
   return (
     <FadeIn>
       <div className={`alert alert-${type} ${hideCloseBtn ? "" : "pr-2"} ${wide ? "wide" : ""} ls-1`}>

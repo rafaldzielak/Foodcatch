@@ -8,7 +8,6 @@ import { orderReducer } from "./reducers/orderReducers";
 
 const middleware = [thunk];
 const cartFromLS = localStorage.getItem("cart");
-console.log(JSON.parse(cartFromLS!));
 const parsedCart = cartFromLS && cartFromLS !== "undefined" ? JSON.parse(cartFromLS) : [];
 const initialState = { cart: { dishes: parsedCart, error: null } };
 const reducers = combineReducers({

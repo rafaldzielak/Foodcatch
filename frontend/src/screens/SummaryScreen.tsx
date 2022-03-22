@@ -49,7 +49,6 @@ const SummaryScreen = () => {
   }, [order.date]);
 
   if (loading) return <Loader />;
-
   if (error) return <Redirect to='/' />;
 
   const renderPaymentAndDeliveryInfo = () => (

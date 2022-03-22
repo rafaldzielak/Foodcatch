@@ -53,7 +53,6 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
         ?.filter((dish) => dish.type === chosenType)
         .map((dish) => {
           const { isNew, isBestseller, isSpicy, isVege } = dish;
-          console.log(dish);
           return (
             <React.Fragment key={dish.id}>
               <div className='dish'>
