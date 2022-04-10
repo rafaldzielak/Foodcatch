@@ -19,17 +19,11 @@ const uploadMutation = {
   async resolve(parent: any, args: any) {
     const { filename, mimetype, createReadStream } = await args.image;
     const stream = createReadStream();
-    console.log(args.image);
     console.log(filename);
     console.log(mimetype);
-    console.log(createReadStream);
-    console.log({ stream });
+    console.log(stream);
     // Promisify the stream and store the file, then…
-    return {
-      email: "asdhaksjd",
-      isAdmin: false,
-      jwt: "akljsdaksd",
-    };
+    return true;
   },
 };
 

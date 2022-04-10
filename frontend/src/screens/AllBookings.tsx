@@ -80,64 +80,62 @@ const AllBookings = () => {
   );
 
   const renderFilterInputs = () => (
-    <>
-      <div className='form-row'>
-        <div className='form-col'>
-          <label htmlFor='id'>ID: </label>
-          <input
-            type='text'
-            placeholder='ID'
-            id='id'
-            onChange={(e) => setIdValue(e.target.value)}
-            value={idValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='email'>Email: </label>
-          <input
-            type='text'
-            placeholder='Email'
-            id='email'
-            onChange={(e) => setEmailValue(e.target.value)}
-            value={emailValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='name'>Name: </label>
-          <input
-            type='text'
-            placeholder='Name'
-            id='name'
-            onChange={(e) => setNameValue(e.target.value)}
-            value={nameValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='phone'>Phone: </label>
-          <input
-            type='text'
-            placeholder='Phone'
-            id='phone'
-            onChange={(e) => setPhoneValue(e.target.value)}
-            value={phoneValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='people'>People: </label>
-          <input
-            type='number'
-            placeholder='People'
-            id='people'
-            onChange={(e) => setPeopleValue(Number(e.target.value))}
-            value={peopleValue || ""}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='past'>Display past: </label>
-          <input
-            type='checkbox'
-            id='past'
-            className='get-past'
-            onChange={() => togglePast()}
-            checked={getPast}></input>
-        </div>
+    <div className='form-row'>
+      <div className='form-col'>
+        <label htmlFor='id'>ID: </label>
+        <input
+          type='text'
+          placeholder='ID'
+          id='id'
+          onChange={(e) => setIdValue(e.target.value)}
+          value={idValue}></input>
       </div>
-    </>
+      <div className='form-col'>
+        <label htmlFor='email'>Email: </label>
+        <input
+          type='text'
+          placeholder='Email'
+          id='email'
+          onChange={(e) => setEmailValue(e.target.value)}
+          value={emailValue}></input>
+      </div>
+      <div className='form-col'>
+        <label htmlFor='name'>Name: </label>
+        <input
+          type='text'
+          placeholder='Name'
+          id='name'
+          onChange={(e) => setNameValue(e.target.value)}
+          value={nameValue}></input>
+      </div>
+      <div className='form-col'>
+        <label htmlFor='phone'>Phone: </label>
+        <input
+          type='text'
+          placeholder='Phone'
+          id='phone'
+          onChange={(e) => setPhoneValue(e.target.value)}
+          value={phoneValue}></input>
+      </div>
+      <div className='form-col'>
+        <label htmlFor='people'>People: </label>
+        <input
+          type='number'
+          placeholder='People'
+          id='people'
+          onChange={(e) => setPeopleValue(Number(e.target.value))}
+          value={peopleValue || ""}></input>
+      </div>
+      <div className='form-col'>
+        <label htmlFor='past'>Display past: </label>
+        <input
+          type='checkbox'
+          id='past'
+          className='get-past'
+          onChange={() => togglePast()}
+          checked={getPast}></input>
+      </div>
+    </div>
   );
 
   if (loading) return <Loader />;
