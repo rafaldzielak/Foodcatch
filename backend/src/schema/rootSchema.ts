@@ -25,11 +25,7 @@ const uploadMutation = {
     console.log(createReadStream);
     console.log({ stream });
     // Promisify the stream and store the file, then…
-    return {
-      email: "asdhaksjd",
-      isAdmin: false,
-      jwt: "akljsdaksd",
-    };
+    return true;
   },
 };
 

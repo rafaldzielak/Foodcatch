@@ -89,7 +89,7 @@ const AllOrders = () => {
               <td className='address'>{`${street} ${streetNumber}, ${city}`}</td>
               <td>{dishes.length}</td>
               <td>{paymentMethod[0].toUpperCase() + paymentMethod.substring(1)}</td>
-              <td>{notes && <FaInfo data-tip={notes} />}</td>
+              <td>{notes && <FaInfo className='info' data-tip={notes} />}</td>
               <td>{isPaid ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}</td>
               <td>
                 {isDelivered ? <BsCheckSquareFill className='success' /> : <FaTimes className='danger' />}
@@ -116,55 +116,53 @@ const AllOrders = () => {
   );
 
   const renderFilterInputs = () => (
-    <>
-      <div className='form-row'>
-        <div className='form-col'>
-          <label htmlFor='id'>ID: </label>
-          <input
-            type='text'
-            placeholder='ID'
-            id='id'
-            onChange={(e) => setIdValue(e.target.value)}
-            value={idValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='email'>Email: </label>
-          <input
-            type='text'
-            placeholder='Email'
-            id='email'
-            onChange={(e) => setEmailValue(e.target.value)}
-            value={emailValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='name'>First name: </label>
-          <input
-            type='text'
-            placeholder='Name'
-            id='name'
-            onChange={(e) => setFirstNameValue(e.target.value)}
-            value={firstNameValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='surname'>Surname: </label>
-          <input
-            type='text'
-            placeholder='Surname'
-            id='surname'
-            onChange={(e) => setSurnameValue(e.target.value)}
-            value={surnameValue}></input>
-        </div>
-        <div className='form-col'>
-          <label htmlFor='phone'>Phone: </label>
-          <input
-            type='text'
-            placeholder='Phone'
-            id='phone'
-            onChange={(e) => setPhoneValue(e.target.value)}
-            value={phoneValue}></input>
-        </div>
+    <div className='form-row'>
+      <div className='form-col'>
+        <label htmlFor='id'>ID: </label>
+        <input
+          type='text'
+          placeholder='ID'
+          id='id'
+          onChange={(e) => setIdValue(e.target.value)}
+          value={idValue}></input>
       </div>
-    </>
+      <div className='form-col'>
+        <label htmlFor='email'>Email: </label>
+        <input
+          type='text'
+          placeholder='Email'
+          id='email'
+          onChange={(e) => setEmailValue(e.target.value)}
+          value={emailValue}></input>
+      </div>
+      <div className='form-col'>
+        <label htmlFor='name'>First name: </label>
+        <input
+          type='text'
+          placeholder='Name'
+          id='name'
+          onChange={(e) => setFirstNameValue(e.target.value)}
+          value={firstNameValue}></input>
+      </div>
+      <div className='form-col'>
+        <label htmlFor='surname'>Surname: </label>
+        <input
+          type='text'
+          placeholder='Surname'
+          id='surname'
+          onChange={(e) => setSurnameValue(e.target.value)}
+          value={surnameValue}></input>
+      </div>
+      <div className='form-col'>
+        <label htmlFor='phone'>Phone: </label>
+        <input
+          type='text'
+          placeholder='Phone'
+          id='phone'
+          onChange={(e) => setPhoneValue(e.target.value)}
+          value={phoneValue}></input>
+      </div>
+    </div>
   );
 
   if (loading) return <Loader />;
