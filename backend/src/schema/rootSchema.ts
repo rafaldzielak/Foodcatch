@@ -1,9 +1,37 @@
-import { GraphQLObjectType, GraphQLSchema } from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLBoolean } from "graphql";
 import { createBooking, getBooking, getBookings } from "./booking";
 import { createOrder, getOrder, getOrders, editOrder } from "./order";
 import { createDish, getDishes, getDish, deleteDish, editDish } from "./dish";
 import { createUser, loginUser, getUser } from "./user";
 import { createCoupon, getCoupons, editCoupon, removeCoupon, useCoupon } from "./coupon";
+
+import { GraphQLUpload } from "graphql-upload-minimal";
+
+const uploadMutation = {
+  type: GraphQLBoolean,
+  description: "Uploads an image.",
+  args: {
+    image: {
+      description: "Image file.",
+      type: GraphQLUpload,
+    },
+  },
+  async resolve(parent: any, args: any) {
+    const { filename, mimetype, createReadStream } = await args.image;
+    const stream = createReadStream();
+    console.log(args.image);
+    console.log(filename);
+    console.log(mimetype);
+    console.log(createReadStream);
+    console.log({ stream });
+    // Promisify the stream and store the file, then…
+    return {
+      email: "asdhaksjd",
+      isAdmin: false,
+      jwt: "akljsdaksd",
+    };
+  },
+};
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -34,6 +62,7 @@ const Mutation = new GraphQLObjectType({
     createCoupon,
     editCoupon,
     removeCoupon,
+    uploadMutation,
   },
 });
 

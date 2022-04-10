@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { verify } from "jsonwebtoken";
 import { User } from "./models/user";
+import { graphqlUploadExpress } from "graphql-upload-minimal";
 
 export type Context = { req: Request; res: Response };
 
@@ -39,8 +40,14 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use("/graphql", (req: Request, res: Response) =>
-  graphqlHTTP({ schema: rootSchema, graphiql: true, context: { req, res } })(req, res)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  "/graphql",
+  graphqlUploadExpress({ maxFieldSize: 100000000, maxFileSize: 10000000 }),
+  (req: Request, res: Response) =>
+    graphqlHTTP({ schema: rootSchema, graphiql: true, context: { req, res } })(req, res)
 );
 
 app.listen(PORT, () => {
