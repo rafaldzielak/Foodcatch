@@ -45,7 +45,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   "/graphql",
-  graphqlUploadExpress({ maxFieldSize: 100000000, maxFileSize: 10000000 }),
+  graphqlUploadExpress({ maxFieldSize: 100000000, maxFileSize: 100000 }),
   (req: Request, res: Response) =>
     graphqlHTTP({ schema: rootSchema, graphiql: true, context: { req, res } })(req, res)
 );
