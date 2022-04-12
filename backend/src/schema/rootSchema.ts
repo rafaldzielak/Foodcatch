@@ -9,7 +9,8 @@ import { GraphQLUpload } from "graphql-upload-minimal";
 
 const storeFS = ({ stream, filename }: any) => {
   const uploadDir = "src/images";
-  const path = `${uploadDir}/${filename}`;
+  const extension = filename.split(".").pop();
+  const path = `${uploadDir}/${Date.now()}.${extension}`;
   return new Promise((resolve, reject) =>
     stream
       .on("error", (error: any) => {
