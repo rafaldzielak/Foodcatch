@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLSchema, GraphQLBoolean, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLSchema, GraphQLBoolean } from "graphql";
 import { createBooking, getBooking, getBookings } from "./booking";
 import { createOrder, getOrder, getOrders, editOrder } from "./order";
 import { createDish, getDishes, getDish, deleteDish, editDish } from "./dish";
