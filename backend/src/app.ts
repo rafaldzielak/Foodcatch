@@ -14,7 +14,10 @@ export type Context = { req: Request; res: Response };
 dotenv.config();
 const app = express();
 
-mongoose.connect(process.env.MONGO_URI!, () => console.log("Mongo connected"));
+mongoose
+  .connect(process.env.MONGO_URI!)
+  .then(() => console.log("Mongo connected"))
+  .catch((error) => console.log(error));
 
 app.use(cors());
 
