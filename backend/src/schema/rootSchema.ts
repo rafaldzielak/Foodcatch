@@ -4,26 +4,8 @@ import { createOrder, getOrder, getOrders, editOrder } from "./order";
 import { createDish, getDishes, getDish, deleteDish, editDish } from "./dish";
 import { createUser, loginUser, getUser } from "./user";
 import { createCoupon, getCoupons, editCoupon, removeCoupon, useCoupon } from "./coupon";
-import fs from "fs";
 import { GraphQLUpload } from "graphql-upload-minimal";
-
-const storeFS = ({ stream, filename }: any) => {
-  const uploadDir = "src/images";
-  const extension = filename.split(".").pop();
-  const path = `${uploadDir}/${Date.now()}.${extension}`;
-  return new Promise((resolve, reject) =>
-    stream
-      .on("error", (error: any) => {
-        if (stream.truncated)
-          // delete the truncated file
-          fs.unlinkSync(path);
-        reject(error);
-      })
-      .pipe(fs.createWriteStream(path))
-      .on("error", (error: any) => reject(error))
-      .on("finish", () => resolve({ path }))
-  );
-};
+import { storeFS } from "./utils";
 
 const uploadMutation = {
   type: GraphQLBoolean,
