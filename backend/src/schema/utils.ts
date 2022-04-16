@@ -20,10 +20,14 @@ export const checkAuthorization = (req: any) => {
   if (!req.isAdmin) throw new Error("You are not logged in as an admin!");
 };
 
-export const storeFS = ({ stream, filename }: any) => {
-  const uploadDir = "static/images";
+export const storeFS = async (image: any) => {
+  const { filename, createReadStream } = await image;
+  const stream = createReadStream();
+
+  const uploadDir = "public/images";
   const extension = filename.split(".").pop();
-  const path = `${uploadDir}/${Date.now()}.${extension}`;
+  const newFileName = `${Date.now()}.${extension}`;
+  const path = `${uploadDir}/${newFileName}`;
   return new Promise((resolve, reject) =>
     stream
       .on("error", (error: any) => {
@@ -34,6 +38,6 @@ export const storeFS = ({ stream, filename }: any) => {
       })
       .pipe(fs.createWriteStream(path))
       .on("error", (error: any) => reject(error))
-      .on("finish", () => resolve({ path }))
+      .on("finish", () => resolve(newFileName))
   );
 };
