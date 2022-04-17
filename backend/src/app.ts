@@ -46,6 +46,8 @@ app.use(async (req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/images", express.static("public/images"));
+
 app.use(
   "/graphql",
   graphqlUploadExpress({ maxFieldSize: 100000000, maxFileSize: 100000 }),
