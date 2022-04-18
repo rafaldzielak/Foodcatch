@@ -17,11 +17,7 @@ const uploadMutation = {
     },
   },
   async resolve(parent: any, args: any) {
-    const { filename, mimetype, createReadStream } = await args.image;
-    const stream = createReadStream();
-    console.log(filename);
-    console.log(mimetype);
-    const pathObj = await storeFS({ stream, filename });
+    const pathObj = await storeFS(args.image);
     console.log(pathObj);
     return true;
   },
