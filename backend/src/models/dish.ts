@@ -11,6 +11,7 @@ export interface DishAttrs {
   isBestseller: boolean;
   isSpicy: boolean;
   imgURL?: string;
+  localImgURL?: string;
   type: DishType;
 }
 
@@ -32,6 +33,7 @@ export interface DishDoc extends mongoose.Document {
   isNew: boolean;
   isBestseller: boolean;
   imgURL?: string;
+  localImgURL?: string;
   type: DishType;
 }
 
@@ -45,6 +47,7 @@ const dishSchema = new mongoose.Schema({
   isNew: { type: Boolean, required: true },
   isBestseller: { type: Boolean, required: true },
   imgURL: { type: String },
+  localImgURL: { type: String },
 });
 
 dishSchema.statics.build = (attrs: DishAttrs) => {
