@@ -1,9 +1,9 @@
 import { setContext } from "@apollo/client/link/context";
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 
-const jwt = localStorage.getItem("jwt");
-
 const authLink = setContext((_, { headers }) => {
+  const jwt = localStorage.getItem("jwt");
+
   return {
     headers: {
       ...headers,
