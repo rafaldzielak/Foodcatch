@@ -7,16 +7,34 @@ import {
   GraphQLFloat,
   GraphQLBoolean,
   GraphQLList,
+  GraphQLScalarType,
+  GraphQLError,
 } from "graphql";
 import { Context } from "../app";
 import { Dish } from "../models/dish";
-import { checkAuthorization } from "./utils";
+import { checkAuthorization, storeFS } from "./utils";
+import { GraphQLUpload } from "graphql-upload-minimal";
+
+const Upload = new GraphQLScalarType({
+  name: "Upload2",
+  description: "The `Upload` scalar type represents a file upload.",
+  parseValue(value) {
+    return value;
+  },
+  parseLiteral(ast) {
+    throw new GraphQLError("Upload literal unsupported.", ast);
+  },
+  serialize() {
+    throw new GraphQLError("Upload serialization unsupported.");
+  },
+});
 
 export const DishType = new GraphQLObjectType({
   name: "Dish",
   fields: () => ({
     name: { type: GraphQLString },
     imgURL: { type: GraphQLString },
+    localImgURL: { type: GraphQLString },
     price: { type: GraphQLFloat },
     quantity: { type: GraphQLInt },
     id: { type: GraphQLString },
@@ -34,6 +52,7 @@ export const DishInputType = new GraphQLInputObjectType({
   fields: () => ({
     name: { type: new GraphQLNonNull(GraphQLString) },
     imgURL: { type: GraphQLString },
+    localImgURL: { type: GraphQLString },
     price: { type: new GraphQLNonNull(GraphQLFloat) },
     quantity: { type: GraphQLInt },
     id: { type: GraphQLString },
@@ -51,6 +70,7 @@ export const createDish = {
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
     imgURL: { type: GraphQLString },
+    localImgURL: { type: GraphQLString },
     price: { type: new GraphQLNonNull(GraphQLFloat) },
     quantity: { type: GraphQLInt },
     id: { type: GraphQLString },
@@ -60,10 +80,16 @@ export const createDish = {
     isNew: { type: new GraphQLNonNull(GraphQLBoolean) },
     isBestseller: { type: new GraphQLNonNull(GraphQLBoolean) },
     type: { type: GraphQLString },
+    image: { description: "Image file.", type: Upload },
   },
   resolve: async (parent: any, args: any, context: Context) => {
-    checkAuthorization(context.req);
-    const dish = Dish.build({ ...args });
+    // checkAuthorization(context.req);
+    const img = args.image;
+    console.log(img);
+    // console.log(args.image);
+    if (args.image) args.localImgURL = await storeFS(img.file);
+    console.log("AFET STORE");
+    const dish = Dish.build(args);
     console.log(dish);
     await dish.save();
     return dish;
@@ -96,6 +122,7 @@ export const editDish = {
     id: { type: new GraphQLNonNull(GraphQLString) },
     name: { type: GraphQLString },
     imgURL: { type: GraphQLString },
+    localImgURL: { type: GraphQLString },
     price: { type: GraphQLFloat },
     quantity: { type: GraphQLInt },
     description: { type: GraphQLString },

@@ -12,7 +12,8 @@ export interface Dish {
   isSpicy: boolean;
   isNew: boolean;
   isBestseller: boolean;
-  imgURL: string;
+  imgURL?: string;
+  localImgURL?: string;
   type?: string;
 }
 

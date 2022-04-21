@@ -11,6 +11,7 @@ export const createDishMutation = gql`
     $isNew: Boolean!
     $isBestseller: Boolean!
     $type: String!
+    $image: Upload2
   ) {
     createDish(
       name: $name
@@ -22,6 +23,7 @@ export const createDishMutation = gql`
       isNew: $isNew
       isBestseller: $isBestseller
       type: $type
+      image: $image
     ) {
       name
       imgURL
@@ -34,6 +36,7 @@ export const createDishMutation = gql`
       isNew
       isBestseller
       type
+      localImgURL
     }
   }
 `;
@@ -44,6 +47,7 @@ export const getDishesQuery = gql`
       id
       name
       imgURL
+      localImgURL
       price
       description
       isVege

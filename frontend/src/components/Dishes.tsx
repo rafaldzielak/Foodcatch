@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { Link } from "react-router-dom";
 import { BroccoliImg, PepperImg, BestSellerImg, NewImg } from "../assets/svg";
+import { getUrlForLocalImg } from "../utils/getUrlFromLocalImg";
 
 interface PropTypes {
   chosenType: dishType;
@@ -32,6 +33,7 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
   const closeModal = () => setModalImgUrl("");
 
   const { data: orderData, loading, error } = useQuery<{ getDishes: Dish[] }>(getDishesQuery);
+  console.log(orderData?.getDishes);
 
   const dispatch = useDispatch();
   const { isAdmin } = useTypedSelector((state) => state.user);
@@ -56,8 +58,13 @@ const Dishes: React.FC<PropTypes> = ({ chosenType }) => {
           return (
             <React.Fragment key={dish.id}>
               <div className='dish'>
+                {dish.localImgURL && console.log(dish.localImgURL)}
                 <div className='img'>
-                  <img src={dish.imgURL} alt='' onClick={() => setModalImgUrl(dish.imgURL)} />
+                  <img
+                    src={getUrlForLocalImg(dish.localImgURL) || dish.imgURL}
+                    alt=''
+                    onClick={() => setModalImgUrl(getUrlForLocalImg(dish.localImgURL) || dish.imgURL || "")}
+                  />
                 </div>
                 <h2>
                   {dish.name} {isVege && vegeIcon} {isSpicy && spicyIcon} {isNew && newIcon}{" "}

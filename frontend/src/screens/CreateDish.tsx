@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation } from "@apollo/client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
 import { bestsellerIcon, newIcon, spicyIcon, vegeIcon } from "../components/Dishes";
@@ -17,6 +17,7 @@ import Alert from "../components/Alert";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import Loader from "../components/Loader";
+import { useDropzone } from "react-dropzone";
 
 const options = [
   { value: "Appetizers", label: "Appetizers" },
@@ -37,10 +38,30 @@ const CreateDish = () => {
   const [type, setType] = useState<OptionTypeBase>();
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [imgSrc, setImgSrc] = useState("");
+  const [uploadedImage, setUploadedImage] = useState<File>();
 
   const { id } = useParams<{ id: string }>();
 
   const [fetchDish, { loading, error }] = useLazyQuery<{ getDish: Dish }>(getDishQuery);
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (!acceptedFiles.length) {
+      setErrorMessage("Only images are accepted!");
+      return;
+    }
+    const img = URL.createObjectURL(acceptedFiles[0]);
+    console.log(img);
+    setImgSrc(img);
+    console.log(acceptedFiles[0]);
+    setUploadedImage(acceptedFiles[0]);
+    // Do something with the files
+  }, []);
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
+    onDrop,
+    accept: "image/jpeg,image/png",
+    maxFiles: 1,
+  });
 
   useEffect(() => {
     if (id) {
@@ -68,8 +89,10 @@ const CreateDish = () => {
   });
 
   const handleAddDish = () => {
+    console.log("ADD DISH");
     setSuccessMessage("");
     setErrorMessage("");
+    console.log({ uploadedImage });
     createDishMut({
       variables: {
         name: title,
@@ -81,6 +104,7 @@ const CreateDish = () => {
         isNew,
         isBestseller,
         type: type?.value,
+        image: uploadedImage,
       },
     })
       .then(() => {
@@ -93,6 +117,7 @@ const CreateDish = () => {
         toggleIsVege(false);
       })
       .catch((error) => setErrorMessage(error.message));
+    console.log("dDDDDDDDDDDDD DISH");
   };
 
   const handleEditDish = () => {
@@ -145,14 +170,37 @@ const CreateDish = () => {
             onChange={(selectedOption) => setType(selectedOption)}
             options={options}></Select>
         </div>
-        {
-          <img
-            className='food-img'
-            src={imgURL || "https://bibliotekant.pl/wp-content/uploads/2021/04/placeholder-image.png"}
-            alt={imgURL}></img>
-        }
+        {imgSrc || imgURL ? (
+          <>
+            <img className='food-img' src={imgSrc || imgURL} alt={imgURL}></img>
+            <button
+              className='small'
+              onClick={() => {
+                acceptedFiles.length = 0;
+                acceptedFiles.splice(0, acceptedFiles.length);
+                setImgSrc("");
+                setImgURL("");
+              }}>
+              Remove Image
+            </button>
+          </>
+        ) : (
+          <div className={`dropzone ${isDragActive && "drop"}`} {...getRootProps()}>
+            <input {...getInputProps()} />
+            <img
+              className='placeholder-img'
+              src={process.env.PUBLIC_URL + "/img/drag.png"}
+              alt='Place here'></img>
+            {isDragActive ? (
+              <div>Drop the files here</div>
+            ) : (
+              <div>Drag 'n' drop dish image here, or click to browse</div>
+            )}
+          </div>
+        )}
+
         <div className='imgURL'>
-          <div className='ls-1 fs-2'>Image URL</div>
+          <div className='ls-1 fs-2'>Or enter Image URL</div>
           <input type='text' className='imgURL' value={imgURL} onChange={(e) => setImgURL(e.target.value)} />
         </div>
 
