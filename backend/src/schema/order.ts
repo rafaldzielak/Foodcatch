@@ -13,7 +13,6 @@ import sendEmail from "../utils/sendMail/sendMail";
 import { RESULT_PER_PAGE } from "./consts";
 import { DishInputType, DishType } from "./dish";
 import { checkAuthorization, getFilter } from "./utils";
-import { Coupon } from "../models/coupon";
 import stripe from "../utils/stripe";
 import { getCouponUtil } from "./coupon";
 
@@ -114,7 +113,7 @@ export const createOrder = {
         },
         quantity: item.quantity,
       })),
-      discounts: [{ coupon: args.couponApplied ?? undefined }],
+      discounts: [{ coupon: args.couponApplied || undefined }],
     });
     console.log(stripeSession);
 

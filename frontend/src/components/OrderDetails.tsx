@@ -18,7 +18,7 @@ const OrderDetails = () => {
             <AiOutlineFieldNumber /> <b>ID: </b> {order.id}
           </p>
           <p>
-            <AiOutlineCalendar /> <b>Date: </b> {format(order.date, "dd.MM.yyyy hh:mm")}
+            <AiOutlineCalendar /> <b>Date: </b> {format(order.date, "dd.MM.yyyy HH:mm")}
           </p>
           <p>
             <AiOutlinePhone /> <b>Phone: </b> {order.phone}

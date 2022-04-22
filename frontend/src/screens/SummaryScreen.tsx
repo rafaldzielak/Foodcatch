@@ -78,7 +78,7 @@ const SummaryScreen = () => {
 
         {!orderData?.getOrder.isDelivered && orderData?.getOrder.isPaid && (
           <h1>
-            Your Order should be delivered at {format(addMinutes(order.date, minutesForDelivery), "hh:mm")}
+            Your Order should be delivered at {format(addMinutes(order.date, minutesForDelivery), "HH:mm")}
           </h1>
         )}
 
