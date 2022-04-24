@@ -16,6 +16,8 @@ import { checkAuthorization, getFilter } from "./utils";
 import stripe from "../utils/stripe";
 import { getCouponUtil } from "./coupon";
 
+const DELIVERY_PRICE = 9.99;
+
 const isOrderPaidViaStripe = async (order: OrderDoc) => {
   try {
     const session = await stripe.checkout.sessions.retrieve(order.orderPaymentId);
@@ -205,6 +207,9 @@ export const getOrders = {
 };
 
 const generateHTMLStringForOrder = (order: OrderDoc) => {
+  const priceWithoutCoupon =
+    order.dishes.reduce<number>((acc, dish) => (acc += dish.price * dish.quantity), 0) + DELIVERY_PRICE;
+  const finalPrice = (Math.round(priceWithoutCoupon * 100) / 100).toFixed(2);
   return /*html*/ `
   <!DOCTYPE html>
   <html lang="en">
@@ -219,6 +224,19 @@ const generateHTMLStringForOrder = (order: OrderDoc) => {
       <h2> For more details <a href='${process.env.SITE_URL}/summary/${order.id}'>Click here</a> </h2>
       <h2> Order: </h2>
       ${order.dishes.map((dish) => `<h3>${dish.name}: ${dish.price} zł x${dish.quantity}</h3>`).join("")}
+      <h3>Delivery: ${DELIVERY_PRICE} zł</h3>
+      ${
+        order.couponAppliedPercentage
+          ? `<h3 'style="color: #888"'>Summary: ${priceWithoutCoupon} zł</h3>`
+          : ""
+      }
+      ${!order.couponAppliedPercentage ? `<h3>Summary: ${priceWithoutCoupon} zł</h3>` : ""}
+      ${
+        order.couponAppliedPercentage
+          ? `<h3>Coupon Applied: ${order.couponAppliedPercentage}%</h3>
+             <h3>Final price: ${finalPrice}</h3>`
+          : ""
+      }
     </body>
   </html>`;
 };
