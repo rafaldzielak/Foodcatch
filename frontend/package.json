@@ -21,6 +21,8 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/react-tooltip": "^4.2.4",
     "date-fns": "^2.27.0",
+    "dotenv": "^16.0.0",
+    "graphql": "^16.4.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-customizable-progressbar": "^1.0.3",
@@ -48,7 +50,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy": "cypress open",
+    "cy:dev": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -69,8 +73,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.2",
     "@types/react-modal": "^3.12.0",
     "@types/react-select": "^4.0.18",
+    "cypress": "^9.6.0",
     "node-sass": "^6.0.1"
   }
 }
