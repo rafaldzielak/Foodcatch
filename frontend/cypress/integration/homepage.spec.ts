@@ -11,6 +11,5 @@ describe("Homepage", () => {
     cy.findByText("Order Happiness").should("exist");
     cy.findByText("Order Online").should("exist");
     cy.findByText("Book a Table").should("exist");
-    // cy.title().should('contain', 'Teacher Section');
   });
 });
