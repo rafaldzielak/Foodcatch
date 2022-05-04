@@ -5,6 +5,8 @@ describe("Order", () => {
     cy.getButtonWithText("Continue").click();
   });
 
+  let orderUrl = "";
+
   it("goes to correct url", () => {
     cy.url().should("equal", `${Cypress.config().baseUrl}order`);
   });
@@ -43,6 +45,26 @@ describe("Order", () => {
     cy.get(".payment-method").findByText("Cash").click();
     cy.getButtonWithText("Place Order").click();
     cy.url().should("contain", `${Cypress.config().baseUrl}summary/`);
+    cy.url().then((url) => (orderUrl = url));
+  });
+
+  it("renders correct content on summary page", () => {
+    cy.visit(orderUrl);
+    cy.findByText("Payment").should("exist");
+    cy.findByText("Your Order").should("exist");
+    cy.getButtonWithText("Pay for Order").should("exist");
+    cy.findByText("ID:").should("exist");
+    cy.findByText(orderUrl.split("/").pop()).should("exist");
+    cy.findByText("Phone:").should("exist");
+    cy.findByText("testPhone").should("exist");
+    cy.findByText("testNametestName testSurname").should("exist");
+    cy.findByText("testCity").should("exist");
+    cy.findByText("testEmail@gmail.com").should("exist");
+    cy.findByText("testStreet testStreetNumber").should("exist");
+    cy.findByText("Payment:").should("exist");
+    cy.findByText("Cash").should("exist");
+    cy.findByText("Order comments:").should("exist");
+    cy.findByText("test Order Comment").should("exist");
   });
 
   // @TODO: Add coupon integration
