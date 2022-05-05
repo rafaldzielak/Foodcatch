@@ -7,7 +7,15 @@ declare namespace Cypress {
   }
 }
 
-const login = (): void => {};
+const login = (): void => {
+  cy.session([], () => {
+    cy.visit("/admin");
+    cy.getInputWithPlaceholder("Email").type("rafa.dyrektorek2@gmail.com");
+    cy.getInputWithPlaceholder("Password").type("dupa123");
+    cy.getButtonWithText("Sign in").click();
+    cy.url().should("equal", Cypress.config().baseUrl);
+  });
+};
 
 const getInputWithPlaceholder = (placeholder: string) => {
   cy.get(`input[placeholder*="${placeholder}"]`);
