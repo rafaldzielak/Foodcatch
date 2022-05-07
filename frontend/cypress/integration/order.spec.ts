@@ -67,5 +67,11 @@ describe("Order", () => {
     cy.findByText("test Order Comment").should("exist");
   });
 
+  it("order is seen on admin page", () => {
+    cy.login();
+    cy.visit("admin/orders");
+    cy.findByText(orderUrl.split("/").pop());
+  });
+
   // @TODO: Add coupon integration
 });
