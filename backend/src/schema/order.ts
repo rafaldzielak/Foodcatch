@@ -116,8 +116,8 @@ export const createOrder = {
         quantity: item.quantity,
       })),
       discounts: [{ coupon: args.couponApplied || undefined }],
+      customer_email: args.email,
     });
-    console.log(stripeSession);
 
     order.paymentUrl = stripeSession.url || "";
     order.orderPaymentId = stripeSession.id || "";
