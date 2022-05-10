@@ -30,8 +30,6 @@ const isOrderPaidViaStripe = async (order: OrderDoc) => {
   return false;
 };
 
-const coupons = [{ couponName: "test20", discount: 20 }];
-
 export const OrderType = new GraphQLObjectType({
   name: "Order",
   fields: () => ({
@@ -156,6 +154,20 @@ export const editOrder = {
     if (args.date) fieldsToUpdate.date = new Date(args.date);
     const updatedOrder = await Order.findByIdAndUpdate(args.id, fieldsToUpdate, { new: true });
     return updatedOrder;
+  },
+};
+
+export const deleteOrder = {
+  type: OrderType,
+  args: {
+    id: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: async (parent: any, args: any, context: Context) => {
+    checkAuthorization(context.req);
+    const order = Order.findById(args.id);
+    if (!order) throw new Error("Order with that ID not found!");
+    const deletedOrder = Order.findByIdAndRemove(args.id);
+    return deletedOrder;
   },
 };
 

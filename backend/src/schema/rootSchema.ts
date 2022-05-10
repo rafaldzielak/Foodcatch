@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLSchema, GraphQLBoolean } from "graphql";
 import { createBooking, getBooking, getBookings } from "./booking";
-import { createOrder, getOrder, getOrders, editOrder } from "./order";
+import { createOrder, getOrder, getOrders, editOrder, deleteOrder } from "./order";
 import { createDish, getDishes, getDish, deleteDish, editDish } from "./dish";
 import { createUser, loginUser, getUser } from "./user";
 import { createCoupon, getCoupons, editCoupon, removeCoupon, useCoupon } from "./coupon";
@@ -66,6 +66,7 @@ const Mutation = new GraphQLObjectType({
     createBooking,
     createOrder,
     editOrder,
+    deleteOrder,
     createDish,
     editDish,
     deleteDish,
