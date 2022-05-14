@@ -116,6 +116,35 @@ export const editOrderMutation = gql`
   }
 `;
 
+export const deleteOrderMutation = gql`
+  mutation DeleteOrderOrder($id: String!) {
+    deleteOrder(id: $id) {
+      id
+      date
+      phone
+      dishes {
+        name
+        imgURL
+        price
+        quantity
+      }
+      notes
+      firstName
+      surname
+      street
+      email
+      streetNumber
+      city
+      paymentMethod
+      couponAppliedPercentage
+      orderPaymentId
+      orderPaymentProvider
+      isPaid
+      isDelivered
+    }
+  }
+`;
+
 export const getOrderQuery = gql`
   query GetOrder($id: String!) {
     getOrder(id: $id) {
