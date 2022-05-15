@@ -1,11 +1,16 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
 import { Order, OrdersResponse } from "../models/order";
-import { editOrderMutation, getOrderQuery, getOrdersQuery } from "../queries/orderQueries";
+import {
+  deleteOrderMutation,
+  editOrderMutation,
+  getOrderQuery,
+  getOrdersQuery,
+} from "../queries/orderQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
 import ReactPaginate from "react-paginate";
@@ -13,7 +18,7 @@ import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
 import useDebounce from "../hooks/useDebounce";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { MdMoped } from "react-icons/md";
-import { FaInfo, FaTimes } from "react-icons/fa";
+import { FaCheck, FaInfo, FaTimes, FaTrash } from "react-icons/fa";
 import { HiCheck } from "react-icons/hi";
 import ReactTooltip from "react-tooltip";
 
@@ -24,6 +29,7 @@ const AllOrders = () => {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [surnameValue, setSurnameValue] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
+  const tooltipRef = useRef<HTMLParagraphElement>(null);
 
   const email = useDebounce<string>(emailValue);
   const id = useDebounce<string>(idValue);
@@ -34,7 +40,12 @@ const AllOrders = () => {
   const { data, loading, error, refetch } = useQuery<{ getOrders: OrdersResponse }>(getOrdersQuery, {
     variables: { page: currentPage },
   });
+
   const [editOrderMut] = useMutation<{ editOrder: Order }>(editOrderMutation, {
+    refetchQueries: [getOrdersQuery, getOrderQuery],
+  });
+
+  const [deleteOrderMut] = useMutation<{ editOrder: Order }>(deleteOrderMutation, {
     refetchQueries: [getOrdersQuery, getOrderQuery],
   });
 
@@ -43,6 +54,7 @@ const AllOrders = () => {
   }, [currentPage, refetch, email, id, firstName, surname, phone]);
 
   const handleDeliverOrder = (id: string) => editOrderMut({ variables: { id, isDelivered: true } });
+  const handleDeleteOrder = (id: string) => deleteOrderMut({ variables: { id } });
 
   const renderOrdersTable = () => (
     <table>
@@ -107,6 +119,21 @@ const AllOrders = () => {
                 <Link to={`/summary/${id}`}>
                   <button>Details</button>
                 </Link>
+              </td>
+              <td>
+                <button className='cursor-standard' data-tip data-for={id}>
+                  <>
+                    <ReactTooltip id={id} effect='solid' delayHide={300} delayShow={300}>
+                      <h4 className='mb-1'>Are you sure to delete this order?</h4>
+                      <FaCheck
+                        data-event={"click focus"}
+                        onClick={() => handleDeleteOrder(id)}
+                        className='border-white p-1 success pointer'
+                      />
+                    </ReactTooltip>
+                    <FaTrash className='danger-light' />
+                  </>
+                </button>
               </td>
             </tr>
           );

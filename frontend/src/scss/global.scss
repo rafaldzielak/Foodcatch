@@ -261,6 +261,10 @@ img {
   padding-right: 4rem;
 }
 
+.p-1 {
+  padding: 1rem;
+}
+
 .admin-blue {
   color: rgba(0, 90, 180, 1);
 }
@@ -273,11 +277,34 @@ img {
   color: #ef5350;
 }
 
+.danger-light {
+  color: #ff6d6b;
+}
+
 .bg-error {
   background-color: #ffcdd2;
   &:hover {
     background-color: #ef5350 !important;
   }
+}
+
+.__react_component_tooltip {
+  font-family: "Big Shoulders Display", cursive !important;
+}
+
+.__react_component_tooltip {
+  letter-spacing: 1px;
+  font-size: 1.4rem !important;
+  pointer-events: auto !important;
+}
+
+.border-white {
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.cursor-standard {
+  cursor: auto !important;
 }
 
 .form-container {
