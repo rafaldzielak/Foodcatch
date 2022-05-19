@@ -13,4 +13,32 @@
     width: 100%;
     z-index: -1;
   }
+  .carousel-root {
+    .carousel.carousel-slider {
+      position: absolute !important;
+      top: 0;
+      img {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        filter: brightness(50%);
+        &:hover {
+        }
+      }
+    }
+
+    .carousel .control-next.control-arrow::before {
+      border-left: 20px solid #fff !important;
+    }
+
+    .carousel .control-prev.control-arrow::before {
+      border-right: 20px solid #fff;
+    }
+
+    .carousel .control-arrow::before,
+    .carousel.carousel-slider .control-arrow::before {
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+    }
+  }
 }
