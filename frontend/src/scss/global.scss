@@ -19,8 +19,8 @@ h1 {
     font-size: 96px;
     font-family: "Big Shoulders Display", cursive;
     letter-spacing: 0.5rem;
-    margin-top: 25vh;
-    color: #888;
+    margin-top: 10vh;
+    color: rgba(252, 206, 122, 0.75);
   }
 }
 h2 {
@@ -160,6 +160,7 @@ button {
   }
 
   &.transparent {
+    margin-bottom: 500px;
     &::before {
       transition: all 0.3s ease-in;
       position: absolute;

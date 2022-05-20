@@ -33,6 +33,7 @@
     "react-modal": "^3.14.3",
     "react-paginate": "^8.1.0",
     "react-redux": "^7.2.4",
+    "react-responsive-carousel": "^3.2.23",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

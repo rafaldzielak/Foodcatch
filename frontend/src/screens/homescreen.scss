@@ -1,5 +1,13 @@
 @import "../scss/global.scss";
 .homescreen {
+  button.big {
+    background-color: rgba(252, 206, 122, 0.75);
+    color: #333;
+    font-weight: 1000;
+    &:hover {
+      background-color: rgba(252, 206, 122, 1);
+    }
+  }
   &::before {
     position: absolute;
     top: 0;
@@ -17,13 +25,12 @@
     .carousel.carousel-slider {
       position: absolute !important;
       top: 0;
+      z-index: -1;
       img {
         width: 100vw;
         height: 100vh;
         object-fit: cover;
-        filter: brightness(50%);
-        &:hover {
-        }
+        filter: brightness(30%);
       }
     }
 
