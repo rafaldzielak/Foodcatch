@@ -18,7 +18,6 @@ import { Carousel } from "react-responsive-carousel";
 const HomeScreen = () => {
   return (
     <div className='homescreen'>
-      <h1 className='front-page'>Order Happiness</h1>
       <Carousel
         autoPlay
         infiniteLoop
@@ -40,6 +39,7 @@ const HomeScreen = () => {
         <img src={res8} alt='' />
         <img src={res9} alt='' />
       </Carousel>
+      <h1 className='front-page'>Order Happiness</h1>
       <Link to='/menu'>
         <button className='big transparent mr-5'>Order Online</button>
       </Link>
