@@ -16,6 +16,8 @@ html {
 
 h1 {
   &.front-page {
+    position: relative;
+    z-index: 1;
     font-size: 96px;
     font-family: "Big Shoulders Display", cursive;
     letter-spacing: 0.5rem;

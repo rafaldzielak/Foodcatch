@@ -25,13 +25,18 @@
     .carousel.carousel-slider {
       position: absolute !important;
       top: 0;
-      z-index: -1;
       img {
         width: 100vw;
         height: 100vh;
         object-fit: cover;
         filter: brightness(30%);
       }
+    }
+    .control-arrow {
+      z-index: 10;
+    }
+    .slider-wrapper {
+      z-index: -1;
     }
 
     .carousel .control-next.control-arrow::before {
