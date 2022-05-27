@@ -63,3 +63,15 @@ export const getBookingsQuery = gql`
     }
   }
 `;
+
+export const removeBookingMutation = gql`
+  mutation RemoveBooking($id: String!) {
+    removeBooking(id: $id) {
+      readableId
+      email
+      name
+      people
+      phone
+    }
+  }
+`;
