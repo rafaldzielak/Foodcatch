@@ -106,6 +106,21 @@ export const getBookings = {
   },
 };
 
+export const removeBooking = {
+  type: BookType,
+  args: {
+    id: { type: GraphQLString },
+  },
+  resolve: async (parent: any, args: any, context: Context) => {
+    const { req, res } = context;
+    checkAuthorization(req);
+    const booking = await Booking.findById(args.id);
+    if (!booking) throw new Error("No booking with given ID");
+    const deletedBooking = await Booking.findByIdAndRemove(args.id);
+    return deletedBooking;
+  },
+};
+
 const generateHTMLStringForBooking = (booking: BookingDoc) => {
   return /*html*/ `
   <!DOCTYPE html>
