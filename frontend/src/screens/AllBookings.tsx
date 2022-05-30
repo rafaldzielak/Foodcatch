@@ -1,18 +1,19 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
+import { FaCheck, FaTrash } from "react-icons/fa";
+import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
+import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
+import useDebounce from "../hooks/useDebounce";
+import useToggle from "../hooks/useToggle";
+import { Booking, BookingsResponse } from "../models/booking";
+import { getBookingsQuery, removeBookingMutation } from "../queries/bookingQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
-import ReactPaginate from "react-paginate";
-import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
-import useDebounce from "../hooks/useDebounce";
-import ReactTooltip from "react-tooltip";
-import { BookingsResponse } from "../models/booking";
-import { getBookingsQuery } from "../queries/bookingQueries";
-import useToggle from "../hooks/useToggle";
 
 const AllBookings = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +33,12 @@ const AllBookings = () => {
   const { data, loading, error, refetch } = useQuery<{ getBookings: BookingsResponse }>(getBookingsQuery, {
     variables: { page: currentPage, email, id, name, phone, people, getPast },
   });
+
+  const [deleteBookingMut] = useMutation<{ editOrder: Booking }>(removeBookingMutation, {
+    refetchQueries: [getBookingsQuery],
+  });
+
+  const handleDeleteBooking = (id: string) => deleteBookingMut({ variables: { id } });
 
   useEffect(() => {
     refetch();
@@ -66,11 +73,25 @@ const AllBookings = () => {
               <td className='name'>{name}</td>
               <td>{phone}</td>
               <td>{people}</td>
-
               <td>
                 <Link to={`/summary/${id}`}>
                   <button>Details</button>
                 </Link>
+              </td>
+              <td>
+                <button className='cursor-standard' data-tip data-for={id}>
+                  <>
+                    <ReactTooltip id={id} effect='solid' delayHide={300} delayShow={300}>
+                      <h4 className='mb-1'>Are you sure to delete this order?</h4>
+                      <FaCheck
+                        data-event={"click focus"}
+                        onClick={() => handleDeleteBooking(id)}
+                        className='border-white p-1 success pointer'
+                      />
+                    </ReactTooltip>
+                    <FaTrash className='danger-light' />
+                  </>
+                </button>
               </td>
             </tr>
           );
