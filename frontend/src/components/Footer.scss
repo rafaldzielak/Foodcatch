@@ -1,7 +1,7 @@
 @import "../scss/global.scss";
 footer {
   width: 100vw;
-  background-color: rgba($color: #ddd, $alpha: 1);
+  background-color: rgba($color: black, $alpha: 0.1);
   display: grid;
   place-items: center;
   position: fixed;
@@ -12,3 +12,7 @@ footer {
   font-weight: 500;
 }
 
+.homescreen + footer {
+  background-color: rgba($color: black, $alpha: 0.4);
+  color: white;
+}
