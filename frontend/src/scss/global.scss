@@ -22,6 +22,11 @@ h1 {
     letter-spacing: 0.5rem;
     margin-top: 10vh;
     color: rgba(252, 206, 122, 0.75);
+    cursor: default;
+    transition: all 0.3s ease-in;
+    &:hover {
+      color: rgba(252, 206, 122, 1);
+    }
   }
 }
 h2 {
@@ -148,7 +153,7 @@ button {
     background-color: #666;
     color: white;
     padding: 0.5rem 1rem;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin-bottom: 0.5rem;
   }
 

@@ -1,5 +1,5 @@
 .ReactModal__Content.book-modal {
-  padding-top: 1rem !important;
+  padding: 1rem !important;
   color: #333333;
   background-color: #ddd !important;
   text-align: center;
@@ -244,6 +244,10 @@ button:disabled {
     cursor: pointer;
   }
 }
+.react-calendar__navigation__label__labelText,
+.react-calendar__navigation__arrow {
+  color: black !important;
+}
 
 @media only screen and (max-width: 700px) {
   .ReactModal__Content.book-modal {
@@ -257,6 +261,9 @@ button:disabled {
     h2 {
       font-size: 1.25rem;
       margin-bottom: 0.25rem;
+    }
+    .ml-1 {
+      margin-left: 0;
     }
 
     .name-phone {
