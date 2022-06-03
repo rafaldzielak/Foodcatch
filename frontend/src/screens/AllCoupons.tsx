@@ -3,7 +3,7 @@ import { addDays, format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
 import { BiCalendar } from "react-icons/bi";
-import { FaEdit, FaTimesCircle } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
 import { CouponFromDB, CouponResponse } from "../models/coupon";
@@ -89,8 +89,10 @@ const AllCoupons = () => {
                   }}
                 />
               </td>
-              <td className='danger'>
-                <FaTimesCircle className='pointer' onClick={() => removeCouponHandler(couponName)} />
+              <td>
+                <button className='danger' onClick={() => removeCouponHandler(couponName)}>
+                  <FaTrash className='pointer' />
+                </button>
               </td>
             </tr>
           );

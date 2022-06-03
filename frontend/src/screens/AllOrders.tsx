@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { format } from "date-fns";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
@@ -29,7 +29,6 @@ const AllOrders = () => {
   const [firstNameValue, setFirstNameValue] = useState("");
   const [surnameValue, setSurnameValue] = useState("");
   const [phoneValue, setPhoneValue] = useState("");
-  const tooltipRef = useRef<HTMLParagraphElement>(null);
 
   const email = useDebounce<string>(emailValue);
   const id = useDebounce<string>(idValue);
