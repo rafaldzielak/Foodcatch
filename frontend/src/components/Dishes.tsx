@@ -4,7 +4,7 @@ import ReactTooltip from "react-tooltip";
 import { useActions } from "../hooks/useActions";
 import { dishType } from "../screens/MenuScreen";
 import { useState } from "react";
-import ModalImg from "./ModalImg";
+import ModalImg from "./modals/ModalImg";
 import { useQuery } from "@apollo/client";
 import { Dish } from "../state/actionInterfaces";
 import { getDishesQuery } from "../queries/dishQueries";
