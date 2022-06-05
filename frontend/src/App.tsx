@@ -19,32 +19,38 @@ import { apolloClient } from "./utils/apolloClient";
 import AllOrders from "./screens/AllOrders";
 import AllBookings from "./screens/AllBookings";
 import AllCoupons from "./screens/AllCoupons";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 function App() {
   return (
     <Provider store={store}>
-      <ApolloProvider client={apolloClient}>
-        <Router>
-          <div className='App'>
-            <Navbar />
-            <Switch>
-              <Route exact path='/menu' component={MenuScreen} />
-              <Route path='/order' component={OrderScreen} />
-              <Route path='/summary/:orderId' component={SummaryScreen} />
-              <Route path='/book/:readableId' component={BookingDetails} />
-              <Route path='/book' component={TableBook} />
-              <Route path='/dishes/add' component={CreateDish} />
-              <Route path='/dishes/edit/:id' component={CreateDish} />
-              <Route path='/admin/orders' component={AllOrders} />
-              <Route path='/admin/bookings' component={AllBookings} />
-              <Route path='/admin/coupons' component={AllCoupons} />
-              <Route path='/admin' component={LoginScreen} />
-              <Route path='/' component={HomeScreen} />
-            </Switch>
-            <Footer />
-          </div>
-        </Router>
-      </ApolloProvider>
+      <HelmetProvider>
+        <Helmet>
+          <title>FoodCatch | Order Best Food</title>
+        </Helmet>
+        <ApolloProvider client={apolloClient}>
+          <Router>
+            <div className='App'>
+              <Navbar />
+              <Switch>
+                <Route exact path='/menu' component={MenuScreen} />
+                <Route path='/order' component={OrderScreen} />
+                <Route path='/summary/:orderId' component={SummaryScreen} />
+                <Route path='/book/:readableId' component={BookingDetails} />
+                <Route path='/book' component={TableBook} />
+                <Route path='/dishes/add' component={CreateDish} />
+                <Route path='/dishes/edit/:id' component={CreateDish} />
+                <Route path='/admin/orders' component={AllOrders} />
+                <Route path='/admin/bookings' component={AllBookings} />
+                <Route path='/admin/coupons' component={AllCoupons} />
+                <Route path='/admin' component={LoginScreen} />
+                <Route path='/' component={HomeScreen} />
+              </Switch>
+              <Footer />
+            </div>
+          </Router>
+        </ApolloProvider>
+      </HelmetProvider>
     </Provider>
   );
 }
