@@ -1,18 +1,19 @@
-import "./SummaryScreen.scss";
+import { useQuery } from "@apollo/client";
+import { addMinutes, differenceInMinutes, format, getMinutes } from "date-fns";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "react-customizable-progressbar";
-import { OrderComponent } from "../components/OrderComponent";
+import { Helmet } from "react-helmet-async";
+import { useDispatch } from "react-redux";
 import { Redirect, useParams } from "react-router";
-import { useQuery } from "@apollo/client";
+import Alert from "../components/Alert";
+import Loader from "../components/Loader";
+import { OrderComponent } from "../components/OrderComponent";
+import OrderDetails from "../components/OrderDetails";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 import { Order } from "../models/order";
 import { getOrderQuery } from "../queries/orderQueries";
 import { setOrderAction } from "../state/actions/OrderActions";
-import { useDispatch } from "react-redux";
-import Loader from "../components/Loader";
-import { addMinutes, differenceInMinutes, format, getMinutes } from "date-fns";
-import { useTypedSelector } from "../hooks/useTypedSelector";
-import OrderDetails from "../components/OrderDetails";
-import Alert from "../components/Alert";
+import "./SummaryScreen.scss";
 
 const minutesForDelivery = Number(process.env.REACT_APP_MINUTES_FOR_DELIVERY);
 
@@ -121,6 +122,9 @@ const SummaryScreen = () => {
   return (
     <main>
       <div className='menu container summary'>
+        <Helmet>
+          <title>Summary | FoodCatch</title>
+        </Helmet>
         {renderPaymentAndDeliveryInfo()}
         <div>
           <OrderComponent size='extra large' hideButton hideAmountChooser showOrder showDelivery />

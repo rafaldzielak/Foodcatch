@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import ReactPaginate from "react-paginate";
@@ -162,6 +163,9 @@ const AllBookings = () => {
   if (loading) return <Loader />;
   return (
     <div className='container all-orders'>
+      <Helmet>
+        <title>Bookings | Admin | FoodCatch</title>
+      </Helmet>
       {renderFilterInputs()}
       {error && <Alert hideCloseBtn>{error.message}</Alert>}
       {data && !error && (

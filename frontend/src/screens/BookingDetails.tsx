@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { format } from "date-fns";
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router";
 import { Booking } from "../models/booking";
 import { getBookingQuery } from "../queries/bookingQueries";
@@ -17,6 +18,9 @@ const BookingDetails = () => {
 
   return (
     <div className='booking-details-wrapper'>
+      <Helmet>
+        <title>Your Booking| FoodCatch</title>
+      </Helmet>
       <div>
         <h2 className='confirm'>Your booking is comfirmed!</h2>
       </div>

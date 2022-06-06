@@ -1,9 +1,9 @@
-import "./menu-screen.scss";
-import React from "react";
+import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import TypeChooser from "../components/CategoriesChooser";
 import Dishes from "../components/Dishes";
 import { OrderComponent } from "../components/OrderComponent";
-import { useState } from "react";
+import "./menu-screen.scss";
 
 export type dishType = "Appetizers" | "Soups" | "Main Dishes" | "Desserts" | "";
 
@@ -12,6 +12,9 @@ const MenuScreen = () => {
 
   return (
     <main className='container'>
+      <Helmet>
+        <title>Menu | FoodCatch</title>
+      </Helmet>
       <TypeChooser setType={setChosenType} />
       <div className='menu'>
         <Dishes chosenType={chosenType} />

@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { addDays, format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
+import { Helmet } from "react-helmet-async";
 import { BiCalendar } from "react-icons/bi";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Alert from "../components/Alert";
@@ -147,6 +148,9 @@ const AllCoupons = () => {
 
   return (
     <div className='container all-orders'>
+      <Helmet>
+        <title>Coupons | Admin | FoodCatch</title>
+      </Helmet>
       {(error || getError) && <Alert onClose={() => setError("")}>{error || getError}</Alert>}
       <h2 className='mt-2'>Add new coupon</h2>
       {renderCouponInputs()}

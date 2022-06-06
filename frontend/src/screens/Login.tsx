@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { useHistory } from "react-router";
-import Alert from "../components/Alert";
-import FadeIn from "react-fade-in";
-import "../components/address.scss";
-import "./order-screen.scss";
 import { useMutation } from "@apollo/client";
-import { loginUserMutation } from "../queries/authQueries";
-import { User } from "../models/user";
+import { useState } from "react";
+import FadeIn from "react-fade-in";
+import { Helmet } from "react-helmet-async";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import "../components/address.scss";
+import Alert from "../components/Alert";
+import { User } from "../models/user";
+import { loginUserMutation } from "../queries/authQueries";
 import { loginUserAction } from "../state/actions/AuthActions";
+import "./order-screen.scss";
 
 const LoginScreen = () => {
   const [loginError, setLoginError] = useState("");
@@ -33,6 +34,9 @@ const LoginScreen = () => {
 
   const showLoginFields = () => (
     <div className='address'>
+      <Helmet>
+        <title>Login | Admin | FoodCatch</title>
+      </Helmet>
       <h1>Sign in</h1>
       {loginError && (
         <FadeIn>

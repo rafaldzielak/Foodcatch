@@ -1,18 +1,19 @@
+import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
+import FadeIn from "react-fade-in";
+import { Helmet } from "react-helmet-async";
 import { useHistory } from "react-router";
+import "../components/address.scss";
 import Alert from "../components/Alert";
+import Loader from "../components/Loader";
 import { OrderComponent } from "../components/OrderComponent";
 import PaymentMethodChooser from "../components/PaymentMethodChooser";
 import { useActions } from "../hooks/useActions";
 import useLocalStorage from "../hooks/useLocalStorage";
-import FadeIn from "react-fade-in";
-import "../components/address.scss";
-import "./order-screen.scss";
-import { useMutation } from "@apollo/client";
-import { createOrderMutation } from "../queries/orderQueries";
-import { Order } from "../models/order";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import Loader from "../components/Loader";
+import { Order } from "../models/order";
+import { createOrderMutation } from "../queries/orderQueries";
+import "./order-screen.scss";
 
 export type PaymentType = "cash" | "card";
 
@@ -159,6 +160,9 @@ const OrderScreen = () => {
   return (
     <>
       <div className='menu container mt'>
+        <Helmet>
+          <title>Your Order | FoodCatch</title>
+        </Helmet>
         <OrderComponent
           size='large'
           hideButton

@@ -1,9 +1,17 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { BsCheckSquareFill } from "react-icons/bs";
+import { FaCheck, FaInfo, FaTimes, FaTrash } from "react-icons/fa";
+import { HiCheck, HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
+import { MdMoped } from "react-icons/md";
+import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import ReactTooltip from "react-tooltip";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
+import useDebounce from "../hooks/useDebounce";
 import { Order, OrdersResponse } from "../models/order";
 import {
   deleteOrderMutation,
@@ -13,14 +21,6 @@ import {
 } from "../queries/orderQueries";
 import { convertStringDateToDate } from "../state/actions/OrderActions";
 import "./AllOrders.scss";
-import ReactPaginate from "react-paginate";
-import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
-import useDebounce from "../hooks/useDebounce";
-import { BsCheckSquareFill } from "react-icons/bs";
-import { MdMoped } from "react-icons/md";
-import { FaCheck, FaInfo, FaTimes, FaTrash } from "react-icons/fa";
-import { HiCheck } from "react-icons/hi";
-import ReactTooltip from "react-tooltip";
 
 const AllOrders = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -194,6 +194,9 @@ const AllOrders = () => {
   if (loading) return <Loader />;
   return (
     <div className='container all-orders'>
+      <Helmet>
+        <title>Orders | Admin | FoodCatch</title>
+      </Helmet>
       {renderFilterInputs()}
       {error && <Alert hideCloseBtn>{error.message}</Alert>}
       {data && !error && (

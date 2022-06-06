@@ -1,25 +1,25 @@
+import { ApolloProvider } from "@apollo/client";
 import React from "react";
-import "./App.css";
-import HomeScreen from "./screens/HomeScreen";
-import "./scss/global.scss";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import MenuScreen from "./screens/MenuScreen";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
-import { store } from "./state/store";
-import OrderScreen from "./screens/OrderScreen";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./App.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import SummaryScreen from "./screens/SummaryScreen";
-import TableBook from "./screens/TableBook";
-import { ApolloProvider } from "@apollo/client";
-import BookingDetails from "./screens/BookingDetails";
-import CreateDish from "./screens/CreateDish";
-import LoginScreen from "./screens/Login";
-import { apolloClient } from "./utils/apolloClient";
-import AllOrders from "./screens/AllOrders";
 import AllBookings from "./screens/AllBookings";
 import AllCoupons from "./screens/AllCoupons";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import AllOrders from "./screens/AllOrders";
+import BookingDetails from "./screens/BookingDetails";
+import CreateDish from "./screens/CreateDish";
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/Login";
+import MenuScreen from "./screens/MenuScreen";
+import OrderScreen from "./screens/OrderScreen";
+import SummaryScreen from "./screens/SummaryScreen";
+import TableBook from "./screens/TableBook";
+import "./scss/global.scss";
+import { store } from "./state/store";
+import { apolloClient } from "./utils/apolloClient";
 
 function App() {
   return (

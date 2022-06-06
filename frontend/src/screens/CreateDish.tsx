@@ -1,22 +1,23 @@
 import { useLazyQuery, useMutation } from "@apollo/client";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import Select, { OptionTypeBase } from "react-select";
 import Switch from "react-switch";
+import Alert from "../components/Alert";
 import { bestsellerIcon, newIcon, spicyIcon, vegeIcon } from "../components/Dishes";
+import Loader from "../components/Loader";
 import useToggle from "../hooks/useToggle";
 import {
   createDishMutation,
-  getDishQuery,
   deleteDishMutation,
   editDishMutation,
   getDishesQuery,
+  getDishQuery,
 } from "../queries/dishQueries";
 import { Dish } from "../state/actionInterfaces";
 import "./CreateDish.scss";
-import Alert from "../components/Alert";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router";
-import Loader from "../components/Loader";
 
 const options = [
   { value: "Appetizers", label: "Appetizers" },
@@ -215,6 +216,9 @@ const CreateDish = () => {
 
   return (
     <div className='container dish-create'>
+      <Helmet>
+        <title>Add a Dish | Admin | FoodCatch</title>
+      </Helmet>
       {successMessage && (
         <Alert type='success'>
           {successMessage} <Link to='/menu'>Click here to go to menu</Link>
