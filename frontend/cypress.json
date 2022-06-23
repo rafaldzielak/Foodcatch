@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:3000/",
+  "baseUrl": "http://localhost:3002/",
   "chromeWebSecurity": false,
   "video": false,
   "fixturesFolder": "cypress/fixtures",
@@ -9,5 +9,6 @@
   "supportFile": "cypress/support/index.ts",
   "videosFolder": "cypress/videos",
   "experimentalSessionSupport": true,
+  "experimentalSessionAndOrigin": true,
   "experimentalStudio": true
 }

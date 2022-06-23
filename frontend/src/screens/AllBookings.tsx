@@ -5,7 +5,6 @@ import { Helmet } from "react-helmet-async";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
 import ReactTooltip from "react-tooltip";
 import Alert from "../components/Alert";
 import Loader from "../components/Loader";
@@ -74,11 +73,6 @@ const AllBookings = () => {
               <td className='name'>{name}</td>
               <td>{phone}</td>
               <td>{people}</td>
-              <td>
-                <Link to={`/summary/${id}`}>
-                  <button>Details</button>
-                </Link>
-              </td>
               <td>
                 <button className='cursor-standard' data-tip data-for={id}>
                   <>
